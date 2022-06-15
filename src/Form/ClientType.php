@@ -6,6 +6,7 @@ use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ClientType extends AbstractType
 {
@@ -15,7 +16,13 @@ class ClientType extends AbstractType
             ->add('code')
             ->add('raisonSocial')
             ->add('contact')
-            ->add('titre')
+            ->add('titre', ChoiceType::class, [
+                'choices'  => [
+                    'Mlle' => 'Mademoiselle',
+                    'Mme' => 'Madame',
+                    'Mr' => 'Monsieur',
+                ],
+            ])
             ->add('nom')
             ->add('prenom')
             ->add('tel')

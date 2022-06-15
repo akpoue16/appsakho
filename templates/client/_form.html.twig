@@ -1,4 +1,58 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+ 
+
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.code,{'label': 'N° Client', 'attr':{'placeholder':'','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+        
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.raisonSocial,{'label': 'Raison Social', 'attr':{'placeholder':'Raison Social','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+             {{ form_row(form.contact,{'label': 'Contact', 'attr':{'placeholder':'Contact','class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2">
+            {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'Titre','class':'form-control'}}) }}
+        </div>
+        <div class="col-4">
+             {{ form_row(form.nom,{'label': 'Nom', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+             {{ form_row(form.prenom,{'label': 'Prénoms', 'attr':{'placeholder':'Prénoms','class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.tel,{'label': 'Téléphone 1', 'attr':{'placeholder':'Téléphone 1','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+             {{ form_row(form.cel,{'label': 'Téléphone 2', 'attr':{'placeholder':'Téléphone 2','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+             {{ form_row(form.fax,{'label': 'Fax', 'attr':{'placeholder':'Fax','class':'form-control'}}) }}
+        </div>
+        <div class="col-5">
+             {{ form_row(form.email,{'label': 'Email', 'attr':{'placeholder':'Email','class':'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('app_client_index') }}">
+                <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
+            </a>
+
+            <button class="btn btn-success"><i class="fas fa-save fa-sm text-white-10"></i> {{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
+
+
+    
 {{ form_end(form) }}

@@ -3,22 +3,24 @@
 {% block title %}Client index{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
 
-
-    <a href="{{ path('app_client_new') }}">Create new</a>
+     <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Liste des Clients</h1>
+        <a href="{{ path('app_client_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-10"></i> Ajouter un Client</a>
+    </div>
 
 <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
+   <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                        </div> #}
+      <div class="card-body">
+       <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Code</th>
                 <th>RaisonSocial</th>
                 <th>Contact</th>
@@ -28,12 +30,11 @@
                 <th>Tel</th>
                 <th>Cel</th>
                 <th>Email</th>
-                <th>Fax</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tfoot>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Code</th>
                 <th>RaisonSocial</th>
                 <th>Contact</th>
@@ -43,25 +44,37 @@
                 <th>Tel</th>
                 <th>Cel</th>
                 <th>Email</th>
-                <th>Fax</th>
                 <th>actions</th>
         </tfoot>
              {% for client in clients %}
             <tr>
-                <td>{{ client.id }}</td>
+                {# <td>{{ client.id }}</td> #}
                 <td>{{ client.code }}</td>
                 <td>{{ client.raisonSocial }}</td>
                 <td>{{ client.contact }}</td>
-                <td>{{ client.titre }}</td>
+                
+                {% if( client.titre == "Mademoiselle") %}
+                   <td>Mlle</td>
+                {% elseif( client.titre == "Madame") %}
+                    <td>Mme</td>
+                {% elseif( client.titre == "Monsieur") %}
+                    <td>Mr</td>
+                {% endif %}
                 <td>{{ client.nom }}</td>
                 <td>{{ client.prenom }}</td>
                 <td>{{ client.tel }}</td>
                 <td>{{ client.cel }}</td>
                 <td>{{ client.email }}</td>
-                <td>{{ client.fax }}</td>
-                <td>
-                    <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
+                <td style="width:50px">
+                    <a href="{{ path('app_client_show', {'id': client.id}) }}">
+                        <i class="fas fa-eye fa-sm text-white-10"> </i>
+                    </a>
+                    <a href="{{ path('app_client_edit', {'id': client.id}) }}">
+                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+                    </a>
+                    <a href="{{ path('app_client_delete', {'id': client.id}) }}">
+                        <i class="fas fa-trash-alt fa-sm text-white-10"></i>
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -77,11 +90,11 @@
 
 
 
-
 {% endblock %}
 
 
 {% block javascripts %}
+
     <!-- Page level plugins -->
     <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
