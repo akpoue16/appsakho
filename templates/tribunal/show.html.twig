@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tribunal{% endblock %}
+
+{% block body %}
+    <h1>Tribunal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tribunal.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ tribunal.titre }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ tribunal.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tribunal_index') }}">back to list</a>
+
+    <a href="{{ path('app_tribunal_edit', {'id': tribunal.id}) }}">edit</a>
+
+    {{ include('tribunal/_delete_form.html.twig') }}
+{% endblock %}

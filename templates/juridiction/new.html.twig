@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Juridiction{% endblock %}
+
+{% block body %}
+    <h1>Create new Juridiction</h1>
+
+    {{ include('juridiction/_form.html.twig') }}
+
+    <a href="{{ path('app_juridiction_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tribunal index{% endblock %}
+
+{% block body %}
+    <h1>Tribunal index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Commentaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tribunal in tribunals %}
+            <tr>
+                <td>{{ tribunal.id }}</td>
+                <td>{{ tribunal.titre }}</td>
+                <td>{{ tribunal.commentaire }}</td>
+                <td>
+                    <a href="{{ path('app_tribunal_show', {'id': tribunal.id}) }}">show</a>
+                    <a href="{{ path('app_tribunal_edit', {'id': tribunal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tribunal_new') }}">Create new</a>
+{% endblock %}

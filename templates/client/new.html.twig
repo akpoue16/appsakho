@@ -3,9 +3,22 @@
 {% block title %}New Client{% endblock %}
 
 {% block body %}
-    <h1>Create new Client</h1>
+ <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nouveau Client</h1>
+    </div>
+    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+                        <div class="card-body">
+
 
     {{ include('client/_form.html.twig') }}
 
-    <a href="{{ path('app_client_index') }}">back to list</a>
+
+    
+        </div>
+    </div>
 {% endblock %}

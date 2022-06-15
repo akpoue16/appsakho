@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nature{% endblock %}
+
+{% block body %}
+    <h1>Nature</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ nature.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ nature.titre }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ nature.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_nature_index') }}">back to list</a>
+
+    <a href="{{ path('app_nature_edit', {'id': nature.id}) }}">edit</a>
+
+    {{ include('nature/_delete_form.html.twig') }}
+{% endblock %}

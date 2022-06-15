@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Juridiction{% endblock %}
+
+{% block body %}
+    <h1>Juridiction</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ juridiction.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ juridiction.titre }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ juridiction.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_juridiction_index') }}">back to list</a>
+
+    <a href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
+
+    {{ include('juridiction/_delete_form.html.twig') }}
+{% endblock %}

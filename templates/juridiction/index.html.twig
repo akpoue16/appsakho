@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Juridiction index{% endblock %}
+
+{% block body %}
+    <h1>Juridiction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Commentaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for juridiction in juridictions %}
+            <tr>
+                <td>{{ juridiction.id }}</td>
+                <td>{{ juridiction.titre }}</td>
+                <td>{{ juridiction.commentaire }}</td>
+                <td>
+                    <a href="{{ path('app_juridiction_show', {'id': juridiction.id}) }}">show</a>
+                    <a href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_juridiction_new') }}">Create new</a>
+{% endblock %}

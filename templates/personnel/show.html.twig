@@ -3,7 +3,19 @@
 {% block title %}Personnel{% endblock %}
 
 {% block body %}
-    <h1>Personnel</h1>
+     <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Collaborateur: {{ personnel.titre }} {{ personnel.nom }} {{ personnel.prenom }}</h1>
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+        <div class="card-body">
+
+    <div class="row">
+        <div class="col-md-12">
 
     <table class="table">
         <tbody>
@@ -38,9 +50,25 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_personnel_index') }}">back to list</a>
+   {#  <a href="{{ path('app_personnel_index') }}">back to list</a>
 
     <a href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">edit</a>
 
     {{ include('personnel/_delete_form.html.twig') }}
+ #}
+                    </div>
+                </div>
+     <div class="row">
+        <div class="col">
+                <a class="btn btn-primary" href="{{ path('app_personnel_index') }}">
+                    <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
+                </a>
+                <a class="btn btn-success" href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
+                    <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> Modifier
+                </a>
+        </div>
+    </div>
+
+        </div>
+    </div>
 {% endblock %}

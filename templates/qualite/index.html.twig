@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Qualite index{% endblock %}
+
+{% block body %}
+    <h1>Qualite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for qualite in qualites %}
+            <tr>
+                <td>{{ qualite.id }}</td>
+                <td>{{ qualite.titre }}</td>
+                <td>
+                    <a href="{{ path('app_qualite_show', {'id': qualite.id}) }}">show</a>
+                    <a href="{{ path('app_qualite_edit', {'id': qualite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_qualite_new') }}">Create new</a>
+{% endblock %}

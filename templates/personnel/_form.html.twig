@@ -1,4 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+    <div class="form-row">
+        <div class="col-2">
+            {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.nom,{'label': 'Nom', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.prenom,{'label': 'Prenom', 'attr':{'placeholder':'Prenom','class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.tel,{'label': 'Téléphone 1', 'attr':{'placeholder':'','class':'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.cel,{'label': 'Téléphone 2', 'attr':{'placeholder':'','class':'form-control'}}) }}
+        </div>
+        <div class="col-5">
+            {{ form_row(form.email,{'label': 'Email', 'attr':{'placeholder':'','class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('app_personnel_index') }}">
+                <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
+            </a>
+
+            <button class="btn btn-success"><i class="fas fa-save fa-sm text-white-10"></i> {{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}
