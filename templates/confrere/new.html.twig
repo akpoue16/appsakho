@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Confrere{% endblock %}
+
+{% block body %}
+    <h1>Create new Confrere</h1>
+
+    {{ include('confrere/_form.html.twig') }}
+
+    <a href="{{ path('app_confrere_index') }}">back to list</a>
+{% endblock %}

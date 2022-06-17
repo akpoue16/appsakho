@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confrere{% endblock %}
+
+{% block body %}
+    <h1>Confrere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ confrere.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ confrere.titre }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ confrere.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ confrere.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ confrere.tel }}</td>
+            </tr>
+            <tr>
+                <th>Cel</th>
+                <td>{{ confrere.cel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ confrere.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_confrere_index') }}">back to list</a>
+
+    <a href="{{ path('app_confrere_edit', {'id': confrere.id}) }}">edit</a>
+
+    {{ include('confrere/_delete_form.html.twig') }}
+{% endblock %}

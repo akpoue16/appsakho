@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Confrere{% endblock %}
+
+{% block body %}
+    <h1>Edit Confrere</h1>
+
+    {{ include('confrere/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_confrere_index') }}">back to list</a>
+
+    {{ include('confrere/_delete_form.html.twig') }}
+{% endblock %}
