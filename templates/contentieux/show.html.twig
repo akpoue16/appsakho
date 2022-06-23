@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contentieux{% endblock %}
+
+{% block body %}
+    <h1>Contentieux</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contentieux.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ contentieux.code }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ contentieux.createdAt ? contentieux.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Objet</th>
+                <td>{{ contentieux.objet }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ contentieux.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contentieux_index') }}">back to list</a>
+
+    <a href="{{ path('app_contentieux_edit', {'id': contentieux.id}) }}">edit</a>
+
+    {{ include('contentieux/_delete_form.html.twig') }}
+{% endblock %}

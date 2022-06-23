@@ -37,6 +37,11 @@ class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $clientRepository->add($client, true);
 
+           $this->addFlash(
+            'success',
+            "Le client <strong>{$client->getNom()} {$client->getPrenom()}</strong> a bien été enregistré!"
+           );
+           
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -66,6 +71,11 @@ class ClientController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $clientRepository->add($client, true);
+
+            $this->addFlash(
+                'success',
+                "Le client <strong>{$client->getNom()} {$client->getPrenom()}</strong> a bien été modifié !"
+               );
 
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }

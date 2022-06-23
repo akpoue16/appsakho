@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Personnel;
 use App\Form\PersonnelType;
 use App\Repository\PersonnelRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @Route("/personnel")
@@ -28,13 +29,19 @@ class PersonnelController extends AbstractController
     /**
      * @Route("/new", name="app_personnel_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, PersonnelRepository $personnelRepository): Response
+    public function new(Request $request, PersonnelRepository $personnelRepository,UserPasswordHasherInterface $passwordHasher): Response
     {
         $personnel = new Personnel();
         $form = $this->createForm(PersonnelType::class, $personnel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
+            $mdp = 'password';
+
+           $hashedPassword = $passwordHasher->hashPassword($personnel, $mdp);
+           $personnel->setPassword($hashedPassword);
+
             $personnelRepository->add($personnel, true);
 
             return $this->redirectToRoute('app_personnel_index', [], Response::HTTP_SEE_OTHER);

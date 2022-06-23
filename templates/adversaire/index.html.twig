@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adversaire index{% endblock %}
+
+{% block body %}
+    <h1>Adversaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>RaisonSocieal</th>
+                <th>Contact</th>
+                <th>Titre</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Tel</th>
+                <th>Cel</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adversaire in adversaires %}
+            <tr>
+                <td>{{ adversaire.id }}</td>
+                <td>{{ adversaire.code }}</td>
+                <td>{{ adversaire.raisonSocieal }}</td>
+                <td>{{ adversaire.contact }}</td>
+                <td>{{ adversaire.titre }}</td>
+                <td>{{ adversaire.nom }}</td>
+                <td>{{ adversaire.prenom }}</td>
+                <td>{{ adversaire.tel }}</td>
+                <td>{{ adversaire.cel }}</td>
+                <td>{{ adversaire.email }}</td>
+                <td>
+                    <a href="{{ path('app_adversaire_show', {'id': adversaire.id}) }}">show</a>
+                    <a href="{{ path('app_adversaire_edit', {'id': adversaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_adversaire_new') }}">Create new</a>
+{% endblock %}

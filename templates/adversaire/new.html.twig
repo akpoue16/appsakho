@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Adversaire{% endblock %}
+
+{% block body %}
+    <h1>Create new Adversaire</h1>
+
+    {{ include('adversaire/_form.html.twig') }}
+
+    <a href="{{ path('app_adversaire_index') }}">back to list</a>
+{% endblock %}

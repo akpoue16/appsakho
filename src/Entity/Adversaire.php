@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ConfrereRepository;
+use App\Repository\AdversaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ConfrereRepository::class)
+ * @ORM\Entity(repositoryClass=AdversaireRepository::class)
  */
-class Confrere
+class Adversaire
 {
     /**
      * @ORM\Id
@@ -18,6 +18,21 @@ class Confrere
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $raisonSocieal;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $contact;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,7 +50,7 @@ class Confrere
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel;
 
@@ -50,7 +65,7 @@ class Confrere
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contentieux::class, mappedBy="confrere")
+     * @ORM\OneToMany(targetEntity=Contentieux::class, mappedBy="adversaire")
      */
     private $contentieuxes;
 
@@ -62,6 +77,42 @@ class Confrere
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getRaisonSocieal(): ?string
+    {
+        return $this->raisonSocieal;
+    }
+
+    public function setRaisonSocieal(?string $raisonSocieal): self
+    {
+        $this->raisonSocieal = $raisonSocieal;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?string $contact): self
+    {
+        $this->contact = $contact;
+
+        return $this;
     }
 
     public function getTitre(): ?string
@@ -105,7 +156,7 @@ class Confrere
         return $this->tel;
     }
 
-    public function setTel(string $tel): self
+    public function setTel(?string $tel): self
     {
         $this->tel = $tel;
 
@@ -117,7 +168,7 @@ class Confrere
         return $this->cel;
     }
 
-    public function setCel(string $cel): self
+    public function setCel(?string $cel): self
     {
         $this->cel = $cel;
 
@@ -148,7 +199,7 @@ class Confrere
     {
         if (!$this->contentieuxes->contains($contentieux)) {
             $this->contentieuxes[] = $contentieux;
-            $contentieux->setConfrere($this);
+            $contentieux->setAdversaire($this);
         }
 
         return $this;
@@ -158,8 +209,8 @@ class Confrere
     {
         if ($this->contentieuxes->removeElement($contentieux)) {
             // set the owning side to null (unless already changed)
-            if ($contentieux->getConfrere() === $this) {
-                $contentieux->setConfrere(null);
+            if ($contentieux->getAdversaire() === $this) {
+                $contentieux->setAdversaire(null);
             }
         }
 

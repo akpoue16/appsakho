@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adversaire{% endblock %}
+
+{% block body %}
+    <h1>Adversaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adversaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ adversaire.code }}</td>
+            </tr>
+            <tr>
+                <th>RaisonSocieal</th>
+                <td>{{ adversaire.raisonSocieal }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ adversaire.contact }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ adversaire.titre }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ adversaire.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ adversaire.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ adversaire.tel }}</td>
+            </tr>
+            <tr>
+                <th>Cel</th>
+                <td>{{ adversaire.cel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ adversaire.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_adversaire_index') }}">back to list</a>
+
+    <a href="{{ path('app_adversaire_edit', {'id': adversaire.id}) }}">edit</a>
+
+    {{ include('adversaire/_delete_form.html.twig') }}
+{% endblock %}

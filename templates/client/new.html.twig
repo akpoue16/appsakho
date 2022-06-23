@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Client{% endblock %}
+{% block title %}Nouveau Client{% endblock %}
 
 {% block body %}
  <!-- Page Heading -->
@@ -8,17 +8,10 @@
         <h1 class="h3 mb-0 text-gray-800">Nouveau Client</h1>
     </div>
     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        {# <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> #}
-                        <div class="card-body">
+      <div class="card shadow mb-4">
+         <div class="card-body">
+       {{ include('client/_form.html.twig') }}
 
-
-    {{ include('client/_form.html.twig') }}
-
-
-    
         </div>
     </div>
 {% endblock %}
