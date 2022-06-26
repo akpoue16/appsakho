@@ -1,23 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Confrere index{% endblock %}
+{% block title %}Confrere{% endblock %}
 
 {% block body %}
-    <h1>Confrere index</h1>
 
-    <table class="table">
-        <thead>
+ <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Liste des Confrères</h1>
+        <a href="{{ path('app_confrere_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-10"></i> Nouveau confrère</a>
+    </div>
+
+<!-- DataTales Example -->
+   <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+      <div class="card-body">
+       <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
             <tr>
-                <th>Id</th>
+                <th>N°</th>
                 <th>Titre</th>
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Tel</th>
-                <th>Cel</th>
+                <th>Téléphone 1</th>
+                <th>Téléphone 2</th>
                 <th>Email</th>
                 <th>actions</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <th>N°</th>
+                <th>Titre</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Téléphone 1</th>
+                <th>Téléphone 2</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </tfoot>
         <tbody>
         {% for confrere in confreres %}
             <tr>
@@ -28,18 +52,35 @@
                 <td>{{ confrere.tel }}</td>
                 <td>{{ confrere.cel }}</td>
                 <td>{{ confrere.email }}</td>
+                
                 <td>
-                    <a href="{{ path('app_confrere_show', {'id': confrere.id}) }}">show</a>
-                    <a href="{{ path('app_confrere_edit', {'id': confrere.id}) }}">edit</a>
+                    <a href="{{ path('app_confrere_show', {'id': confrere.id}) }}">
+                        <i class="fas fa-eye fa-sm text-white-10"> </i>
+                    </a>
+                    <a href="{{ path('app_confrere_edit', {'id': confrere.id}) }}">
+                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+                    </a>
+                    {{ include('confrere/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas d'enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_confrere_new') }}">Create new</a>
+</div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block javascripts %}
+
+    <!-- Page level plugins -->
+    <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/bundle/js/demo/datatables-demo.js"></script>
+ {% endblock %}

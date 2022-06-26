@@ -3,20 +3,28 @@
 {% block title %}Adversaire{% endblock %}
 
 {% block body %}
-    <h1>Adversaire</h1>
+     <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Adversiare N°: {{ adversiare.code }}</h1>
+    </div>
+    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+                        <div class="card-body">
 
-    <table class="table">
+    <div class="row">
+        <div class="col-md-12">
+                <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ adversaire.id }}</td>
-            </tr>
+            
             <tr>
                 <th>Code</th>
                 <td>{{ adversaire.code }}</td>
             </tr>
             <tr>
-                <th>RaisonSocieal</th>
+                <th>Raison Socieal</th>
                 <td>{{ adversaire.raisonSocieal }}</td>
             </tr>
             <tr>
@@ -32,15 +40,15 @@
                 <td>{{ adversaire.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénoms</th>
                 <td>{{ adversaire.prenom }}</td>
             </tr>
             <tr>
-                <th>Tel</th>
+                <th>Téléphone 1</th>
                 <td>{{ adversaire.tel }}</td>
             </tr>
             <tr>
-                <th>Cel</th>
+                <th>Téléphone 2</th>
                 <td>{{ adversaire.cel }}</td>
             </tr>
             <tr>
@@ -49,10 +57,18 @@
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <div class="col">
+                <a class="btn btn-primary" href="{{ path('app_adversaire_index') }}">
+                    <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
+                </a>
+                <a class="btn btn-success" href="{{ path('app_adversaire_edit', {'id': adversaire.id}) }}">
+                    <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> Modifier
+                </a>
+                
+            </div>
+        </div>
 
-    <a href="{{ path('app_adversaire_index') }}">back to list</a>
-
-    <a href="{{ path('app_adversaire_edit', {'id': adversaire.id}) }}">edit</a>
-
-    {{ include('adversaire/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

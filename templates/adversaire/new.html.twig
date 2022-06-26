@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Adversaire{% endblock %}
+{% block title %}Adversaire{% endblock %}
 
 {% block body %}
-    <h1>Create new Adversaire</h1>
+   <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nouveau Adversaire</h1>
+    </div>
+    <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+         <div class="card-body">
 
     {{ include('adversaire/_form.html.twig') }}
 
-    <a href="{{ path('app_adversaire_index') }}">back to list</a>
+    </div>
+    </div>
 {% endblock %}

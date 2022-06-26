@@ -3,11 +3,17 @@
 {% block title %}Edit Confrere{% endblock %}
 
 {% block body %}
-    <h1>Edit Confrere</h1>
-
-    {{ include('confrere/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_confrere_index') }}">back to list</a>
-
-    {{ include('confrere/_delete_form.html.twig') }}
+        <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modifier le confère N°: {{ confrere.id }}</h1>
+    </div>
+       <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+                        <div class="card-body">
+    {{ include('confrere/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+</div>
+</div>
 {% endblock %}
