@@ -35,7 +35,7 @@ class ContentieuxType extends AbstractType
             ->add('commentaire', TextareaType::class)
             ->add('client', EntityType::class, [
                 'class' => Client::class,
-                'choice_label' => 'code',
+                'choice_label' => 'fullName',
             ])
             ->add('qualite', EntityType::class, [
                 'class' => Qualite::class,

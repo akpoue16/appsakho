@@ -19,10 +19,6 @@
                 <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
                 <th>Code</th>
                 <td>{{ client.code }}</td>
             </tr>
@@ -76,6 +72,7 @@
                 <a class="btn btn-success" href="{{ path('app_client_edit', {'id': client.id}) }}">
                     <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> Modifier
                 </a>
+                
             </div>
         </div>
 

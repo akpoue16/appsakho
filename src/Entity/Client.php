@@ -78,7 +78,13 @@ class Client
     {
         $this->contentieuxes = new ArrayCollection();
     }
-
+    //Afficher le nom et le prenoms
+    public function getfullName(): ?string
+    {
+        return $this->nom .' '.$this->prenom;
+    }
+    
+    
     public function getId(): ?int
     {
         return $this->id;
