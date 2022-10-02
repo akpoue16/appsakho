@@ -2,6 +2,10 @@
 
 {% block title %}Personnel index{% endblock %}
 
+{% block stylesheets %}
+    <link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     
      <!-- Page Heading -->
@@ -21,6 +25,7 @@
           <thead>
             <tr>
                 <th>Id</th>
+                <th>Photo</th>
                 <th>Titre</th>
                 <th>Nom</th>
                 <th>Prenom</th>
@@ -34,6 +39,7 @@
         {% for personnel in personnels %}
             <tr>
                 <td>{{ personnel.id }}</td>
+                <td><img src="/images/{{ personnel.image }}" alt="" width="50" style="border-radius:50px"></td>
                 
                 {% if( personnel.titre == "Mademoiselle") %}
                    <td>Mlle</td>
@@ -49,13 +55,17 @@
                 <td>{{ personnel.email }}</td>
                 
                 <td>
-                    <a href="{{ path('app_personnel_show', {'id': personnel.id}) }}">
+                    <a class="btn btn-success btn-sm" href="{{ path('app_personnel_show', {'id': personnel.id}) }}">
                         <i class="fas fa-eye fa-sm text-white-10"> </i>
                     </a>
-                    <a href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
+                    <a class="btn btn-info btn-sm" href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
                         <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
                     </a>
-                    {{ include('personnel/_delete_form.html.twig') }}
+
+                    <!-- Button trigger modal -->
+                    <a class="btn btn-danger btn-sm personnel_sup" href data-remove-url="{{ url('personnel_delete', {'id': personnel.id}) }}" data-id="{{ personnel.id }}" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-trash-alt fa-sm text-white-10"></i>
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -68,6 +78,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Etes-vous sûr de vouloir supprimer ce collaborateur?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a href class="btn btn-danger" id="remove_id">Oui</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -78,5 +110,52 @@
 
     <!-- Page level custom scripts -->
     <script src="/bundle/js/demo/datatables-demo.js"></script>
+    
+    <script>
+        let personnelSup = document.querySelectorAll('a.personnel_sup');
+        let removeId = document.getElementById('remove_id');
+        
+        for(let i = 0; i < personnelSup.length; i++){
+
+            personnelSup[i].addEventListener('click', function(){
+                let personnelId = this.getAttribute('data-id');
+                let urlSup = this.getAttribute('data-remove-url');
+                removeId.setAttribute('data-id', personnelId);
+                removeId.setAttribute('href', urlSup);
+                
+            });
+
+        };
+
+
+       /** removeId.addEventListener('click', function(){
+            let deletePerso = this.getAttribute('data-id');
+            let url = this.getAttribute('data-remove-url');
+            console.log();
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                
+                if(response.ok) {
+                     response.json()
+                        .then(function(data) {
+                          console.log(data);
+                        });
+                } else {
+                    console.log('Mauvaise réponse du réseau');
+                }
+            })
+            .catch(function(error) {
+                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+            });
+                
+        });**/
+        
+    </script>
  {% endblock %}
 

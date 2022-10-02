@@ -1,4 +1,22 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+   <div class="form-row">
+        <div class="col">
+            {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'Titre','class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+             {{ form_row(form.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('app_chambre_index') }}">
+                <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
+            </a>
+
+            <button class="btn btn-success"><i class="fas fa-save fa-sm text-white-10"></i> {{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}

@@ -21,3 +21,17 @@
     </div>
     
 {% endblock %}
+
+{% block javascripts %}
+
+<script>
+	// afficher la valeur dans le champ input du fichier sélectionné
+	$('.custom-file-input').on('change', function(event) {
+		var inputFile = event.currentTarget;
+		$(inputFile).parent()
+			.find('.custom-file-label')
+			.html(inputFile.files[0].name);
+	});
+</script>
+
+{% endblock %}

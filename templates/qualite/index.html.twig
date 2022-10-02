@@ -3,10 +3,21 @@
 {% block title %}Qualite index{% endblock %}
 
 {% block body %}
-    <h1>Qualite index</h1>
+     <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Liste des qualités</h1>
+        <a href="{{ path('app_qualite_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-10"></i> Nouvelle qualité</a>
+    </div>
 
-    <table class="table">
-        <thead>
+<!-- DataTales Example -->
+   <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>  #}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
@@ -18,9 +29,15 @@
             <tr>
                 <td>{{ qualite.id }}</td>
                 <td>{{ qualite.titre }}</td>
-                <td>
-                    <a href="{{ path('app_qualite_show', {'id': qualite.id}) }}">show</a>
-                    <a href="{{ path('app_qualite_edit', {'id': qualite.id}) }}">edit</a>
+                
+                 <td>
+                    <a href="{{ path('app_qualite_show', {'id': qualite.id}) }}">
+                        <i class="fas fa-eye fa-sm text-white-10"> </i>
+                    </a>
+                    <a href="{{ path('app_qualite_edit', {'id': qualite.id}) }}">
+                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+                    </a>
+                        {{ include('qualite/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -30,6 +47,19 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_qualite_new') }}">Create new</a>
+</div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block javascripts %}
+
+    <!-- Page level plugins -->
+    <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/bundle/js/demo/datatables-demo.js"></script>
+
+
+ {% endblock %}

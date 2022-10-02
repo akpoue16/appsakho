@@ -1,5 +1,5 @@
-<form method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce client N° {{ client.code }}?');">
+<form style="display:inline !important" method="post" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce client N° {{ client.code }}?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
-    <button class="btn btn-danger"><i class="fas fa-trash-alt fa-sm text-white-10"></i></button>
+    <button class="btn btn-danger" style="padding: 0px 2px !important"><i class="fas fa-trash-alt fa-sm text-white-10"></i></button>
     
 </form>

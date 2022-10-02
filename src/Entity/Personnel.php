@@ -67,6 +67,11 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
      */
     private $profil;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
     
     public function getId(): ?int
     {
@@ -225,6 +230,18 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
     public function setProfil(?string $profil): self
     {
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

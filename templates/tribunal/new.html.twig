@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Tribunal{% endblock %}
+{% block title %}Tribunal{% endblock %}
 
 {% block body %}
-    <h1>Create new Tribunal</h1>
+   <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nouveau Tribunal</h1>
+    </div>
+    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+                        <div class="card-body">
 
     {{ include('tribunal/_form.html.twig') }}
-
-    <a href="{{ path('app_tribunal_index') }}">back to list</a>
+ </div>
+    </div>
 {% endblock %}

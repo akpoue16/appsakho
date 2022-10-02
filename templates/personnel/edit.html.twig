@@ -17,3 +17,27 @@
     </div>
 </div>
 {% endblock %}
+
+{% block javascripts %}
+
+<script>
+	addEventListener('load', (event) => {
+        let loadImage = document.getElementById('load_image');
+        let srcImage = loadImage.getAttribute('data-image');
+        let champs = document.querySelector('.custom-file-label');
+        //console.log(champs);
+        champs.textContent = srcImage;
+
+    });
+    
+    // afficher la valeur dans le champ input du fichier sélectionné
+	$('.custom-file-input').on('change', function(event) {
+		var inputFile = event.currentTarget;
+		$(inputFile).parent()
+			.find('.custom-file-label')
+			.html(inputFile.files[0].name);
+	});
+    
+</script>
+
+{% endblock %}

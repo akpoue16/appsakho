@@ -1,27 +1,47 @@
 {{ form_start(form) }}
+   <div class="row">
+        <div class="col-3">
+            <div class="row">
+                <div class="col">
+                    {% if personnel.image %}
+                    
+                    <img src="/images/{{ personnel.image }}" alt="" width="150" id="load_image" data-image="{{ personnel.image }}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                
+                <div class="col">
+                    {{ form_row(form.image,{'label': 'Photo', 'attr':{'placeholder':'Selection une photo','class':'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col">  
+            <div class="form-row">
+                <div class="col-2">
+                    {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
+                </div>
+                <div class="col-4">
+                    {{ form_row(form.nom,{'label': 'Nom', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.prenom,{'label': 'Prenom', 'attr':{'placeholder':'Prenom','class':'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    {{ form_row(form.tel,{'label': 'Téléphone 1', 'attr':{'placeholder':'','class':'form-control'}}) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.cel,{'label': 'Téléphone 2', 'attr':{'placeholder':'','class':'form-control'}}) }}
+                </div>
+                <div class="col-5">
+                    {{ form_row(form.email,{'label': 'Email', 'attr':{'placeholder':'','class':'form-control'}}) }}
+                </div>
+            </div>
 
-    <div class="form-row">
-        <div class="col-2">
-            {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
         </div>
-        <div class="col-4">
-            {{ form_row(form.nom,{'label': 'Nom', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.prenom,{'label': 'Prenom', 'attr':{'placeholder':'Prenom','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.tel,{'label': 'Téléphone 1', 'attr':{'placeholder':'','class':'form-control'}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.cel,{'label': 'Téléphone 2', 'attr':{'placeholder':'','class':'form-control'}}) }}
-        </div>
-        <div class="col-5">
-            {{ form_row(form.email,{'label': 'Email', 'attr':{'placeholder':'','class':'form-control'}}) }}
-        </div>
-    </div>
+   </div>
     <div class="row">
         <div class="col">
             <a class="btn btn-primary" href="{{ path('app_personnel_index') }}">
