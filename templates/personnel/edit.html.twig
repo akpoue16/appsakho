@@ -2,6 +2,12 @@
 
 {% block title %}Modifer Collaborateur{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .custom-file-input:lang(en)~.custom-file-label::after{content:"Sélectionnez une photo"}
+    </style>
+{% endblock %}
+
 {% block body %}
      <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
