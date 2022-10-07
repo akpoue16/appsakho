@@ -3,8 +3,15 @@
 {% block title %}Modifer Collaborateur{% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="/bundle/intl-tel-input-master/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="/bundle/intl-tel-input-master/build/css/demo.css">
     <style>
         .custom-file-input:lang(en)~.custom-file-label::after{content:"Sélectionnez une photo"}
+    
+       .iti__flag {
+        height: 14px;
+        background-position: -961px 0px;
+       }
     </style>
 {% endblock %}
 
@@ -43,7 +50,60 @@
 			.find('.custom-file-label')
 			.html(inputFile.files[0].name);
 	});
-    
-</script>
 
+</script>
+<script src="/bundle/intl-tel-input-master/build/js/intlTelInput.js"></script>
+<script>
+    var input = document.querySelector("#personnel_tel");
+    window.intlTelInput(input, {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      preferredCountries: ['ci'],
+      separateDialCode: true,
+      utilsScript: "/bundle/intl-tel-input-master/build/js/utils.js",
+    });
+  </script>
+  <script>
+    var inputCel = document.querySelector("#personnel_cel");
+    window.intlTelInput(inputCel, {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      preferredCountries: ['ci'],
+      separateDialCode: true,
+      utilsScript: "/bundle/intl-tel-input-master/build/js/utils.js",
+    });
+  </script>
+  <script class="iti-load-utils" async="" src="/bundle/intl-tel-input-master/build/js/utils.js"></script>
 {% endblock %}

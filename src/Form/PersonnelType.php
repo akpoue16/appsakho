@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -24,8 +25,12 @@ class PersonnelType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom')
-            ->add('tel')
-            ->add('cel')
+            ->add('tel', TelType::class, [
+                'help'=> 'Format: 0102030405'
+            ])
+            ->add('cel', TelType::class, [
+                'help'=> 'Format: 0102030405'
+            ])
             ->add('email')
             ->add('image', FileType::class, [
                 'label' => ' ',
