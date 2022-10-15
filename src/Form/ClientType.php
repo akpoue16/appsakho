@@ -23,6 +23,12 @@ class ClientType extends AbstractType
                     'Mr' => 'Monsieur',
                 ],
             ])
+            ->add('type', ChoiceType::class, [
+                'choices'  => [
+                    'Société' => 'Societe',
+                    'Particulier' => 'Particulier',
+                ],
+            ])
             ->add('nom')
             ->add('prenom')
             ->add('tel')

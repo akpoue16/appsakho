@@ -5,19 +5,29 @@
         <div class="col">
             {{ form_row(form.code,{'label': 'N° Client', 'attr':{'placeholder':'','class':'form-control'}}) }}
         </div>
-        <div class="col">
+        <div class="col-3">
+             {{ form_row(form.type,{'label': 'Type de client', 'attr':{'placeholder':' ','class':'form-control'}}) }}
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+     <fieldset class="border p-2 mb-3 border-dark rounded">
+            <legend class="float-none w-auto p-2 font-weight-bold">Société</legend>
+    <div class="form-row">
+       
+            <div class="col">
+                {{ form_row(form.raisonSocial,{'label': 'Raison Social', 'attr':{'placeholder':'Raison Social','class':'form-control'}}) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.contact,{'label': 'Contact', 'attr':{'placeholder':'Contact','class':'form-control'}}) }}
+            </div>
         
-        </div>
     </div>
+    </fieldset>
+    <fieldset class="border p-2 mb-3 border-dark rounded">
+            <legend class="float-none w-auto p-2 font-weight-bold">Particulier</legend>
     <div class="form-row">
-        <div class="col">
-            {{ form_row(form.raisonSocial,{'label': 'Raison Social', 'attr':{'placeholder':'Raison Social','class':'form-control'}}) }}
-        </div>
-        <div class="col">
-             {{ form_row(form.contact,{'label': 'Contact', 'attr':{'placeholder':'Contact','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-row">
+    
         <div class="col-2">
             {{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'Titre','class':'form-control'}}) }}
         </div>
@@ -42,7 +52,7 @@
              {{ form_row(form.email,{'label': 'Email', 'attr':{'placeholder':'Email','class':'form-control'}}) }}
         </div>
     </div>
-
+    </fieldset>
     <div class="row">
         <div class="col">
             <a class="btn btn-primary" href="{{ path('app_client_index') }}">
