@@ -79,9 +79,15 @@ class Client
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Dossier::class, mappedBy="client")
+     */
+    private $dossiers;
+
     public function __construct()
     {
         $this->contentieuxes = new ArrayCollection();
+        $this->dossiers = new ArrayCollection();
     }
     //Afficher le nom et le prenoms
     public function getfullName(): ?string
@@ -253,6 +259,36 @@ class Client
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Dossier>
+     */
+    public function getDossiers(): Collection
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossier(Dossier $dossier): self
+    {
+        if ($this->dossiers->removeElement($dossier)) {
+            // set the owning side to null (unless already changed)
+            if ($dossier->getClient() === $this) {
+                $dossier->setClient(null);
+            }
+        }
 
         return $this;
     }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personnel index{% endblock %}
+{% block title %}Dossiers{% endblock %}
 
 {% block stylesheets %}
     <link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -10,14 +10,14 @@
     
      <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des Collaborateurs</h1>
+        <h1 class="h3 mb-0 text-gray-800">Liste des Dossiers</h1>
         <div class="align-items-right justify-content-between">
             
-            <a href="{{ path('app_personnel_new') }}" class="btn btn-success btn-icon-split">
+            <a href="{{ path('app_dossier_new') }}" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-10">
                     <i class="fas fa-plus fa-sm text-white-10"></i>
                 </span>
-                <span class="text">Nouveau collaborateur</span>
+                <span class="text">Nouveau dossier</span>
             </a>
             <span class="dropdown no-arrow mb-4">
                 
@@ -28,9 +28,9 @@
                      <span class="text">Liste en Pdf ou Excel</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                    <a target="_blank" class="dropdown-item" href="{{ path('index_imprimer') }}">
+                    <a target="_blank" class="dropdown-item" href="{{ path('index_imprimer_dossier') }}">
                         <i class="fas fa-print fa-sm text-white-10"></i>  Pdf</a>
-                    <a class="dropdown-item" href="{{ path('index_excel') }}">
+                    <a class="dropdown-item" href="{{ path('index_excel_dossier') }}">
                         <i class="fas fa-file-excel fa-sm text-white-10"></i>  Excel</a>
                 </div>
             </span>
@@ -48,63 +48,44 @@
           <thead>
             <tr>
                 <th>Id</th>
-                <th>Photo</th>
-                <th>Titre</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Tel</th>
-                <th>Cel</th>
-                <th>Email</th>
+                <th>CreatedAt</th>
+                <th>UpdateAt</th>
+                <th>Commentaire</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for personnel in personnels %}
+        {% for dossier in dossiers %}
             <tr>
-                <td>{{ personnel.id }}</td>
-                <td style="text-align: center;">
-                    {% if personnel.image %}
-                        <img src="/images/{{ personnel.image }}" alt="" class="btn-circle" style="width:3.5em; height:3.5em">
-                    {% else %}
-                        <img src="/images/profil.jpg" alt="" class="btn-circle" style="width:3.5em; height:3.5em">
-                    {% endif %}
-                </td>
-                
-                {% if( personnel.titre == "Mademoiselle") %}
-                   <td>Mlle</td>
-                {% elseif( personnel.titre == "Madame") %}
-                    <td>Mme</td>
-                {% elseif( personnel.titre == "Monsieur") %}
-                    <td>Mr</td>
-                {% endif %}
-                <td>{{ personnel.nom }}</td>
-                <td>{{ personnel.prenom }}</td>
-                <td>{{ personnel.tel }}</td>
-                <td>{{ personnel.cel }}</td>
-                <td>{{ personnel.email }}</td>
-                
+                <td>{{ dossier.id }}</td>
+                <td>{{ dossier.nom }}</td>
+                <td>{{ dossier.createdAt ? dossier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ dossier.updateAt ? dossier.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ dossier.commentaire }}</td>
+
                 <td>
-                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_personnel_show', {'id': personnel.id}) }}">
+                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_dossier_show', {'id': dossier.id}) }}">
                         <i class="fas fa-eye fa-sm text-white-10"> </i>
                     </a>
-                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
+                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_dossier_edit', {'id': dossier.id}) }}">
                         <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
                     </a>
 
                     <!-- Button trigger modal -->
-                    <a class="btn btn-danger btn-sm btn-circle personnel_sup" href data-remove-url="{{ url('personnel_delete', {'id': personnel.id}) }}" data-id="{{ personnel.id }}" data-toggle="modal" data-target="#logoutModal">
+                    <a class="btn btn-danger btn-sm btn-circle dossier_sup" href data-remove-url="{{ url('dossier_delete', {'id': dossier.id}) }}" data-id="{{ dossier.id }}" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-trash-alt fa-sm text-white-10"></i>
                     </a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">Pas d'enregistrement</td>
+                <td colspan="6">Pas d'enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-            </div>
+ </div>
         </div>
     </div>
 
@@ -128,8 +109,8 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
+
 
 {% block javascripts %}
 
@@ -141,15 +122,15 @@
     <script src="/bundle/js/demo/datatables-demo.js"></script>
     
     <script>
-        let personnelSup = document.querySelectorAll('a.personnel_sup');
+        let dossierSup = document.querySelectorAll('a.dossier_sup');
         let removeId = document.getElementById('remove_id');
         
-        for(let i = 0; i < personnelSup.length; i++){
+        for(let i = 0; i < dossierSup.length; i++){
 
-            personnelSup[i].addEventListener('click', function(){
-                let personnelId = this.getAttribute('data-id');
+            dossierSup[i].addEventListener('click', function(){
+                let dossierId = this.getAttribute('data-id');
                 let urlSup = this.getAttribute('data-remove-url');
-                removeId.setAttribute('data-id', personnelId);
+                removeId.setAttribute('data-id', dossierId);
                 removeId.setAttribute('href', urlSup);
                 
             });

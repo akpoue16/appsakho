@@ -1,81 +1,149 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
+{% block title %}Client
+{% endblock %}
 
 {% block body %}
-     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Client N°: {{ client.code }}</h1>
-    </div>
-    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        {# <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> #}
-                        <div class="card-body">
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Client N°:
+			{{ client.code }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		{# <div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+				</div> #}
+		<div class="card-body">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information</button>
+					<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+						{% if dossiers == null %}
+							Dossier[0]
+						{% else %}
+							Dossier [{{ dossiers|length }}]
+						{% endif %}
+					</button>
+					<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Facturation</button>
+				</div>
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<div class="row">
+						<div class="col">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th style="border-top:0px">Code</th>
+										<td style="border-top:0px">{{ client.code }}</td>
+									</tr>
+									<tr>
+										<th>Raison Social</th>
+										<td>{{ client.raisonSocial }}</td>
+									</tr>
+									<tr>
+										<th>Contact</th>
+										<td>{{ client.contact }}</td>
+									</tr>
+									<tr>
+										<th>Titre</th>
+										<td>{{ client.titre }}</td>
+									</tr>
+									<tr>
+										<th>Nom</th>
+										<td>{{ client.nom }}</td>
+									</tr>
+									<tr>
+										<th>Prénoms</th>
+										<td>{{ client.prenom }}</td>
+									</tr>
+									<tr>
+										<th>Téléphone 1</th>
+										<td>{{ client.tel }}</td>
+									</tr>
+									<tr>
+										<th>Téléphone 2</th>
+										<td>{{ client.cel }}</td>
+									</tr>
+									<tr>
+										<th>Email</th>
+										<td>{{ client.email }}</td>
+									</tr>
+									<tr>
+										<th>Fax</th>
+										<td>{{ client.fax }}</td>
+									</tr>
+								</tbody>
+							</table>
 
-    <div class="row">
-        <div class="col-md-12">
-                <table class="table">
-        <tbody>
-            <tr>
-                <th>Code</th>
-                <td>{{ client.code }}</td>
-            </tr>
-            <tr>
-                <th>Raison Social</th>
-                <td>{{ client.raisonSocial }}</td>
-            </tr>
-            <tr>
-                <th>Contact</th>
-                <td>{{ client.contact }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ client.titre }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ client.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prénoms</th>
-                <td>{{ client.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Téléphone 1</th>
-                <td>{{ client.tel }}</td>
-            </tr>
-            <tr>
-                <th>Téléphone 2</th>
-                <td>{{ client.cel }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ client.email }}</td>
-            </tr>
-            <tr>
-                <th>Fax</th>
-                <td>{{ client.fax }}</td>
-            </tr>
-        </tbody>
-    </table> 
-        
-        </div>
-    </div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-right">
 
-    <div class="row">
-        <div class="col">
-                <a class="btn btn-primary" href="{{ path('app_client_index') }}">
-                    <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
-                </a>
-                <a class="btn btn-success" href="{{ path('app_client_edit', {'id': client.id}) }}">
-                    <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> Modifier
-                </a>
-                
-            </div>
-        </div>
+							<a class="btn btn-success" href="{{ path('app_client_edit', {'id': client.id}) }}">
+								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+								Modifier
+							</a>
 
-        </div>
-    </div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+					<div class="row">
+						<div class="col">
+							<table class="table table-striped ">
+								<thead>
+									<tr>
+										{# <th>Id</th> #}
+										<th>N° dossier</th>
+										<th>Nom</th>
+										<th>Date d'ouverture</th>
+										<th>Date de fermeture</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for dossier in dossiers %}
+										<tr>
+											<td style="border-top:0px">
+                                                <a href="{{ path('app_dossier_show', {'id': dossier.id }) }}">{{ dossier.code }}</a>
+                                            </td>
+											<td style="border-top:0px">{{ dossier.nom }}</td>
+											<td style="border-top:0px">{{ dossier.createdAt|date('d/m/Y') }}</td>
+											<td style="border-top:0px">
+                                                {% if dossier.updateAt != null %}
+                                                {{ dossier.updateAt|date('d/m/Y') }}
+                                                {% endif %}
+                                            </td>
+										
+                                        </tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-primary" href="{{ path('app_client_index') }}">
+						<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+						Retour à la liste
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<!-- Page level plugins -->
+	<script src="/bundle/js/bootstrap.bundle.js"></script>
+
 {% endblock %}
