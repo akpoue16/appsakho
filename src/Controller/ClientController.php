@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @Route("/client")
@@ -35,13 +36,21 @@ class ClientController extends AbstractController
     /**
      * @Route("/new", name="app_client_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ClientRepository $clientRepository): Response
+    public function new(Request $request, ClientRepository $clientRepository,  UserPasswordHasherInterface $passwordHasher): Response
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //création du roles
+            $client->setRoles(["ROLE_CLIENT"]);
+            
+            //Création de mot de passe
+            $mdp = 'password';
+            $hashedPassword = $passwordHasher->hashPassword($client, $mdp);
+            $client->setPassword($hashedPassword);
+
             $clientRepository->add($client, true);
 
             $this->addFlash(

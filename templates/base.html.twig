@@ -75,7 +75,7 @@
 						<span>Contentieux</span>
 					</a>
 				</li>
-
+				{% if is_granted('ROLE_AVOCAT') %}
 				<!-- Nav Item - Client -->
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_client_index') }}">
@@ -151,6 +151,7 @@
 							<a class="collapse-item" href="{{ path('app_juridiction_index') }}">Juridiction</a>
 							<a class="collapse-item" href="{{ path('app_nature_index') }}">Nature</a>
 							<a class="collapse-item" href="{{ path('app_qualite_index') }}">Qualité</a>
+							<a class="collapse-item" href="#">Utilisateur</a>
 						</div>
 					</div>
 				</li>
@@ -163,7 +164,7 @@
 				<div class="text-center d-none d-md-inline">
 					<button class="rounded-circle border-0" id="sidebarToggle"></button>
 				</div>
-
+				{% endif %}
 			</ul>
 			<!-- End of Sidebar -->
 
@@ -234,7 +235,7 @@
 								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ app.user.nom }}
 										{{ app.user.prenom }}</span>
-									<img class="img-profile rounded-circle" src={% if(app.user.profil == '')%} "/bundle/img/undraw_profile.svg" {% else %} {{ app.user.profil }} {% endif %}>
+									<img class="img-profile rounded-circle" src="/bundle/img/undraw_profile.svg">
 								</a>
 								<!-- Dropdown - User Information -->
 								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

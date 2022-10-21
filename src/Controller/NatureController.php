@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @IsGranted("ROLE_AVOCAT")
  * @Route("/nature")
  */
 class NatureController extends AbstractController

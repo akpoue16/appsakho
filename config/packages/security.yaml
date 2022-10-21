@@ -4,14 +4,21 @@ security:
     password_hashers:
         App\Entity\Personnel:
             algorithm: auto
+        App\Entity\Client:
+            algorithm: auto
 
     providers:
-        users_in_memory: { memory: null }
-
         app_user_provider:
             entity:
                 class: App\Entity\Personnel
                 property: email
+        app_client_provider:
+            entity:
+                class: App\Entity\Client
+                property: email
+        all_users:
+            chain:
+                providers: ['app_user_provider', 'app_client_provider']
 
     firewalls:
         dev:
@@ -20,7 +27,7 @@ security:
         main:
             lazy: true
 
-            provider: app_user_provider
+            provider: all_users
             form_login:
                 # "login" is the name of the route created previously
                 login_path: login
@@ -40,9 +47,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
+    
+    # La partie role_hierarchy contient la hiérarchie des rôles
+    # Un éditeur sera également utilisateur
+    # Un administrateur sera également éditeur et donc utilisateur
+    role_hierarchy:
+        ROLE_CLIENT: ROLE_USER
+        ROLE_AVOCAT: ROLE_CLIENT
+        ROLE_ADMIN: ROLE_AVOCAT
 
 when@test:
     security:

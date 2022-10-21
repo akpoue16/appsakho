@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Client;
 use App\Entity\Personnel;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,15 +19,24 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $user = new Personnel();
+        $user1 = new Client();
+
         $user->setTitre("Monsieur")
-             ->setNom("KONAN")
-             ->setPrenom("Sidoine")
-             ->setEmail("admin@gmail.com")
-             ->setTel("0708052025")
-             ->setPassword($this->encoder->hashPassword($user,'admin'));
+            ->setNom("KONAN")
+            ->setPrenom("Sidoine")
+            ->setEmail("admin@gmail.com")
+            ->setTel("0708052025")
+            ->setPassword($this->encoder->hashPassword($user, 'admin'));
+        
+        $user1->setTitre("Monsieur")
+            ->setNom("KONAN")
+            ->setPrenom("Sidoine")
+            ->setEmail("admin@gmail.com")
+            ->setTel("0708052025")
+            ->setPassword($this->encoder->hashPassword($user, 'admin'));
 
         $manager->persist($user);
-        
+
         // $product = new Product();
         // $manager->persist($product);
 

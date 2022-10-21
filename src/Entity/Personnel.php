@@ -84,12 +84,12 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
         $this->dossiers = new ArrayCollection();
     }
 
-     //Afficher le nom et le prenoms
-     public function getfullName(): ?string
-     {
-         return $this->nom .' '.$this->prenom;
-     }
-     
+    //Afficher le nom et le prenoms
+    public function getfullName(): ?string
+    {
+        return $this->nom . ' ' . $this->prenom;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -292,6 +292,4 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
 
         return $this;
     }
-
-    
 }

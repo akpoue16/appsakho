@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @IsGranted("ROLE_AVOCAT")
  * @Route("/chambre")
  */
 class ChambreController extends AbstractController
