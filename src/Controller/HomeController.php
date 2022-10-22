@@ -15,10 +15,20 @@ class HomeController extends AbstractController
      */
     public function index(DossierRepository $dossierRepository, ClientRepository $clientRepository): Response
     {
+        $user = $this->getUser();
+        
+        if ($user->getRoles() == 'ROLE_CLIENT') {
+            return $this->render('home/index.html.twig', [
+                'dossier' => $dossierRepository->findByClient($user),
+                'clients' => $clientRepository->findAll(),
+            ]);
+        }
+
         return $this->render('home/index.html.twig', [
             'dossiers' => $dossierRepository->findAll(),
             'clients' => $clientRepository->findAll(),
+            'dossier' => $dossierRepository->findByClient($user),
         ]);
     }
-    
+
 }

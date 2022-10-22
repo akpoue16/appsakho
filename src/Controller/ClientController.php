@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use Knp\Snappy\Pdf;
 use App\Entity\Client;
+use App\Entity\PasswordUpdate;
 use App\Form\ClientType;
+use App\Form\PasswordUpdateType;
 use Spipu\Html2Pdf\Html2Pdf;
 use App\Repository\ClientRepository;
 use App\Repository\DossierRepository;
@@ -213,6 +215,19 @@ class ClientController extends AbstractController
             'client' => $user,
         ]);
     }
+    
+    /**
+     * @IsGranted("ROLE_CLIENT")
+     * @Route("/profil/password", name="client_password")
+     */
+    public function password(): Response
+    {
+        $passwordUpdate = new PasswordUpdate();
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
 
+        return $this->render('client/compte/modif_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 }
