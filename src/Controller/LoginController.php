@@ -20,14 +20,7 @@ class LoginController extends AbstractController
     // last username entered by the user
     $lastUsername = $authenticationUtils->getLastUsername();
 
-    // $user = $this->security->getUser();
-
-    // if ($user->getRoles() == "ROLE_WORKER") {
-      
-    // }
-    // //throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
-
-    // if ($user->getRoles() == "ROLE_AGENCY") {
+    // if (true === $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
       
     // }
 

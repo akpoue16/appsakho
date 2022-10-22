@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -24,6 +25,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ClientController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_AVOCAT")
      * @Route("/", name="app_client_index", methods={"GET"})
      */
     public function index(ClientRepository $clientRepository): Response
@@ -34,6 +36,7 @@ class ClientController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_AVOCAT")
      * @Route("/new", name="app_client_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ClientRepository $clientRepository,  UserPasswordHasherInterface $passwordHasher): Response
@@ -68,7 +71,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_client_show", methods={"GET"})
+     * @Route("/{id}", name="app_client_show", requirements={"id"="\d+"}, methods={"GET"})
      */
     public function show(Client $client, DossierRepository $dossierRepository): Response
     {
@@ -104,6 +107,7 @@ class ClientController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_AVOCAT")
      * @Route("/sup/{id}", name="client_delete")
      */
     public function clientdelete(Client $client, EntityManagerInterface $em)
@@ -121,7 +125,8 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_client_delete", methods={"POST"})
+     * @IsGranted("ROLE_AVOCAT")
+     * @Route("/{id}", name="app_client_delete", requirements={"id"="\d+"}, methods={"POST"})
      */
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
@@ -133,6 +138,7 @@ class ClientController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_AVOCAT")
      * @Route("/imprimer/liste-client", name="index_imprimer_client")
      */
     public function index_imprimer(ClientRepository $clientRepository, Pdf $knpSnappyPdf)
@@ -149,6 +155,7 @@ class ClientController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_AVOCAT")
      * @Route("/excel/liste-client", name="index_excel_client")
      */
     public function index_excel(ClientRepository $clientRepository)
@@ -193,4 +200,19 @@ class ClientController extends AbstractController
         // Return the excel file as an attachment
         return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
     }
+
+    /**
+     * @IsGranted("ROLE_CLIENT")
+     * @Route("/profil", name="client_profil")
+     */
+    public function profil(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('client/compte/profil.html.twig', [
+            'client' => $user,
+        ]);
+    }
+
+
 }

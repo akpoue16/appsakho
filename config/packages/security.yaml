@@ -52,12 +52,12 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
     
     # La partie role_hierarchy contient la hiérarchie des rôles
-    # Un éditeur sera également utilisateur
-    # Un administrateur sera également éditeur et donc utilisateur
+    # Un avocat sera également client
+    # Un administrateur sera également avocat et donc client
     role_hierarchy:
-        ROLE_CLIENT: ROLE_USER
-        ROLE_AVOCAT: ROLE_CLIENT
-        ROLE_ADMIN: ROLE_AVOCAT
+        ROLE_CLIENT:  ROLE_USER
+        ROLE_AVOCAT:  ROLE_CLIENT
+        ROLE_ADMIN:   ROLE_AVOCAT
 
 when@test:
     security:
