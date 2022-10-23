@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use Knp\Snappy\Pdf;
 use App\Entity\Client;
-use App\Entity\PasswordUpdate;
 use App\Form\ClientType;
-use App\Form\PasswordUpdateType;
 use Spipu\Html2Pdf\Html2Pdf;
+use App\Entity\PasswordUpdate;
+use App\Form\PasswordUpdateType;
 use App\Repository\ClientRepository;
 use App\Repository\DossierRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/client")
@@ -50,7 +51,7 @@ class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //création du roles
             $client->setRoles(["ROLE_CLIENT"]);
-            
+
             //Création de mot de passe
             $mdp = 'password';
             $hashedPassword = $passwordHasher->hashPassword($client, $mdp);
@@ -215,19 +216,34 @@ class ClientController extends AbstractController
             'client' => $user,
         ]);
     }
-    
+
     /**
      * @IsGranted("ROLE_CLIENT")
      * @Route("/profil/password", name="client_password")
      */
-    public function password(): Response
+    public function password(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
         $passwordUpdate = new PasswordUpdate();
+
+        $user = $this->getUser();
+        dd($user);
         $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
+            } else {
+                $newPassword = $passwordUpdate->getNewPassword();
+                $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+
+                $user->setPassword($hashedPassword);
+                $em->persist($user);
+                $em->flush();
+            }
+        }
 
         return $this->render('client/compte/modif_password.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
 }

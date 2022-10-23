@@ -55,15 +55,15 @@
 <div class="row">
 	<div class="col">
 
-		{% if app.user %}
-			<a class="btn btn-primary" href="{{ path('home_index') }}">
-				<i class="fas fa-home fa-sm text-white-10"></i>
-					Tableau de bord
-			</a>
-		{% else %}
+		{% if is_granted('ROLE_AVOCAT') %}
 			<a class="btn btn-primary" href="{{ path('app_client_index') }}">
 				<i class="fas fa-arrow-left fa-sm text-white-10"></i>
 				Retour à la liste
+			</a>
+		{% else %}
+			<a class="btn btn-primary" href="{{ path('home_index') }}">
+				<i class="fas fa-home fa-sm text-white-10"></i>
+				Tableau de bord
 			</a>
 		{% endif %}
 

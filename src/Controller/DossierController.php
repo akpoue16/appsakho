@@ -27,7 +27,8 @@ class DossierController extends AbstractController
     public function index(DossierRepository $dossierRepository): Response
     {
         $user = $this->getUser();
-        if($user->getRoles() == 'ROLE_CLIENT'){
+
+        if(in_array('ROLE_CLIENT', $user->getRoles())){
             return $this->render('dossier/index.html.twig', [
                 'dossiers' => $dossierRepository->findByClient($user),
             ]); 
