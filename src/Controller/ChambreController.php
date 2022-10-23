@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Chambre;
 use App\Form\ChambreType;
 use App\Repository\ChambreRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
+ * @IsGranted("ROLE_AVOCAT")
  * @Route("/chambre")
  */
 class ChambreController extends AbstractController

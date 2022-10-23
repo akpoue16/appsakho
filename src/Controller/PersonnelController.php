@@ -16,11 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
+ * @IsGranted("ROLE_AVOCAT")
  * @Route("/personnel")
  */
 class PersonnelController extends AbstractController
@@ -38,14 +40,14 @@ class PersonnelController extends AbstractController
     /**
      * @Route("/new", name="app_personnel_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, PersonnelRepository $personnelRepository,UserPasswordHasherInterface $passwordHasher, SluggerInterface $slugger): Response
+    public function new(Request $request, PersonnelRepository $personnelRepository, UserPasswordHasherInterface $passwordHasher, SluggerInterface $slugger): Response
     {
         $personnel = new Personnel();
         $form = $this->createForm(PersonnelType::class, $personnel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
+            $personnel->setRoles(["ROLE_AVOCAT"]);
             /** @var UploadedFile $image */
             $image = $form->get('image')->getData();
 
@@ -55,7 +57,7 @@ class PersonnelController extends AbstractController
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -74,10 +76,15 @@ class PersonnelController extends AbstractController
 
             $mdp = 'password';
 
-           $hashedPassword = $passwordHasher->hashPassword($personnel, $mdp);
-           $personnel->setPassword($hashedPassword);
+            $hashedPassword = $passwordHasher->hashPassword($personnel, $mdp);
+            $personnel->setPassword($hashedPassword);
 
             $personnelRepository->add($personnel, true);
+
+            $this->addFlash(
+                'success',
+                "Le client <strong>{$personnel->getNom()} {$personnel->getPrenom()}</strong> a bien été enregistré!"
+            );
 
             return $this->redirectToRoute('app_personnel_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -109,7 +116,7 @@ class PersonnelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                
+
             /** @var UploadedFile $image */
             $image = $form->get('image')->getData();
 
@@ -119,7 +126,7 @@ class PersonnelController extends AbstractController
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -134,10 +141,10 @@ class PersonnelController extends AbstractController
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $personnel->setImage($newFilename);
-            }else{
-               $personnel->setImage($imageName);
+            } else {
+                $personnel->setImage($imageName);
             }
-          
+
             $personnelRepository->add($personnel, true);
 
             return $this->redirectToRoute('app_personnel_index', [], Response::HTTP_SEE_OTHER);
@@ -154,13 +161,15 @@ class PersonnelController extends AbstractController
      */
     public function personneldelete(Personnel $personnel, EntityManagerInterface $em)
     {
-        if($personnel){
-             $em->remove($personnel);
-             $em->flush();
+        if ($personnel) {
+            $em->remove($personnel);
+            $em->flush();
 
-             $this->addFlash('success',
-             "Le collaborateur <span class='font-weight-bold'>{$personnel->getNom()}</span> a été supprimé avec succés");
-           return $this->redirectToRoute('app_personnel_index');
+            $this->addFlash(
+                'success',
+                "Le collaborateur <span class='font-weight-bold'>{$personnel->getNom()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_personnel_index');
         }
     }
 
@@ -169,7 +178,7 @@ class PersonnelController extends AbstractController
      */
     public function delete(Request $request, Personnel $personnel, PersonnelRepository $personnelRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$personnel->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $personnel->getId(), $request->request->get('_token'))) {
             $personnelRepository->remove($personnel, true);
         }
 
@@ -181,12 +190,12 @@ class PersonnelController extends AbstractController
      */
     public function index_imprimer(PersonnelRepository $personnelRepository, Pdf $knpSnappyPdf)
     {
-        
+
         $html = $this->renderView('personnel/pdf/index.html.twig', [
             'personnels' => $personnelRepository->findAll(),
         ]);
-       
-        $html2pdf = new Html2Pdf('P','A4','fr', false, 'UTF-8');
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
         $html2pdf->setDefaultFont("Arial");
         $html2pdf->writeHTML($html);
         $html2pdf->output('Liste_collaborateurs.pdf');
@@ -199,7 +208,7 @@ class PersonnelController extends AbstractController
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        
+
         $personnels = $personnelRepository->findAll();
 
         $sheet->setCellValue('A1', 'N°');
@@ -212,16 +221,15 @@ class PersonnelController extends AbstractController
         $sheet->setCellValue('H1', 'Email');
 
         $next = 2;
-        foreach($personnels as $personnel)
-        {
-            $sheet->setCellValue('A'. $next, $personnel->getId());
-            $sheet->setCellValue('B'. $next, $personnel->getImage());
-            $sheet->setCellValue('C'. $next, $personnel->getTitre());
-            $sheet->setCellValue('D'. $next, $personnel->getNom());
-            $sheet->setCellValue('E'. $next, $personnel->getPrenom());
-            $sheet->setCellValue('F'. $next, $personnel->getTel());
-            $sheet->setCellValue('G'. $next, $personnel->getCel());
-            $sheet->setCellValue('H'. $next, $personnel->getEmail());
+        foreach ($personnels as $personnel) {
+            $sheet->setCellValue('A' . $next, $personnel->getId());
+            $sheet->setCellValue('B' . $next, $personnel->getImage());
+            $sheet->setCellValue('C' . $next, $personnel->getTitre());
+            $sheet->setCellValue('D' . $next, $personnel->getNom());
+            $sheet->setCellValue('E' . $next, $personnel->getPrenom());
+            $sheet->setCellValue('F' . $next, $personnel->getTel());
+            $sheet->setCellValue('G' . $next, $personnel->getCel());
+            $sheet->setCellValue('H' . $next, $personnel->getEmail());
 
             $next++;
         }
@@ -229,14 +237,14 @@ class PersonnelController extends AbstractController
         $sheet->setTitle("Liste Collaborateur");
         // Create your Office 2007 Excel (XLSX Format)
         $writer = new Xlsx($spreadsheet);
-        
+
         // Create a Temporary file in the system
         $fileName = 'liste_collaborateurs.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
-        
+
         // Create the excel file in the tmp directory of the system
         $writer->save($temp_file);
-        
+
         // Return the excel file as an attachment
         return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
     }

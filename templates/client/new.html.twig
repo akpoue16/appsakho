@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Client{% endblock %}
+{% block title %}Nouveau Client
+{% endblock %}
 
 {% block body %}
- <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Nouveau Client</h1>
-    </div>
-    <!-- DataTales Example -->
-      <div class="card shadow mb-4">
-         <div class="card-body">
-       {{ include('client/_form.html.twig') }}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Nouveau Client</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			{{ include('client/_form.html.twig') }}
 
-        </div>
-    </div>
+		</div>
+	</div>
 {% endblock %}

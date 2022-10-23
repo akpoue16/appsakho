@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PersonnelRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -72,7 +74,22 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
      */
     private $image;
 
-    
+    /**
+     * @ORM\OneToMany(targetEntity=Dossier::class, mappedBy="personnel")
+     */
+    private $dossiers;
+
+    public function __construct()
+    {
+        $this->dossiers = new ArrayCollection();
+    }
+
+    //Afficher le nom et le prenoms
+    public function getfullName(): ?string
+    {
+        return $this->nom . ' ' . $this->prenom;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -246,5 +263,33 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
         return $this;
     }
 
-    
+    /**
+     * @return Collection<int, Dossier>
+     */
+    public function getDossiers(): Collection
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setPersonnel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossier(Dossier $dossier): self
+    {
+        if ($this->dossiers->removeElement($dossier)) {
+            // set the owning side to null (unless already changed)
+            if ($dossier->getPersonnel() === $this) {
+                $dossier->setPersonnel(null);
+            }
+        }
+
+        return $this;
+    }
 }
