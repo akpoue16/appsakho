@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Juridiction;
 use App\Form\JuridictionType;
 use App\Repository\JuridictionRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
+ * @IsGranted("ROLE_AVOCAT")
  * @Route("/juridiction")
  */
 class JuridictionController extends AbstractController

@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Dossier;
+use App\Entity\Contentieux;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-class Client
+class Client implements UserInterface, UserPasswordHasherInterface
 {
     /**
      * @ORM\Id
@@ -79,17 +83,38 @@ class Client
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=Dossier::class, mappedBy="client")
+     */
+    private $dossiers;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profil;
+
     public function __construct()
     {
         $this->contentieuxes = new ArrayCollection();
+        $this->dossiers = new ArrayCollection();
     }
     //Afficher le nom et le prenoms
     public function getfullName(): ?string
     {
-        return $this->nom .' '.$this->prenom;
+        return $this->nom . ' ' . $this->prenom;
     }
-    
-    
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -255,5 +280,107 @@ class Client
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Dossier>
+     */
+    public function getDossiers(): Collection
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers[] = $dossier;
+            $dossier->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossier(Dossier $dossier): self
+    {
+        if ($this->dossiers->removeElement($dossier)) {
+            // set the owning side to null (unless already changed)
+            if ($dossier->getClient() === $this) {
+                $dossier->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

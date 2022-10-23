@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client
+{% endblock %}
+
+{% block body %}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Client N°:
+			{{ client.code }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		{# <div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+								</div> #}
+		<div class="card-body">
+			<div class="row">
+				<div class="col">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th style="border-top:0px">Code</th>
+								<td style="border-top:0px">{{ client.code }}</td>
+							</tr>
+							<tr>
+								<th>Raison Social</th>
+								<td>{{ client.raisonSocial }}</td>
+							</tr>
+							<tr>
+								<th>Contact</th>
+								<td>{{ client.contact }}</td>
+							</tr>
+							<tr>
+								<th>Titre</th>
+								<td>{{ client.titre }}</td>
+							</tr>
+							<tr>
+								<th>Nom</th>
+								<td>{{ client.nom }}</td>
+							</tr>
+							<tr>
+								<th>Prénoms</th>
+								<td>{{ client.prenom }}</td>
+							</tr>
+							<tr>
+								<th>Téléphone 1</th>
+								<td>{{ client.tel }}</td>
+							</tr>
+							<tr>
+								<th>Téléphone 2</th>
+								<td>{{ client.cel }}</td>
+							</tr>
+							<tr>
+								<th>Email</th>
+								<td>{{ client.email }}</td>
+							</tr>
+							<tr>
+								<th>Fax</th>
+								<td>{{ client.fax }}</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-primary" href="{{ path('home_index') }}">
+						<i class="fas fa-home fa-sm text-white-10"></i>
+						Tableau de bord
+					</a>
+				</div>
+				<div class="col text-right">
+					<div class="row">
+						<div class="col">
+							<a class="btn btn-success" href="{{ path('app_client_edit', {'id': client.id}) }}">
+								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+								Modifier mes informations
+							</a>
+							<a class="btn btn-danger" href="{{ path('client_password') }}">
+								<i class="fas fa-lock fa-sm text-white-10"></i>
+								Modifier mon mot de passe
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<!-- Page level plugins -->
+	<script src="/bundle/js/bootstrap.bundle.js"></script>
+
+{% endblock %}
