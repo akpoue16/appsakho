@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
             $genres = ['male', 'female'];
 
             $genre = $faker->randomElements($genres);
-            if ($genre == "male") {
+            if ($genre[0] == "male") {
                 $titre = "Monsieur";
             } else {
                 $titre = "Madame";
@@ -40,31 +40,40 @@ class AppFixtures extends Fixture
                 ->setRoles(["ROLE_AVOCAT"])
                 ->setPassword($this->encoder->hashPassword($user, 'admin'));
             $manager->persist($user);
-        }
 
-        for ($i = 1; $i < 10; $i++) {
-            $client = new Client();
-            $client->setCode("Clt_00$i")
-                ->setTitre($titre)
-                ->setNom($faker->firstName($genre))
-                ->setPrenom($faker->lastName($genre))
-                ->setEmail($faker->email)
-                ->setTel($faker->mobileNumber)
-                ->setCel($faker->mobileNumber)
-                ->setRoles(["ROLE_CLIENT"])
-                ->setType("Particulier")
-                ->setPassword($this->encoder->hashPassword($user, 'password'));
-            $manager->persist($client);
 
-            for ($j = 1; $j < mt_rand(0, 5); $j++) {
-                $dossier = new Dossier();
-                $dossier->setCode("Dos_00$j")
-                    ->setClient($client)
-                    ->setPersonnel($user)
-                    ->setCreatedAt(new \DateTimeImmutable())
-                    ->setCommentaire($faker->sentence(15))
-                    ->setNom($faker->sentence(6));
-                $manager->persist($dossier);
+            for ($i = 1; $i < 10; $i++) {
+                $genres = ['male', 'female'];
+
+                $genre = $faker->randomElements($genres);
+                if ($genre[0] == "male") {
+                    $titre = "Monsieur";
+                } else {
+                    $titre = "Madame";
+                }
+                $client = new Client();
+                $client->setCode("Clt_00$i")
+                    ->setTitre($titre)
+                    ->setNom($faker->firstName($genre))
+                    ->setPrenom($faker->lastName($genre))
+                    ->setEmail($faker->email)
+                    ->setTel($faker->mobileNumber)
+                    ->setCel($faker->mobileNumber)
+                    ->setRoles(["ROLE_CLIENT"])
+                    ->setType("Particulier")
+                    ->setPassword($this->encoder->hashPassword($user, 'password'));
+                $manager->persist($client);
+
+                for ($j = 1; $j < mt_rand(0, 5); $j++) {
+                    $dossier = new Dossier();
+                    $dossier->setCode("Dos_00$j")
+                        ->setClient($client)
+                        ->setPersonnel($user)
+                        ->setCreatedAt(new \DateTimeImmutable())
+                        ->setCommentaire($faker->sentence(15))
+                        ->setNom($faker->sentence(6));
+                    $manager->persist($dossier);
+                }
             }
         }
         // $product = new Product();

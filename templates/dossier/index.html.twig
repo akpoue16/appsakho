@@ -11,15 +11,20 @@
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		{% if is_granted('ROLE_AVOCAT') %}
 		<h1 class="h3 mb-0 text-gray-800">Liste des Dossiers</h1>
+		{% else %}
+		<h1 class="h3 mb-0 text-gray-800">Liste de vos dossiers</h1>
+		{% endif %}
 		<div class="align-items-right justify-content-between">
-
+			{% if is_granted('ROLE_AVOCAT') %}
 			<a href="{{ path('app_dossier_new') }}" class="btn btn-success btn-icon-split">
 				<span class="icon text-white-10">
 					<i class="fas fa-plus fa-sm text-white-10"></i>
 				</span>
 				<span class="text">Nouveau dossier</span>
 			</a>
+			
 			<span class="dropdown no-arrow mb-4">
 
 				<button class="btn btn-info btn-icon-split dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,6 +42,7 @@
 						Excel</a>
 				</div>
 			</span>
+			{% endif %}
 		</div>
 	</div>
 
@@ -47,26 +53,40 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Id</th>
+							<th>Code</th>
 							<th>Nom</th>
+							{% if is_granted('ROLE_AVOCAT') %}
 							<th>Client</th>
+							{% endif %}
 							<th>Créer le</th>
 							<th>fermer le</th>
 							<th>actions</th>
 						</tr>
 					</thead>
+					<tfoot>
+                            <tr>
+							<th>Code</th>
+							<th>Nom</th>
+							{% if is_granted('ROLE_AVOCAT') %}
+							<th>Client</th>
+							{% endif %}
+							<th>Créer le</th>
+							<th>fermer le</th>
+							<th>actions</th>
+						</tr>
+                    </tfoot>
 					<tbody>
 						{% for dossier in dossiers %}
 							<tr>
-								<td>{{ dossier.id }}</td>
+								<td>{{ dossier.code }}</td>
 								<td>{{ dossier.nom }}</td>
-								<td>
-									{% if is_granted('ROLE_AVOCAT') %}
+								{% if is_granted('ROLE_AVOCAT') %}
+									<td>
 										<a href="{{ path('app_client_show', {'id': dossier.client.id}) }}" title="Information sur le client">{{ dossier.client.fullName }}</a>
-									{% endif %}
-								</td>
-								<td>{{ dossier.createdAt ? dossier.createdAt|date('Y-m-d') : '' }}</td>
-								<td>{{ dossier.updateAt ? dossier.updateAt|date('Y-m-d') : '' }}</td>
+									</td>
+								{% endif %}
+								<td>{{ dossier.createdAt ? dossier.createdAt|date('d/m/Y') : '' }}</td>
+								<td>{{ dossier.updateAt ? dossier.updateAt|date('d/m/Y') : '' }}</td>
 								<td>
 									<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_dossier_show', {'id': dossier.id}) }}">
 										<i class="fas fa-eye fa-sm text-white-10"></i>

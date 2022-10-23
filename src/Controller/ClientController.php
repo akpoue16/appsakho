@@ -226,19 +226,32 @@ class ClientController extends AbstractController
         $passwordUpdate = new PasswordUpdate();
 
         $user = $this->getUser();
-        dd($user);
+
         $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
 
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             if (!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
+                $this->addFlash(
+                    'success',
+                    "L'ancien <span class='font-weight-bold'>mot de passe</span> n'est pas correcte"
+                );
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
 
+
                 $user->setPassword($hashedPassword);
                 $em->persist($user);
                 $em->flush();
+
+                $this->addFlash(
+                    'success',
+                    "Le mot de passea été <span class='font-weight-bold'>Modifier avec succes</span>"
+                );
+                return $this->redirectToRoute('home_index');
+
             }
         }
 
