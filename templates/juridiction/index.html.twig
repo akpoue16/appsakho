@@ -57,15 +57,14 @@
         <tbody>
         {% for juridiction in juridictions %}
             <tr>
-                <td>{{ juridiction.id }}</td>
-                <td style="text-align: center;">
+                <td style="text-align: center;">{{ juridiction.id }}</td>
                 <td>{{ juridiction.titre }}</td>
                 <td>{{ juridiction.commentaire }}</td>
                 <td>
                     <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_juridiction_show', {'id': juridiction.id}) }}"> 
                         <i class="fas fa-eye fa-sm text-white-10"> </i></a>
-                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
-                       <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit<i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                       
                     
                       <!-- Button trigger modal -->
                     <a class="btn btn-danger btn-sm btn-circle personnel_sup" href data-remove-url="{{ url('app_juridiction_delete', {'id': juridiction.id}) }}" data-id="{{ juridiction.id }}" data-toggle="modal" data-target="#logoutModal">
