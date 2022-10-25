@@ -5,10 +5,14 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Client;
 use App\Entity\Dossier;
+use App\Entity\Juridiction;
+use App\Entity\Nature;
+use App\Entity\Qualite;
 use App\Entity\Personnel;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 class AppFixtures extends Fixture
 {
@@ -75,6 +79,29 @@ class AppFixtures extends Fixture
                     $manager->persist($dossier);
                 }
             }
+        }
+        // Ajout qualite
+        $tableQalite = ['DEMANDEUR', 'DEFENDEUR', 'APPELANT', 'INTIME', 'TIERS'];
+        for($q=0; $q < count($tableQalite); $q++){
+            $qualite = new Qualite();
+            $qualite->setTitre($tableQalite[$q]);
+            $manager->persist($qualite);
+        }
+        
+        // Ajout Juridiction
+        $tableJuridiction = ['TRIBUNAL DE 1ERE INSTANCE', 'COUR D\'APPEL', 'COUR SUPREME'];
+        for($ju=0; $ju < count($tableJuridiction); $ju++){
+            $juridiction = new Juridiction();
+            $juridiction->setTitre($tableJuridiction[$ju]);
+            $manager->persist($juridiction);
+        }
+
+        // Ajout Nature
+        $tableNature = ['PENALE', 'CIVILE', 'ADMINISTRATIVE', 'CRIMINELLE'];
+        for($n=0; $n < count($tableNature); $n++){
+            $nature = new Nature();
+            $nature->setTitre($tableNature[$n]);
+            $manager->persist($nature);
         }
         // $product = new Product();
         // $manager->persist($product);

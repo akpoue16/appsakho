@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Juridiction index{% endblock %}
+{% block title %}Juridiction index
+{% endblock %}
 
 {% block stylesheets %}
     <link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 {% endblock %}
 
-
 {% block body %}
+    
      <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Liste des Juridictions</h1>
@@ -17,7 +18,7 @@
                 <span class="icon text-white-10">
                     <i class="fas fa-plus fa-sm text-white-10"></i>
                 </span>
-                <span class="text">Nouveau Juridiction</span>
+                <span class="text">Nouvelle juridiction</span>
             </a>
             <span class="dropdown no-arrow mb-4">
                 
@@ -44,49 +45,71 @@
                         </div> #}
       <div class="card-body">
        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+						<tr>
+							<th>Id</th>
+							<th>Titre</th>
+							<th>Commentaire</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for juridiction in juridictions %}
+							<tr>
+								<td>{{ juridiction.id }}</td>
+								<td>{{ juridiction.titre }}</td>
+								<td>{{ juridiction.commentaire }}</td>
+								<td>
+                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_juridiction_show', {'id': juridiction.id}) }}">
+                        <i class="fas fa-eye fa-sm text-white-10"> </i>
+                    </a>
+                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">
+                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+                    </a>
 
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Commentaire</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for juridiction in juridictions %}
-            <tr>
-                <td>{{ juridiction.id }}</td>
-                <td style="text-align: center;">
-                <td>{{ juridiction.titre }}</td>
-                <td>{{ juridiction.commentaire }}</td>
-                <td>
-                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_juridiction_show', {'id': juridiction.id}) }}"> 
-                        <i class="fas fa-eye fa-sm text-white-10"> </i></a>
-                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
-                       <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
-                    
-                      <!-- Button trigger modal -->
-                    <a class="btn btn-danger btn-sm btn-circle personnel_sup" href data-remove-url="{{ url('app_juridiction_delete', {'id': juridiction.id}) }}" data-id="{{ juridiction.id }}" data-toggle="modal" data-target="#logoutModal">
+                    <!-- Button trigger modal -->
+                    <a class="btn btn-danger btn-sm btn-circle juridiction_sup" href data-remove-url="{{ url('juridiction_delete', {'id': juridiction.id}) }}" data-id="{{ juridiction.id }}" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-trash-alt fa-sm text-white-10"></i>
                     </a>
-                    
                 </td>
-           
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_juridiction_new') }}">Create new</a>
-{% endblock %}
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">Pas d'enregistrement</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>            </div>
+        </div>
+    </div>
 
-           {% block javascripts %}
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Etes-vous sûr de vouloir supprimer cette juridiction?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a href class="btn btn-danger" id="remove_id">Oui</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+			{% endblock %}
+
+
+{% block javascripts %}
 
     <!-- Page level plugins -->
     <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
@@ -96,15 +119,15 @@
     <script src="/bundle/js/demo/datatables-demo.js"></script>
     
     <script>
-        let personnelSup = document.querySelectorAll('a.personnel_sup');
+        let juridictionSup = document.querySelectorAll('a.juridiction_sup');
         let removeId = document.getElementById('remove_id');
         
-        for(let i = 0; i < personnelSup.length; i++){
+        for(let i = 0; i < juridictionSup.length; i++){
 
-            personnelSup[i].addEventListener('click', function(){
-                let personnelId = this.getAttribute('data-id');
+            juridictionSup[i].addEventListener('click', function(){
+                let juridictionId = this.getAttribute('data-id');
                 let urlSup = this.getAttribute('data-remove-url');
-                removeId.setAttribute('data-id', personnelId);
+                removeId.setAttribute('data-id', juridictionId);
                 removeId.setAttribute('href', urlSup);
                 
             });
@@ -112,7 +135,7 @@
         };
 
 
-       /** removeId.addEventListener('click', function(){
+        /** removeId.addEventListener('click', function(){
             let deletePerso = this.getAttribute('data-id');
             let url = this.getAttribute('data-remove-url');
             console.log();
@@ -141,5 +164,4 @@
         });**/
         
     </script>
- {% endblock %}
-
+{% endblock %}

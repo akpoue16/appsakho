@@ -1,11 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Juridiction{% endblock %}
+{% block title %}Nouvelle juridiction{% endblock %}
 
 {% block body %}
-    <h1>Create new Juridiction</h1>
-
+<!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Nouvelle juridiction</h1>
+    </div>
+    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 fo
+                        </div> #}
+                        <div class="card-body">
     {{ include('juridiction/_form.html.twig') }}
 
-    <a href="{{ path('app_juridiction_index') }}">back to list</a>
+ </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+	// afficher la valeur dans le champ input du fichier sélectionné
+	$('.custom-file-input').on('change', function(event) {
+		var inputFile = event.currentTarget;
+		$(inputFile).parent()
+			.find('.custom-file-label')
+			.html(inputFile.files[0].name);
+	});
+</script>
+
 {% endblock %}

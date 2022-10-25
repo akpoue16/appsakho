@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Juridiction;
 use App\Form\JuridictionType;
-use App\Repository\JuridictionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
+use App\Repository\JuridictionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,5 +90,22 @@ class JuridictionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_juridiction_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/sup/{id}", name="juridiction_delete")
+     */
+    public function juridictiondelete(Juridiction $juridiction, EntityManagerInterface $em)
+    {
+        if ($juridiction) {
+            $em->remove($juridiction);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "La juridiction <span class='font-weight-bold'>{$juridiction->getTitre()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_juridiction_index');
+        }
     }
 }
