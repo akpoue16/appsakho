@@ -121,7 +121,7 @@ class ClientController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Le client <span class='font-weight-bold'>{$client->getNom()}</span> a été supprimé avec succés"
+                "Le client <span class='font-weight-bold'>{$client->getTitre()} {$client->getfullName()}</span> a été supprimé avec succés"
             );
             return $this->redirectToRoute('app_client_index');
         }
@@ -258,5 +258,14 @@ class ClientController extends AbstractController
         return $this->render('client/compte/modif_password.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/reset_password", name="client_reset_password")
+     */
+    public function reset_password(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        
+        return $this->render('client/compte/reset_password.html.twig');
     }
 }

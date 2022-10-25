@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
                         ->setClient($client)
                         ->setPersonnel($user)
                         ->setCreatedAt(new \DateTimeImmutable())
-                        ->setCommentaire($faker->sentence(15))
+                        ->setCommentaire($faker->sentence(8))
                         ->setNom($faker->sentence(6));
                     $manager->persist($dossier);
                 }

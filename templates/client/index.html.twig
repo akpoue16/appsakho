@@ -127,10 +127,8 @@
                 </div>
                 <div class="modal-body">Etes-vous sûr de vouloir supprimer ce client?</div>
                 <div class="modal-footer">
-                    <a class="btn btn-danger" href="#">
-                    <i class="fas fa-trash-alt fa-sm text-white-10"></i> Supprimer
-                    </a>
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a href class="btn btn-danger" id="remove_id">Oui</a>
                     
                 </div>
             </div>
@@ -168,7 +166,7 @@
         };
 
 
-       /** removeId.addEventListener('click', function(){
+        /** removeId.addEventListener('click', function(){
             let deletePerso = this.getAttribute('data-id');
             let url = this.getAttribute('data-remove-url');
             console.log();

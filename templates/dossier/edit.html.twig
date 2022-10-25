@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Dossier{% endblock %}
+{% block title %}Modifeir Dossier
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Dossier</h1>
-
-    {{ include('dossier/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_dossier_index') }}">back to list</a>
-
-    {{ include('dossier/_delete_form.html.twig') }}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Modifier le dossier N°:
+			{{ dossier.code }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			{{ include('dossier/_form.html.twig', {'button_label': 'Update'}) }}
+		</div>
+	</div>
 {% endblock %}

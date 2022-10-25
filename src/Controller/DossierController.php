@@ -28,10 +28,10 @@ class DossierController extends AbstractController
     {
         $user = $this->getUser();
 
-        if(in_array('ROLE_CLIENT', $user->getRoles())){
+        if (in_array('ROLE_CLIENT', $user->getRoles())) {
             return $this->render('dossier/index.html.twig', [
                 'dossiers' => $dossierRepository->findByClient($user),
-            ]); 
+            ]);
         }
         return $this->render('dossier/index.html.twig', [
             'dossiers' => $dossierRepository->findAll(),
@@ -94,13 +94,15 @@ class DossierController extends AbstractController
      */
     public function dossierdelete(Dossier $dossier, EntityManagerInterface $em)
     {
-        if($dossier){
-             $em->remove($dossier);
-             $em->flush();
+        if ($dossier) {
+            $em->remove($dossier);
+            $em->flush();
 
-             $this->addFlash('success',
-             "Le collaborateur <span class='font-weight-bold'>{$dossier->getNom()}</span> a été supprimé avec succés");
-           return $this->redirectToRoute('app_dossier_index');
+            $this->addFlash(
+                'success',
+                "Le dossier N° <span class='font-weight-bold'>{$dossier->getCode()} {$dossier->getNom()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_dossier_index');
         }
     }
 
@@ -109,7 +111,7 @@ class DossierController extends AbstractController
      */
     public function delete(Request $request, Dossier $dossier, DossierRepository $dossierRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$dossier->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $dossier->getId(), $request->request->get('_token'))) {
             $dossierRepository->remove($dossier, true);
         }
 
@@ -121,12 +123,12 @@ class DossierController extends AbstractController
      */
     public function index_imprimer(DossierRepository $dossierRepository, Pdf $knpSnappyPdf)
     {
-        
+
         $html = $this->renderView('dossier/pdf/index.html.twig', [
             'dossiers' => $dossierRepository->findAll(),
         ]);
-       
-        $html2pdf = new Html2Pdf('P','A4','fr', false, 'UTF-8');
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
         $html2pdf->setDefaultFont("Arial");
         $html2pdf->writeHTML($html);
         $html2pdf->output('Liste_collaborateurs.pdf');
@@ -139,7 +141,7 @@ class DossierController extends AbstractController
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        
+
         $dossiers = $dossierRepository->findAll();
 
         $sheet->setCellValue('A1', 'N°');
@@ -149,13 +151,12 @@ class DossierController extends AbstractController
         $sheet->setCellValue('E1', 'Commentaire');
 
         $next = 2;
-        foreach($dossiers as $dossier)
-        {
-            $sheet->setCellValue('A'. $next, $dossier->getId());
-            $sheet->setCellValue('B'. $next, $dossier->getNom());
-            $sheet->setCellValue('C'. $next, $dossier->getCreatedAt());
-            $sheet->setCellValue('D'. $next, $dossier->getUpdateAt());
-            $sheet->setCellValue('E'. $next, $dossier->getCommentaire());
+        foreach ($dossiers as $dossier) {
+            $sheet->setCellValue('A' . $next, $dossier->getId());
+            $sheet->setCellValue('B' . $next, $dossier->getNom());
+            $sheet->setCellValue('C' . $next, $dossier->getCreatedAt());
+            $sheet->setCellValue('D' . $next, $dossier->getUpdateAt());
+            $sheet->setCellValue('E' . $next, $dossier->getCommentaire());
 
             $next++;
         }
@@ -163,14 +164,14 @@ class DossierController extends AbstractController
         $sheet->setTitle("Liste Dossier");
         // Create your Office 2007 Excel (XLSX Format)
         $writer = new Xlsx($spreadsheet);
-        
+
         // Create a Temporary file in the system
         $fileName = 'liste_dossiers.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
-        
+
         // Create the excel file in the tmp directory of the system
         $writer->save($temp_file);
-        
+
         // Return the excel file as an attachment
         return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
     }
