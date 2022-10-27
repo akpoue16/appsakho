@@ -3,7 +3,23 @@
 {% block title %}Juridiction{% endblock %}
 
 {% block body %}
-    <h1>Juridiction</h1>
+
+   <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+         <h1 class="h3 mb-0 text-gray-800">Collaborateur: {{ juridiction.id }} {{ juridiction.titre }} {{ juridiction.commentaire }}</h1>
+    
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+        <div class="card-body">
+
+    <div class="row">
+        <div class="col-md-8">
+
+
 
     <table class="table">
         <tbody>
@@ -22,9 +38,36 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_juridiction_index') }}">back to list</a>
+    {#  <a href="{{ path('app_juridiction_index') }}">back to list</a>
 
     <a href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
 
     {{ include('juridiction/_delete_form.html.twig') }}
+            
+    #}
+            
+  </div>
+   
+        
+    </div>
+     <div class="row">
+        <div class="col">
+                <a class="btn btn-primary btn-icon-split" href="{{ path('app_juridiction_index') }}">
+                   <span class="icon text-white-10">
+                        <i class="fas fa-arrow-left fa-sm text-white-10"></i>
+                    </span>
+                    <span class="text">Retour à la liste</span>
+                </a>
+                <a class="btn btn-success btn-icon-split" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">
+                    <span class="icon text-white-10">
+                        <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> 
+                    </span>   
+                    <span class="text"> Modifier</span>
+                </a>
+        </div>
+    </div>
+
+        </div>
+    </div>
+            
 {% endblock %}
