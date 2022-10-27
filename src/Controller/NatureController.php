@@ -6,6 +6,7 @@ use App\Entity\Nature;
 use App\Form\NatureType;
 use App\Repository\NatureRepository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,5 +90,22 @@ class NatureController extends AbstractController
         }
 
         return $this->redirectToRoute('app_nature_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/sup/{id}", name="nature_delete")
+     */
+    public function naturedelete(Nature $nature, EntityManagerInterface $em)
+    {
+        if ($nature) {
+            $em->remove($nature);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "La nature <span class='font-weight-bold'>{$nature->getTitre()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_nature_index');
+        }
     }
 }
