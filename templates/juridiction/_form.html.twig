@@ -1,4 +1,5 @@
 {{ form_start(form) }}
+<<<<<<< HEAD
    <div class="row">
         <div class="col">  
             <div class="form-row">
@@ -29,5 +30,37 @@
             </button>
         </div>
     </div>
+=======
+<div class="row">
+	<div class="col">
+		<div class="form-row">
+			<div class="col-8">
+				{{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
+			</div>
+		</div>
+        <div class="form-row">
+			<div class="col-8">
+				{{ form_row(form.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<a href="{{ path('app_juridiction_index') }}" class="btn btn-primary btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+			</span>
+			<span class="text">Retour à la liste</span>
+		</a>
+		<button class="btn btn-success btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-save fa-sm text-white-10"></i>
+			</span>
+			<span class="text">{{ button_label|default('Enregistrer') }}</span>
+		</button>
+	</div>
+</div>
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
 {{ form_end(form) }}
 

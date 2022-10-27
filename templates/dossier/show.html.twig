@@ -1,38 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dossier{% endblock %}
+{% block title %}Dossier
+{% endblock %}
 
 {% block body %}
-    <h1>Dossier</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ dossier.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ dossier.nom }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ dossier.createdAt ? dossier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdateAt</th>
-                <td>{{ dossier.updateAt ? dossier.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ dossier.commentaire }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_dossier_index') }}">back to list</a>
-
-    <a href="{{ path('app_dossier_edit', {'id': dossier.id}) }}">edit</a>
-
-    {{ include('dossier/_delete_form.html.twig') }}
-{% endblock %}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Dossier:
+			{{ dossier.code }}
+		</div>
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="row">
+					<div class="col">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Id</th>
+									<td>{{ dossier.id }}</td>
+								</tr>
+								<tr>
+									<th>Nom</th>
+									<td>{{ dossier.nom }}</td>
+								</tr>
+								<tr>
+									<th>CreatedAt</th>
+									<td>{{ dossier.createdAt ? dossier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+								</tr>
+								<tr>
+									<th>UpdateAt</th>
+									<td>{{ dossier.updateAt ? dossier.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+								</tr>
+								<tr>
+									<th>Commentaire</th>
+									<td>{{ dossier.commentaire }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a class="btn btn-primary btn-icon-split" href="{{ path('app_dossier_index') }}">
+							<span class="icon text-white-10">
+								<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+							</span>
+							<span class="text">Retour à la liste</span>
+						</a>
+						<a class="btn btn-success btn-icon-split" href="{{ path('app_dossier_edit', {'id': dossier.id}) }}">
+							<span class="icon text-white-10">
+								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+							</span>
+							<span class="text">
+								Modifier</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

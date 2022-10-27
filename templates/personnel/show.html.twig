@@ -1,88 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personnel{% endblock %}
+{% block title %}Personnel
+{% endblock %}
 
 {% block body %}
-     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Collaborateur: {{ personnel.titre }} {{ personnel.nom }} {{ personnel.prenom }}</h1>
-    </div>
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-                        {# <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> #}
-        <div class="card-body">
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Collaborateur:
+			{{ personnel.titre }}
+			{{ personnel.nom }}
+			{{ personnel.prenom }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		<div class="card-body">
 
-    <div class="row">
-        <div class="col-md-8">
+			<div class="row">
+				<div class="col-md-8">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Id</th>
+								<td>{{ personnel.id }}</td>
+							</tr>
+							<tr>
+								<th>Titre</th>
+								<td>{{ personnel.titre }}</td>
+							</tr>
+							<tr>
+								<th>Nom</th>
+								<td>{{ personnel.nom }}</td>
+							</tr>
+							<tr>
+								<th>Prenom</th>
+								<td>{{ personnel.prenom }}</td>
+							</tr>
+							<tr>
+								<th>Tel</th>
+								<td>{{ personnel.tel }}</td>
+							</tr>
+							<tr>
+								<th>Cel</th>
+								<td>{{ personnel.cel }}</td>
+							</tr>
+							<tr>
+								<th>Email</th>
+								<td>{{ personnel.email }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-4">
+					{% if personnel.image %}
+						<img src="/images/{{ personnel.image }}" class="mw-100 img-thumbnail"/>
+					{% else %}
+						<img src="/images/profil.jpg" alt="" class="mw-100 img-thumbnail">
+					{% endif %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-primary btn-icon-split" href="{{ path('app_personnel_index') }}">
+						<span class="icon text-white-10">
+							<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+						</span>
+						<span class="text">Retour à la liste</span>
+					</a>
+					<a class="btn btn-success btn-icon-split" href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
+						<span class="icon text-white-10">
+							<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+						</span>
+						<span class="text">
+							Modifier</span>
+					</a>
+				</div>
+			</div>
 
-
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>Id</th>
-                                <td>{{ personnel.id }}</td>
-                            </tr>
-                            <tr>
-                                <th>Titre</th>
-                                <td>{{ personnel.titre }}</td>
-                            </tr>
-                            <tr>
-                                <th>Nom</th>
-                                <td>{{ personnel.nom }}</td>
-                            </tr>
-                            <tr>
-                                <th>Prenom</th>
-                                <td>{{ personnel.prenom }}</td>
-                            </tr>
-                            <tr>
-                                <th>Tel</th>
-                                <td>{{ personnel.tel }}</td>
-                            </tr>
-                            <tr>
-                                <th>Cel</th>
-                                <td>{{ personnel.cel }}</td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td>{{ personnel.email }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                {#  <a href="{{ path('app_personnel_index') }}">back to list</a>
-
-                    <a href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">edit</a>
-
-                    {{ include('personnel/_delete_form.html.twig') }}
-                #}
-        </div>
-        <div class="col-md-4">
-            {% if personnel.image %}
-                <img src="/images/{{ personnel.image }}" class="mw-100 img-thumbnail"/>
-            {% else %}
-                <img src="/images/profil.jpg" alt="" class="mw-100 img-thumbnail">
-            {% endif %}
-        </div>
-    </div>
-     <div class="row">
-        <div class="col">
-                <a class="btn btn-primary btn-icon-split" href="{{ path('app_personnel_index') }}">
-                   <span class="icon text-white-10">
-                        <i class="fas fa-arrow-left fa-sm text-white-10"></i>
-                    </span>
-                    <span class="text">Retour à la liste</span>
-                </a>
-                <a class="btn btn-success btn-icon-split" href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">
-                    <span class="icon text-white-10">
-                        <i class="fas fa-pencil-alt fa-sm text-white-10"> </i> 
-                    </span>   
-                    <span class="text"> Modifier</span>
-                </a>
-        </div>
-    </div>
-
-        </div>
-    </div>
+		</div>
+	</div>
 {% endblock %}

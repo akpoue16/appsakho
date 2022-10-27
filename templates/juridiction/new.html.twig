@@ -1,25 +1,56 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Nouvelle Juridiction{% endblock %}
+=======
+{% block title %}Nouvelle juridiction{% endblock %}
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
 
 {% block body %}
 <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
+<<<<<<< HEAD
         <h1 class="h3 mb-0 text-gray-800">Nouvelle Juridiction</h1>
+=======
+        <h1 class="h3 mb-0 text-gray-800">Nouvelle juridiction</h1>
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
     </div>
     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         {# <div class="card-header py-3">
+<<<<<<< HEAD
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div> #}
                         <div class="card-body">
 
 
+=======
+                            <h6 class="m-0 fo
+                        </div> #}
+                        <div class="card-body">
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
     {{ include('juridiction/_form.html.twig') }}
 
  </div>
     </div>
     
+<<<<<<< HEAD
+=======
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+	// afficher la valeur dans le champ input du fichier sélectionné
+	$('.custom-file-input').on('change', function(event) {
+		var inputFile = event.currentTarget;
+		$(inputFile).parent()
+			.find('.custom-file-label')
+			.html(inputFile.files[0].name);
+	});
+</script>
+
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
 {% endblock %}
 
 {% block javascripts %}

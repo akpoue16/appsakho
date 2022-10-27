@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Juridiction{% endblock %}
+{% block title %}Juridiction
+{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 
    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -20,24 +22,39 @@
         <div class="col-md-8">
 
 
+=======
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Collaborateur:
+			{{ juridiction.titre }}
+			{{ juridiction.commentaire }}
+		</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ juridiction.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ juridiction.titre }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ juridiction.commentaire }}</td>
-            </tr>
-        </tbody>
-    </table>
+			<div class="row">
+				<div class="col-md">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Id</th>
+								<td>{{ juridiction.id }}</td>
+							</tr>
+							<tr>
+								<th>Titre</th>
+								<td>{{ juridiction.titre }}</td>
+							</tr>
+							<tr>
+								<th>Commentaire</th>
+								<td>{{ juridiction.commentaire }}</td>
+							</tr>
+						</tbody>
+					</table>
 
+<<<<<<< HEAD
     {#  <a href="{{ path('app_juridiction_index') }}">back to list</a>
 
     <a href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">edit</a>
@@ -70,4 +87,28 @@
         </div>
     </div>
             
+=======
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-primary btn-icon-split" href="{{ path('app_juridiction_index') }}">
+						<span class="icon text-white-10">
+							<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+						</span>
+						<span class="text">Retour à la liste</span>
+					</a>
+					<a class="btn btn-success btn-icon-split" href="{{ path('app_juridiction_edit', {'id': juridiction.id}) }}">
+						<span class="icon text-white-10">
+							<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+						</span>
+						<span class="text">
+							Modifier</span>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+>>>>>>> b0f25b2da14fb27c37adb3c74a76b23536a9ecb3
 {% endblock %}
