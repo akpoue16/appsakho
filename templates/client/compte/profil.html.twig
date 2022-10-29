@@ -7,7 +7,7 @@
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Client N°:
-			{{ client.code }}</h1>
+			{{ app.user.code }}</h1>
 	</div>
 	<!-- DataTales Example -->
 	<div
@@ -22,43 +22,43 @@
 						<tbody>
 							<tr>
 								<th style="border-top:0px">Code</th>
-								<td style="border-top:0px">{{ client.code }}</td>
+								<td style="border-top:0px">{{ app.user.code }}</td>
 							</tr>
 							<tr>
 								<th>Raison Social</th>
-								<td>{{ client.raisonSocial }}</td>
+								<td>{{ app.user.raisonSocial }}</td>
 							</tr>
 							<tr>
 								<th>Contact</th>
-								<td>{{ client.contact }}</td>
+								<td>{{ app.user.contact }}</td>
 							</tr>
 							<tr>
 								<th>Titre</th>
-								<td>{{ client.titre }}</td>
+								<td>{{ app.user.titre }}</td>
 							</tr>
 							<tr>
 								<th>Nom</th>
-								<td>{{ client.nom }}</td>
+								<td>{{ app.user.nom }}</td>
 							</tr>
 							<tr>
 								<th>Prénoms</th>
-								<td>{{ client.prenom }}</td>
+								<td>{{ app.user.prenom }}</td>
 							</tr>
 							<tr>
 								<th>Téléphone 1</th>
-								<td>{{ client.tel }}</td>
+								<td>{{ app.user.tel }}</td>
 							</tr>
 							<tr>
 								<th>Téléphone 2</th>
-								<td>{{ client.cel }}</td>
+								<td>{{ app.user.cel }}</td>
 							</tr>
 							<tr>
 								<th>Email</th>
-								<td>{{ client.email }}</td>
+								<td>{{ app.user.email }}</td>
 							</tr>
 							<tr>
 								<th>Fax</th>
-								<td>{{ client.fax }}</td>
+								<td>{{ app.user.fax }}</td>
 							</tr>
 						</tbody>
 					</table>
