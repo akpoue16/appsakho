@@ -1,13 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Qualite{% endblock %}
+{% block title %}Modifer Qualite{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/bundle/intl-tel-input-master/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="/bundle/intl-tel-input-master/build/css/demo.css">
+    <style>
+        .custom-file-input:lang(en)~.custom-file-label::after{content:"Sélectionnez une photo"}
+    
+       .iti__flag {
+        height: 14px;
+        background-position: -961px 0px;
+       }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Qualite</h1>
+     <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modifier la Qualite N°: {{ qualite.id }}</h1>
+    </div>
+       <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        {# <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div> #}
+                        <div class="card-body">
+    {{ include('qualite/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    </div>
+</div>
+{% endblock %}
 
-    {{ include('qualite/_form.html.twig', {'button_label': 'Update'}) }}
+{% block javascripts %}
 
-    <a href="{{ path('app_qualite_index') }}">back to list</a>
+<script>
+	addEventListener('load', (event) => {
+        let loadImage = document.getElementById('load_image');
+        let srcImage = loadImage.getAttribute('data-image');
+        let champs = document.querySelector('.custom-file-label');
+        //console.log(champs);
+        champs.textContent = srcImage;
 
-    {{ include('qualite/_delete_form.html.twig') }}
+    });
+    
+    // afficher la valeur dans le champ input du fichier sélectionné
+	$('.custom-file-input').on('change', function(event) {
+		var inputFile = event.currentTarget;
+		$(inputFile).parent()
+			.find('.custom-file-label')
+			.html(inputFile.files[0].name);
+	});
+
+</script>
+<script src="/bundle/intl-tel-input-master/build/js/intlTelInput.js"></script>
+<script>
+    var input = document.querySelector("#qualite_tel");
+    window.intlTelInput(input, {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      preferredCountries: ['ci'],
+      separateDialCode: true,
+      utilsScript: "/bundle/intl-tel-input-master/build/js/utils.js",
+    });
+  </script>
+  <script>
+    var inputCel = document.querySelector("#qualite_cel");
+    window.intlTelInput(inputCel, {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      preferredCountries: ['ci'],
+      separateDialCode: true,
+      utilsScript: "/bundle/intl-tel-input-master/build/js/utils.js",
+    });
+  </script>
+  <script class="iti-load-utils" async="" src="/bundle/intl-tel-input-master/build/js/utils.js"></script>
 {% endblock %}
