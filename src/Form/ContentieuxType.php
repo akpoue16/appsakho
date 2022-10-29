@@ -9,6 +9,7 @@ use App\Entity\Confrere;
 use App\Entity\Adversaire;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -35,6 +36,11 @@ class ContentieuxType extends AbstractType
             ->add('commentaire', TextareaType::class)
             ->add('client', EntityType::class, [
                 'class' => Client::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+            
                 'choice_label' => 'fullName',
             ])
             ->add('qualite', EntityType::class, [
@@ -47,11 +53,11 @@ class ContentieuxType extends AbstractType
             ])
             ->add('juridiction', EntityType::class, [
                 'class' => Juridiction::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'titre',
             ])
             ->add('nature', EntityType::class, [
                 'class' => Nature::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'titre',
             ])
             ->add('adversaire', EntityType::class, [
                 'class' => Adversaire::class,

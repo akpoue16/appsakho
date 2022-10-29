@@ -1,90 +1,179 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contentieux{% endblock %}
+{% block title %}Contentieux
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
 
-      <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des Contentieux</h1>
-        <a href="{{ path('app_contentieux_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-10"></i> Nouveau Contentieux</a>
-    </div>
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Code</th>
-                            <th>CreatedAt</th>
-                            <th>Objet</th>
-                            <th>Commentaire</th>
-                            <th>actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for contentieux in contentieuxes %}
-                        <tr>
-                            <td>{{ contentieux.id }}</td>
-                            <td>{{ contentieux.code }}</td>
-                            <td>{{ contentieux.createdAt ? contentieux.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ contentieux.objet }}</td>
-                            <td>{{ contentieux.commentaire }}</td>
-                            
-                            <td>
-                                <a href="{{ path('app_contentieux_show', {'id': contentieux.id}) }}">
-                                    <i class="fas fa-eye fa-sm text-white-10"> </i>
-                                </a>
-                                <a href="{{ path('app_contentieux_edit', {'id': contentieux.id}) }}">
-                                    <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
-                                </a>
-                                <a href="{{ path('app_client_delete', {'id': client.id}) }}" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-trash-alt fa-sm text-white-10"></i>
-                                </a>
-                            
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="6">Pas d'enregistrement</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Liste des contentieux</h1>
+		<div class="align-items-right justify-content-between">
 
+			<a href="{{ path('app_contentieux_new') }}" class="btn btn-success btn-icon-split">
+				<span class="icon text-white-10">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</span>
+				<span class="text">Nouveau contentieux</span>
+			</a>
+			<span class="dropdown no-arrow mb-4">
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h4>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Etes-vous sûr de vouloir supprimer ce contentieux?</div>
-                <div class="modal-footer">
-                    <a class="btn btn-danger" href="#">Oui</a>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+				<button class="btn btn-info btn-icon-split dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="icon text-white-10">
+						<i class="fas fa-sort-down fa-sm text-white-20"></i>
+					</span>
+					<span class="text">Liste en Pdf ou Excel</span>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+					<a target="_blank" class="dropdown-item" href="{{ path('index_imprimer') }}">
+						<i class="fas fa-print fa-sm text-white-10"></i>
+						Pdf</a>
+					<a class="dropdown-item" href="{{ path('index_excel') }}">
+						<i class="fas fa-file-excel fa-sm text-white-10"></i>
+						Excel</a>
+				</div>
+			</span>
+		</div>
+	</div>
+
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Code</th>
+							<th>CreatedAt</th>
+							<th>Objet</th>
+							<th>Commentaire</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+                    <tfoot>
+						<tr>
+							<th>Id</th>
+							<th>Code</th>
+							<th>CreatedAt</th>
+							<th>Objet</th>
+							<th>Commentaire</th>
+							<th>actions</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						{% for contentieux in contentieuxes %}
+							<tr>
+								<td>{{ contentieux.id }}</td>
+								<td>{{ contentieux.code }}</td>
+								<td>{{ contentieux.createdAt ? contentieux.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+								<td>{{ contentieux.objet }}</td>
+								<td>{{ contentieux.commentaire }}</td>
+
+								<td>
+									<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_personnel_show', {'id':contentieux.id}) }}">
+										<i class="fas fa-eye fa-sm text-white-10"></i>
+									</a>
+									<a class="btn btn-info btn-sm btn-circle" href="{{ path('app_personnel_edit', {'id':contentieux.id}) }}">
+										<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+									</a>
+
+									<!-- Button trigger modal -->
+									<a class="btn btn-danger btn-sm btn-circlecontentieux_sup" href data-remove-url="{{ url('personnel_delete', {'id':contentieux.id}) }}" data-id="{{contentieux.id }}" data-toggle="modal" data-target="#logoutModal">
+										<i class="fas fa-trash-alt fa-sm text-white-10"></i>
+									</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="8">Pas d'enregistrement</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Etes-vous sûr de vouloir supprimer ce contentieux?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+					<a href class="btn btn-danger" id="remove_id">Oui</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
 
 {% block javascripts %}
 
-    <!-- Page level plugins -->
-    <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/bundle/js/demo/datatables-demo.js"></script>
- {% endblock %}
+	<!-- Page level custom scripts -->
+	<script src="/bundle/js/demo/datatables-demo.js"></script>
+
+	<script>
+		let contentieuxSup = document.querySelectorAll('a.contentieux_sup');
+let removeId = document.getElementById('remove_id');
+
+for (let i = 0; i < contentieuxSup.length; i++) {
+
+contentieuxSup[i].addEventListener('click', function () {
+let contentieuxId = this.getAttribute('data-id');
+let urlSup = this.getAttribute('data-remove-url');
+removeId.setAttribute('data-id', contentieuxId);
+removeId.setAttribute('href', urlSup);
+
+});
+
+};
+
+
+/** removeId.addEventListener('click', function(){
+            let deletePerso = this.getAttribute('data-id');
+            let url = this.getAttribute('data-remove-url');
+            console.log();
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                
+                if(response.ok) {
+                     response.json()
+                        .then(function(data) {
+                          console.log(data);
+                        });
+                } else {
+                    console.log('Mauvaise réponse du réseau');
+                }
+            })
+            .catch(function(error) {
+                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+            });
+                
+        });**/
+	</script>
+{% endblock %}

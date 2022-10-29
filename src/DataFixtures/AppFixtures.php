@@ -106,6 +106,20 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
+        //Donnée Client
+        //Donnée Avocat
+        //Donnée Administrateur
+        $admin = new Personnel();
+        $admin->setTitre('Monsieur')
+        ->setNom('Admin')
+        ->setPrenom('Admin')
+        ->setEmail('admin@gmail.com')
+        ->setTel('0707070707')
+        ->setCel('0505050505')
+        ->setRoles(["ROLE_ADMIN"])
+        ->setPassword($this->encoder->hashPassword($user, 'admin'));
+        $manager->persist($admin);
+
         $manager->flush();
     }
 }
