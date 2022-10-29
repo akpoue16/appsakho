@@ -25,16 +25,20 @@
 									<td>{{ dossier.nom }}</td>
 								</tr>
 								<tr>
-									<th>CreatedAt</th>
-									<td>{{ dossier.createdAt ? dossier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+									<th>Date d'ouverture</th>
+									<td>{{ dossier.createdAt ? dossier.createdAt|date('d/m/Y') : '' }}</td>
 								</tr>
 								<tr>
-									<th>UpdateAt</th>
-									<td>{{ dossier.updateAt ? dossier.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+									<th>Date de clôture</th>
+									<td>{{ dossier.updateAt ? dossier.updateAt|date('d/m/Y') : '' }}</td>
 								</tr>
 								<tr>
 									<th>Commentaire</th>
 									<td>{{ dossier.commentaire }}</td>
+								</tr>
+								<tr>
+									<th>Avocat en charge du dossier</th>
+									<td>{{ dossier.personnel.fullName }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -48,6 +52,7 @@
 							</span>
 							<span class="text">Retour à la liste</span>
 						</a>
+						{% if is_granted('ROLE_AVOCAT') %}
 						<a class="btn btn-success btn-icon-split" href="{{ path('app_dossier_edit', {'id': dossier.id}) }}">
 							<span class="icon text-white-10">
 								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
@@ -55,6 +60,7 @@
 							<span class="text">
 								Modifier</span>
 						</a>
+						{% endif %}
 					</div>
 				</div>
 			</div>
