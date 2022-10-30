@@ -73,16 +73,38 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">Pas d'enregistrement<</td>
+                <td colspan="3">Pas d'enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-</div>
+       </div>
+        </div>
+       </div>
+
+       <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Etes-vous sûr de vouloir supprimer ce collaborateur?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a href class="btn btn-danger" id="remove_id">Oui</a>
+                    
+                </div>
+            </div>
         </div>
     </div>
-{% endblock %}
 
+
+{% endblock %}
 
 
 {% block javascripts %}
@@ -95,15 +117,15 @@
     <script src="/bundle/js/demo/datatables-demo.js"></script>
     
     <script>
-        let qualiteSup = document.querySelectorAll('a.qualite_sup');
+        let personnelSup = document.querySelectorAll('a.personnel_sup');
         let removeId = document.getElementById('remove_id');
         
-        for(let i = 0; i < qualiteSup.length; i++){
+        for(let i = 0; i < personnelSup.length; i++){
 
-            qualiteSup[i].addEventListener('click', function(){
-                let qualiteId = this.getAttribute('data-id');
+            personnelSup[i].addEventListener('click', function(){
+                let personnelId = this.getAttribute('data-id');
                 let urlSup = this.getAttribute('data-remove-url');
-                removeId.setAttribute('data-id', qualiteId);
+                removeId.setAttribute('data-id', personnelId);
                 removeId.setAttribute('href', urlSup);
                 
             });
