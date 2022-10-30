@@ -90,4 +90,21 @@ class QualiteController extends AbstractController
 
         return $this->redirectToRoute('app_qualite_index', [], Response::HTTP_SEE_OTHER);
     }
+    /**
+     * @Route("/sup/{id}", name="qualite_delete")
+     */
+    public function qualitedelete(qualite $qualite, EntityManagerInterface $em)
+    {
+        if ($qualite) {
+            $em->remove($qualite);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "La qualité <span class='font-weight-bold'>{$qualite->getNom()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_qualite_index');
+        }
+    }
+
 }
