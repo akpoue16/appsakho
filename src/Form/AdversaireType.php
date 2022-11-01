@@ -6,6 +6,7 @@ use App\Entity\Adversaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AdversaireType extends AbstractType
 {
@@ -15,13 +16,18 @@ class AdversaireType extends AbstractType
             ->add('code')
             ->add('raisonSocieal')
             ->add('contact')
-            ->add('titre')
+            ->add('titre', ChoiceType::class, [
+                'choices'  => [
+                    'Mlle' => 'Mademoiselle',
+                    'Mme' => 'Madame',
+                    'Mr' => 'Monsieur',
+                ],
+            ])
             ->add('nom')
             ->add('prenom')
             ->add('tel')
             ->add('cel')
-            ->add('email')
-        ;
+            ->add('email');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

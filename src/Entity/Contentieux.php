@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContentieuxRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class Contentieux
      * @ORM\ManyToOne(targetEntity=Adversaire::class, inversedBy="contentieuxes")
      */
     private $adversaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Audience::class, mappedBy="contentieux")
+     */
+    private $audiences;
+
+    public function __construct()
+    {
+        $this->audiences = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,6 +200,36 @@ class Contentieux
     public function setAdversaire(?Adversaire $adversaire): self
     {
         $this->adversaire = $adversaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Audience>
+     */
+    public function getAudiences(): Collection
+    {
+        return $this->audiences;
+    }
+
+    public function addAudience(Audience $audience): self
+    {
+        if (!$this->audiences->contains($audience)) {
+            $this->audiences[] = $audience;
+            $audience->setContentieux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudience(Audience $audience): self
+    {
+        if ($this->audiences->removeElement($audience)) {
+            // set the owning side to null (unless already changed)
+            if ($audience->getContentieux() === $this) {
+                $audience->setContentieux(null);
+            }
+        }
 
         return $this;
     }
