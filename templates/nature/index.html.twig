@@ -8,7 +8,7 @@
     
      <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des Juridictions</h1>
+        <h1 class="h3 mb-0 text-gray-800">Liste des Natures</h1>
         <div class="align-items-right justify-content-between">
             
             <a href="{{ path('app_nature_new') }}" class="btn btn-success btn-icon-split">
@@ -111,6 +111,51 @@
 
     <!-- Page level custom scripts -->
     <script src="/bundle/js/demo/datatables-demo.js"></script>
+    
+    <script>
+        let clientSup = document.querySelectorAll('a.client_sup');
+        let removeId = document.getElementById('remove_id');
+        
+        for(let i = 0; i < clientSup.length; i++){
+
+            clientSup[i].addEventListener('click', function(){
+                let clientId = this.getAttribute('data-id');
+                let urlSup = this.getAttribute('data-remove-url');
+                removeId.setAttribute('data-id', clientId);
+                removeId.setAttribute('href', urlSup);
+                
+            });
+
+        };
 
 
+        /** removeId.addEventListener('click', function(){
+            let deletePerso = this.getAttribute('data-id');
+            let url = this.getAttribute('data-remove-url');
+            console.log();
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                
+                if(response.ok) {
+                     response.json()
+                        .then(function(data) {
+                          console.log(data);
+                        });
+                } else {
+                    console.log('Mauvaise réponse du réseau');
+                }
+            })
+            .catch(function(error) {
+                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+            });
+                
+        });**/
+        
+    </script>
  {% endblock %}
