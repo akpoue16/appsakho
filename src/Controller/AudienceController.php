@@ -51,7 +51,7 @@ class AudienceController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="app_audience_contentieux", methods={"GET", "POST"})
+     * @Route("/contentieux/{id}", name="app_audience_contentieux", methods={"GET", "POST"})
      */
     public function newContentieux(Request $request, AudienceRepository $audienceRepository, ContentieuxRepository $contentieuxRepository, Contentieux $contentieux): Response
     {
@@ -65,8 +65,9 @@ class AudienceController extends AbstractController
             return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('audience/new.html.twig', [
+        return $this->renderForm('audience/newcontentieux.html.twig', [
             'audience' => $audience,
+            'contentieux' => $contentieuxRepository->find($contentieux),
             'form' => $form,
         ]);
     }

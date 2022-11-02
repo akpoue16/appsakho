@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Audience
+{% endblock %}
+
+{% block body %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Nouvelle Audience</h1>
+</div>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="row">
+			<div class="col">
+				<div class="alert alert-success" role="alert">
+					<p class="mb-0">
+						Affaire N°
+						<b>{{ contentieux.code }}</b>
+					</p>
+					<p class="mb-0">
+						Pour
+						<b>{{ contentieux.client.nom }}
+							{{ contentieux.client.prenom }}</b>, contre
+						<b>{{ contentieux.adversaire.nom }}
+							{{ contentieux.adversaire.prenom }}</b>
+					</p>
+					<p class="mb-0">Nature :
+						<b>{{ contentieux.nature.titre }}</b>
+					</p>
+					<p class="mb-0">Juridiction :
+						<b>{{ contentieux.juridiction.titre }}</b>
+					</p>
+				</div>
+			</div>
+		</div>
+		{{ form_start(form) }}
+		<div class="form-row">
+			<div class="col">
+				{{ form_row(form.code,{'label': 'N° Audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.createdAt,{'label': 'Date et heure d\'audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.procedures,{'label': 'Procédure', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+
+				<div class="col">
+					{{ form_row(form.conseil,{'label': 'Conseil', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+
+				<div class="col">
+					{{ form_row(form.motif,{'label': 'Motif', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					{% if is_granted('ROLE_AVOCAT') %}
+						<a class="btn btn-primary" href="{{ path('app_client_index') }}">
+							<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+							Retour à la liste
+						</a>
+					{% else %}
+						<a class="btn btn-primary" href="{{ path('home_index') }}">
+							<i class="fas fa-home fa-sm text-white-10"></i>
+							Tableau de bord
+						</a>
+					{% endif %}
+
+					<button class="btn btn-success">
+						<i class="fas fa-save fa-sm text-white-10"></i>
+						{{ button_label|default('Enregistrer') }}</button>
+				</div>
+			</div>
+		{{ form_end(form) }}
+
+
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script>
+		// afficher la valeur dans le champ input du fichier sélectionné
+$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+});
+	</script>
+
+{% endblock %}

@@ -67,6 +67,11 @@ class Audience
      */
     private $avocat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Juridiction::class, inversedBy="audiences")
+     */
+    private $juridiction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +193,18 @@ class Audience
     public function setAvocat(?Personnel $avocat): self
     {
         $this->avocat = $avocat;
+
+        return $this;
+    }
+
+    public function getJuridiction(): ?Juridiction
+    {
+        return $this->juridiction;
+    }
+
+    public function setJuridiction(?Juridiction $juridiction): self
+    {
+        $this->juridiction = $juridiction;
 
         return $this;
     }

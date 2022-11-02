@@ -3,16 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Audience;
+use App\Entity\Personnel;
 use App\Entity\Contentieux;
+use App\Entity\Juridiction;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Validator\Constraints\Choice;
 
 class AudienceType extends AbstractType
 {
@@ -31,6 +33,16 @@ class AudienceType extends AbstractType
                 // adds a class that can be selected in JavaScript
                 'attr' => ['class' => 'js-datepicker'],
                 'input' => 'datetime_immutable',
+            ])
+            ->add('avocat', EntityType::class, [
+                'class' => Personnel::class,
+                'placeholder' => '--- Choisir un collaborateur ---',
+                'choice_label' => 'fullName',
+            ])
+            ->add('juridiction', EntityType::class, [
+                'class' => Juridiction::class,
+                'placeholder' => '--- Choisir une Juridiction ---',
+                'choice_label' => 'titre',
             ])
             ->add('conseil')
             ->add('motif')
