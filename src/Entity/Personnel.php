@@ -79,9 +79,21 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
      */
     private $dossiers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Audience::class, mappedBy="avocat")
+     */
+    private $audiences;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contentieux::class, mappedBy="avocat")
+     */
+    private $contentieuxes;
+
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
+        $this->audiences = new ArrayCollection();
+        $this->contentieuxes = new ArrayCollection();
     }
 
     //Afficher le nom et le prenoms
@@ -287,6 +299,66 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
             // set the owning side to null (unless already changed)
             if ($dossier->getPersonnel() === $this) {
                 $dossier->setPersonnel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Audience>
+     */
+    public function getAudiences(): Collection
+    {
+        return $this->audiences;
+    }
+
+    public function addAudience(Audience $audience): self
+    {
+        if (!$this->audiences->contains($audience)) {
+            $this->audiences[] = $audience;
+            $audience->setAvocat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudience(Audience $audience): self
+    {
+        if ($this->audiences->removeElement($audience)) {
+            // set the owning side to null (unless already changed)
+            if ($audience->getAvocat() === $this) {
+                $audience->setAvocat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contentieux>
+     */
+    public function getContentieuxes(): Collection
+    {
+        return $this->contentieuxes;
+    }
+
+    public function addContentieux(Contentieux $contentieux): self
+    {
+        if (!$this->contentieuxes->contains($contentieux)) {
+            $this->contentieuxes[] = $contentieux;
+            $contentieux->setAvocat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContentieux(Contentieux $contentieux): self
+    {
+        if ($this->contentieuxes->removeElement($contentieux)) {
+            // set the owning side to null (unless already changed)
+            if ($contentieux->getAvocat() === $this) {
+                $contentieux->setAvocat(null);
             }
         }
 

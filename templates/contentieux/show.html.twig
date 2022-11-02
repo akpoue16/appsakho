@@ -1,38 +1,162 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contentieux{% endblock %}
+{% block title %}Contentieux
+{% endblock %}
 
 {% block body %}
-    <h1>Contentieux</h1>
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<div>
+			<h1 class="h3 mb-0 text-gray-800">Affaire N°
+				{{ contentieux.code }}</h1>
+			<p>Pour
+				<b>{{ contentieux.client.nom }}
+					{{ contentieux.client.prenom }},</b>
+				contre
+				<b>{{ contentieux.adversaire.nom }}
+					{{ contentieux.adversaire.prenom }}</b>
+			</p>
+		</div>
+		<div class="align-items-right justify-content-between">
+			<span class="dropdown no-arrow mb-4">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ contentieux.id }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ contentieux.code }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ contentieux.createdAt ? contentieux.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Objet</th>
-                <td>{{ contentieux.objet }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ contentieux.commentaire }}</td>
-            </tr>
-        </tbody>
-    </table>
+				<button class="btn btn-info btn-icon-split dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="icon text-white-10">
+						<i class="fas fa-sort-down fa-sm text-white-20"></i>
+					</span>
+					<span class="text">AJOUTER</span>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+					<a target="_blank" class="dropdown-item" href="{{ path('app_audience_contentieux', {'id':contentieux.id}) }}">
+						<i class="fas fa-print fa-sm text-white-10"></i>
+						Audience</a>
+					<a class="dropdown-item" href="#">
+						<i class="fas fa-file-excel fa-sm text-white-10"></i>
+						Facture</a>
+				</div>
+			</span>
+		</div>
+	</div>
 
-    <a href="{{ path('app_contentieux_index') }}">back to list</a>
 
-    <a href="{{ path('app_contentieux_edit', {'id': contentieux.id}) }}">edit</a>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information</button>
+					<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+						{% if audiences == null %}
+							Audience[0]
+						{% else %}
+							Audiences [{{ audiences|length }}]
+						{% endif %}
+					</button>
+					<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Facturation</button>
+				</div>
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<div class="row">
+						<div class="col">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>N° D'entrée</th>
+										<td>{{ contentieux.code }}</td>
+									</tr>
+									<tr>
+										<th>Date d'entrée</th>
+										<td>{{ contentieux.createdAt ? contentieux.createdAt|date('d/m/Y') : '' }}</td>
+									</tr>
+									<tr>
+										<th>Avocat en charge</th>
+										<td>{{ contentieux.avocat.nom }}
+											{{ contentieux.avocat.prenom }}</td>
+									</tr>
+									<tr>
+										<th>Adversaire</th>
+										<td>{{ contentieux.adversaire.nom }}
+											{{ contentieux.adversaire.prenom }}</td>
+									</tr>
+									<tr>
+										<th>Avocat adverse</th>
+										<td>{{ contentieux.confrere.nom }}
+											{{ contentieux.confrere.prenom }}</td>
+									</tr>
+									<tr>
+										<th>Objet</th>
+										<td>{{ contentieux.objet }}</td>
+									</tr>
+									<tr>
+										<th>Commentaire</th>
+										<td>{{ contentieux.commentaire }}</td>
+									</tr>
+								</tbody>
+							</table>
 
-    {{ include('contentieux/_delete_form.html.twig') }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-right">
+
+							<a class="btn btn-success" href="{{ path('app_contentieux_edit', {'id': contentieux.id}) }}">
+								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+								Modifier
+							</a>
+
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+					<div class="row">
+						<div class="col">
+							<table class="table table-striped ">
+								<thead>
+									<tr>
+										{# <th>Id</th> #}
+										<th>N° Audience</th>
+										<th>Avocat</th>
+										<th>Président</th>
+										<th>Date et heure</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for audience in audiences %}
+										<tr>
+											<td style="border-top:0px">
+												<a href="{{ path('app_audience_show', {'id': audience.id }) }}">{{ audience.code }}</a>
+											</td>
+											<td style="border-top:0px">{{ audience.avocat.nom }}</td>
+											<td style="border-top:0px">{{ audience.nom_president }}</td>
+											<td style="border-top:0px">{{ audience.nom_greffier }}</td>
+
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a class="btn btn-primary" href="{{ path('app_client_index') }}">
+						<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+						Retour à la liste
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<!-- Page level plugins -->
+	<script src="/bundle/js/bootstrap.bundle.js"></script>
+
 {% endblock %}

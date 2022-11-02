@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Nature;
 use App\Entity\Qualite;
 use App\Entity\Confrere;
+use App\Entity\Personnel;
 use App\Entity\Adversaire;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
@@ -37,6 +38,16 @@ class ContentieuxType extends AbstractType
             ->add('commentaire', TextareaType::class)
             ->add('client', EntityType::class, [
                 'class' => Client::class,
+                'placeholder' => '--- Choisir un client ---',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+
+                'choice_label' => 'fullName',
+            ])
+            ->add('avocat', EntityType::class, [
+                'class' => Personnel::class,
                 'placeholder' => '--- Choisir un client ---',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')

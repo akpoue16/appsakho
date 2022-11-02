@@ -74,6 +74,11 @@ class Contentieux
      */
     private $audiences;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Personnel::class, inversedBy="contentieuxes")
+     */
+    private $avocat;
+
     public function __construct()
     {
         $this->audiences = new ArrayCollection();
@@ -230,6 +235,18 @@ class Contentieux
                 $audience->setContentieux(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvocat(): ?Personnel
+    {
+        return $this->avocat;
+    }
+
+    public function setAvocat(?Personnel $avocat): self
+    {
+        $this->avocat = $avocat;
 
         return $this;
     }

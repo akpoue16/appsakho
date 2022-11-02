@@ -47,32 +47,32 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Code</th>
-							<th>CreatedAt</th>
-							<th>Objet</th>
-							<th>Commentaire</th>
+							<th>Num</th>
+							<th>Pour</th>
+							<th>Contre</th>
+							<th>Nature</th>
+							<th>Juridiction</th>
 							<th>actions</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th>Id</th>
-							<th>Code</th>
-							<th>CreatedAt</th>
-							<th>Objet</th>
-							<th>Commentaire</th>
+							<th>Num</th>
+							<th>Pour</th>
+							<th>Contre</th>
+							<th>Nature</th>
+							<th>Juridiction</th>
 							<th>actions</th>
 						</tr>
 					</tfoot>
 					<tbody>
 						{% for contentieux in contentieuxes %}
 							<tr>
-								<td>{{ contentieux.id }}</td>
 								<td>{{ contentieux.code }}</td>
-								<td>{{ contentieux.createdAt ? contentieux.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-								<td>{{ contentieux.objet }}</td>
-								<td>{{ contentieux.commentaire }}</td>
+								<td>{{ contentieux.client.fullName }}</td>
+								<td>{{ contentieux.adversaire.nom }}</td>
+								<td>{{ contentieux.nature.titre }}</td>
+								<td>{{ contentieux.juridiction.titre }}</td>
 
 								<td>
 									<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_contentieux_show', {'id':contentieux.id}) }}">
@@ -83,7 +83,7 @@
 									</a>
 
 									<!-- Button trigger modal -->
-									<a class="btn btn-danger btn-sm btn-circle contentieux_sup" href data-remove-url="{{ url('personnel_delete', {'id':contentieux.id}) }}" data-id="{{contentieux.id }}" data-toggle="modal" data-target="#logoutModal">
+									<a class="btn btn-danger btn-sm btn-circle contentieux_sup" href data-remove-url="{{ url('contentieux_delete', {'id':contentieux.id}) }}" data-id="{{contentieux.id }}" data-toggle="modal" data-target="#logoutModal">
 										<i class="fas fa-trash-alt fa-sm text-white-10"></i>
 									</a>
 								</td>

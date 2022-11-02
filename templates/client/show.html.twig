@@ -13,17 +13,17 @@
 	<div
 		class="card shadow mb-4">
 		{# <div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-				</div> #}
+																																																		<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+																																																		</div> #}
 		<div class="card-body">
 			<nav>
 				<div class="nav nav-tabs" id="nav-tab" role="tablist">
 					<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information</button>
 					<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
-						{% if dossiers == null %}
-							Dossier[0]
+						{% if contentieux == null %}
+							Contentieux [0]
 						{% else %}
-							Dossier [{{ dossiers|length }}]
+							Contentieux [{{ contentieux|length }}]
 						{% endif %}
 					</button>
 					<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Facturation</button>
@@ -98,27 +98,22 @@
 								<thead>
 									<tr>
 										{# <th>Id</th> #}
-										<th>N° dossier</th>
-										<th>Nom</th>
-										<th>Date d'ouverture</th>
-										<th>Date de fermeture</th>
+										<th>N° contentieux</th>
+										<th>Date d'entrée</th>
+										<th>Adversaire</th>
+										<th>Avocat en charge</th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for dossier in dossiers %}
+									{% for contentieuxV in contentieux %}
 										<tr>
 											<td style="border-top:0px">
-                                                <a href="{{ path('app_dossier_show', {'id': dossier.id }) }}">{{ dossier.code }}</a>
-                                            </td>
-											<td style="border-top:0px">{{ dossier.nom }}</td>
-											<td style="border-top:0px">{{ dossier.createdAt|date('d/m/Y') }}</td>
-											<td style="border-top:0px">
-                                                {% if dossier.updateAt != null %}
-                                                {{ dossier.updateAt|date('d/m/Y') }}
-                                                {% endif %}
-                                            </td>
-										
-                                        </tr>
+												<a href="{{ path('app_contentieux_show', {'id': contentieuxV.id }) }}">{{ contentieuxV.code }}</a>
+											</td>
+											<td style="border-top:0px">{{ contentieuxV.createdAt|date('d/m/Y') }}</td>
+											<td style="border-top:0px">{{ contentieuxV.adversaire.nom }}
+												{{ contentieuxV.adversaire.prenom }}</td>
+										</tr>
 									{% endfor %}
 								</tbody>
 							</table>

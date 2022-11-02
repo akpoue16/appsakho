@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Audience;
 use App\Form\AudienceType;
+use App\Entity\Contentieux;
 use App\Repository\AudienceRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ContentieuxRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/audience")
@@ -32,6 +36,27 @@ class AudienceController extends AbstractController
     {
         $audience = new Audience();
         $form = $this->createForm(AudienceType::class, $audience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $audienceRepository->add($audience, true);
+
+            return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('audience/new.html.twig', [
+            'audience' => $audience,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/new/{id}", name="app_audience_contentieux", methods={"GET", "POST"})
+     */
+    public function newContentieux(Request $request, AudienceRepository $audienceRepository, ContentieuxRepository $contentieuxRepository, Contentieux $contentieux): Response
+    {
+        $audience = new Audience();
+        $form = $this->createForm(AudienceType::class, $audience, ['contentieux' => $contentieux]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,10 +106,28 @@ class AudienceController extends AbstractController
      */
     public function delete(Request $request, Audience $audience, AudienceRepository $audienceRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$audience->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $audience->getId(), $request->request->get('_token'))) {
             $audienceRepository->remove($audience, true);
         }
 
         return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @IsGranted("ROLE_AVOCAT")
+     * @Route("/sup/{id}", name="client_delete")
+     */
+    public function audiencedelete(Audience $audience, EntityManagerInterface $em)
+    {
+        if ($audience) {
+            $em->remove($audience);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "L'audience <span class='font-weight-bold'>{$audience->getCode()} </span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_audience_index');
+        }
     }
 }

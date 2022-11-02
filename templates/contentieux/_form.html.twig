@@ -12,28 +12,42 @@
 	<div class="col">
 		{{ form_row(form.juridiction,{'label': 'Juridiction', 'attr':{'placeholder':'Juridiction','class':'form-control'}}) }}
 	</div>
-	<div class="col-1"></div>
 	<div class="col">
 		{{ form_row(form.nature,{'label': 'Nature', 'attr':{'placeholder':'Nature','class':'form-control'}}) }}
 	</div>
-</div>
-<div class="form-row">
-	<div class="col">
-		{{ form_row(form.client,{'label': 'Pour', 'attr':{'placeholder':'Client','class':'form-control'}}) }}
-	</div>
 	<div class="col-1"></div>
 	<div class="col">
-		{{ form_row(form.adversaire,{'label': 'Contre', 'attr':{'placeholder':'Adversaire','class':'form-control'}}) }}
+		{{ form_row(form.avocat,{'label': 'Avocat en charge', 'attr':{'placeholder':'','class':'form-control'}}) }}
 	</div>
 </div>
+<fieldset class="border p-2 mb-3 border-dark rounded">
+	<legend class="float-none w-auto p-2 font-weight-bold">Pour</legend>
+	<div class="form-row">
+		<div class="col">
+			{{ form_row(form.client,{'label': 'Pour', 'attr':{'placeholder':'Client','class':'form-control'}}) }}
+		</div>
+		<div class="col">
+			{{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
+		</div>
+	</div>
+</fieldset>
+<fieldset class="border p-2 mb-3 border-dark rounded">
+	<legend class="float-none w-auto p-2 font-weight-bold">Contre</legend>
+	<div class="form-row">
+		<div class="col">
+			{{ form_row(form.adversaire,{'label': 'Contre', 'attr':{'placeholder':'Adversaire','class':'form-control'}}) }}
+		</div>
+		<div class="col">
+			{{ form_row(form.confrere,{'label': 'Avocat adverse', 'attr':{'placeholder':'Confrere','class':'form-control'}}) }}
+		</div>
+
+	</div>
+</fieldset>
+
 <div class="form-row">
-	<div class="col">
-		{{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
-	</div>
+
 	<div class="col-1"></div>
-	<div class="col">
-		{{ form_row(form.confrere,{'label': 'Confrere', 'attr':{'placeholder':'Confrere','class':'form-control'}}) }}
-	</div>
+
 </div>
 <div class="form-row">
 	<div class="col">
