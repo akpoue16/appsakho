@@ -31,10 +31,28 @@
 					<p class="mb-0">Juridiction :
 						<b>{{ contentieux.juridiction.titre }}</b>
 					</p>
+
+					<p class="mb-0">Dernière audience :
+						{% if derniereAudience %}
+							{% for derniereAudiences in derniereAudience  %}
+								<b>{{ derniereAudiences.createdAt|date('d/m/Y') }}
+									{{ derniereAudiences.code }}
+									{{ derniereAudiences.procedures }}
+									{{ derniereAudiences.juridiction.titre }}</b>
+							{% endfor %}
+						{% else %}
+							<b>AFFAIRE NOUVELLE(AN)</b>
+						{% endif %}
+					</p>
 				</div>
 			</div>
 		</div>
 		{{ form_start(form) }}
+		<div class="form-row">
+			<div class="col">
+				{{ form_row(form.contentieux,{'label': 'N° Contentieux', 'attr':{'placeholder':'','class':'form-control'}}) }}
+			</div>
+		</div>
 		<div class="form-row">
 			<div class="col">
 				{{ form_row(form.code,{'label': 'N° Audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
@@ -43,17 +61,37 @@
 				{{ form_row(form.createdAt,{'label': 'Date et heure d\'audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.juridiction,{'label': 'Juridiction', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.avocat,{'label': 'Avocat', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.nomPresident,{'label': 'Président', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.nomGreffier,{'label': 'Greffier', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.conseil,{'label': 'Conseil', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
 			<div class="row">
 				<div class="col">
 					{{ form_row(form.procedures,{'label': 'Procédure', 'attr':{'placeholder':'','class':'form-control'}}) }}
 				</div>
-
 				<div class="col">
-					{{ form_row(form.conseil,{'label': 'Conseil', 'attr':{'placeholder':'','class':'form-control'}}) }}
+					{{ form_row(form.motif,{'label': 'Motif précédent', 'attr':{'placeholder':'','class':'form-control'}}) }}
 				</div>
-
 				<div class="col">
-					{{ form_row(form.motif,{'label': 'Motif', 'attr':{'placeholder':'','class':'form-control'}}) }}
+					{{ form_row(form.renvoyer,{'label': 'Renvoyer au', 'attr':{'placeholder':'','class':'form-control'}, }) }}
 				</div>
 			</div>
 
@@ -61,9 +99,9 @@
 				<div class="col">
 
 					{% if is_granted('ROLE_AVOCAT') %}
-						<a class="btn btn-primary" href="{{ path('app_client_index') }}">
+						<a class="btn btn-primary" href="{{ path('app_contentieux_show', {'id': contentieux.id}) }}">
 							<i class="fas fa-arrow-left fa-sm text-white-10"></i>
-							Retour à la liste
+							Retour
 						</a>
 					{% else %}
 						<a class="btn btn-primary" href="{{ path('home_index') }}">

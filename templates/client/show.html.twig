@@ -10,11 +10,7 @@
 			{{ client.code }}</h1>
 	</div>
 	<!-- DataTales Example -->
-	<div
-		class="card shadow mb-4">
-		{# <div class="card-header py-3">
-																																																		<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-																																																		</div> #}
+	<div class="card shadow mb-4">
 		<div class="card-body">
 			<nav>
 				<div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -113,6 +109,8 @@
 											<td style="border-top:0px">{{ contentieuxV.createdAt|date('d/m/Y') }}</td>
 											<td style="border-top:0px">{{ contentieuxV.adversaire.nom }}
 												{{ contentieuxV.adversaire.prenom }}</td>
+											<td style="border-top:0px">{{ contentieuxV.avocat.nom }}
+												{{ contentieuxV.avocat.prenom }}</td>
 										</tr>
 									{% endfor %}
 								</tbody>

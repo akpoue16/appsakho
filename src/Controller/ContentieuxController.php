@@ -57,7 +57,7 @@ class ContentieuxController extends AbstractController
     {
         return $this->render('contentieux/show.html.twig', [
             'contentieux' => $contentieux,
-            'audiences' => $audienceRepository->findByContentieux($contentieux),
+            'audiences' => $audienceRepository->findBy(['contentieux' => $contentieux], ['createdAt' => 'DESC']),
         ]);
     }
 

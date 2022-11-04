@@ -24,8 +24,17 @@ class AudienceController extends AbstractController
      */
     public function index(AudienceRepository $audienceRepository): Response
     {
+        $user = $this->getUser();
+
+        if ($user->getRoles() == 'ROLE_CLIENT') {
+            return $this->render('audience/index.html.twig', [
+                'audiences' => $audienceRepository->clientAudience($user),
+            ]);
+        }
+
         return $this->render('audience/index.html.twig', [
             'audiences' => $audienceRepository->findAll(),
+            'clientAudiences' => $audienceRepository->clientAudience($user),
         ]);
     }
 
@@ -56,10 +65,13 @@ class AudienceController extends AbstractController
     public function newContentieux(Request $request, AudienceRepository $audienceRepository, ContentieuxRepository $contentieuxRepository, Contentieux $contentieux): Response
     {
         $audience = new Audience();
+        $derniereaudience = new Audience();
+
         $form = $this->createForm(AudienceType::class, $audience, ['contentieux' => $contentieux]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $audience->setContentieux($contentieux);
             $audienceRepository->add($audience, true);
 
             return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
@@ -67,6 +79,7 @@ class AudienceController extends AbstractController
 
         return $this->renderForm('audience/newcontentieux.html.twig', [
             'audience' => $audience,
+            'derniereAudience' => $audienceRepository->findBy(['contentieux' => $contentieux], ['contentieux' => 'DESC'], 1, 1),
             'contentieux' => $contentieuxRepository->find($contentieux),
             'form' => $form,
         ]);

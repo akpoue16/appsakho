@@ -59,28 +59,21 @@
 				</li>
 
 				<!-- Divider -->
-				<hr class="sidebar-divider">
-				{% if is_granted('ROLE_ADMIN') %}
-					<!-- Nav Item - Affaire -->
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_dossier_index') }}">
-							<i class="fas fa-fw fa-folder-open"></i>
-							<span>Dossier</span>
-						</a>
-					</li>
-				{% endif %}
+				<hr
+				class="sidebar-divider">
+
 				<!-- Nav Item - Affaire -->
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_contentieux_index') }}">
 						<i class="fas fa-balance-scale-left"></i>
-						<span>Contentieux</span>
+						<span>Affaires</span>
 					</a>
 				</li>
 				<!-- Nav Item - Audience -->
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_audience_index') }}">
 						<i class="fas fa-university "></i>
-						<span>Audience</span>
+						<span>Audiences</span>
 					</a>
 				</li>
 				<!-- Nav Item - Factures -->
