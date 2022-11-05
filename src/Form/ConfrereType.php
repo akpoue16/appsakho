@@ -24,8 +24,7 @@ class ConfrereType extends AbstractType
             ->add('prenom')
             ->add('tel')
             ->add('cel')
-            ->add('email')
-        ;
+            ->add('email');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

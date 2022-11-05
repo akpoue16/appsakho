@@ -11,6 +11,7 @@ use App\Form\PasswordUpdateType;
 use App\Repository\ClientRepository;
 use App\Repository\DossierRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ContentieuxRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,11 +77,11 @@ class ClientController extends AbstractController
     /**
      * @Route("/{id}", name="app_client_show", requirements={"id"="\d+"}, methods={"GET"})
      */
-    public function show(Client $client, DossierRepository $dossierRepository): Response
+    public function show(Client $client, ContentieuxRepository $contentieuxRepository): Response
     {
         return $this->render('client/show.html.twig', [
             'client' => $client,
-            'dossiers' => $dossierRepository->findByClient($client)
+            'contentieux' => $contentieuxRepository->findByClient($client)
         ]);
     }
 
@@ -230,7 +231,7 @@ class ClientController extends AbstractController
         $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
                 $this->addFlash(
@@ -251,7 +252,6 @@ class ClientController extends AbstractController
                     "Le mot de passea été <span class='font-weight-bold'>Modifier avec succes</span>"
                 );
                 return $this->redirectToRoute('home_index');
-
             }
         }
 
@@ -265,7 +265,7 @@ class ClientController extends AbstractController
      */
     public function reset_password(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
-        
+
         return $this->render('client/compte/reset_password.html.twig');
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Audience;
 use App\Entity\Contentieux;
 use App\Form\ContentieuxType;
+use App\Repository\AudienceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContentieuxRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/contentieux")
@@ -49,10 +53,11 @@ class ContentieuxController extends AbstractController
     /**
      * @Route("/{id}", name="app_contentieux_show", methods={"GET"})
      */
-    public function show(Contentieux $contentieux): Response
+    public function show(Contentieux $contentieux, AudienceRepository $audienceRepository): Response
     {
         return $this->render('contentieux/show.html.twig', [
             'contentieux' => $contentieux,
+            'audiences' => $audienceRepository->findBy(['contentieux' => $contentieux], ['createdAt' => 'DESC']),
         ]);
     }
 
@@ -81,10 +86,27 @@ class ContentieuxController extends AbstractController
      */
     public function delete(Request $request, Contentieux $contentieux, ContentieuxRepository $contentieuxRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contentieux->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $contentieux->getId(), $request->request->get('_token'))) {
             $contentieuxRepository->remove($contentieux, true);
         }
 
         return $this->redirectToRoute('app_contentieux_index', [], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @IsGranted("ROLE_AVOCAT")
+     * @Route("/sup/{id}", name="contentieux_delete")
+     */
+    public function clientdelete(Contentieux $contentieux, EntityManagerInterface $em)
+    {
+        if ($contentieux) {
+            $em->remove($contentieux);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "Le contentieux N° <span class='font-weight-bold'>{$contentieux->getCode()} de {$contentieux->getClient()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_contentieux_index');
+        }
     }
 }

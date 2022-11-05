@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Juridiction
+{% block title %}Modifier Juridiction
 {% endblock %}
 
 
 {% block body %}
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Modifier le colaborateur N°:
+		<h1 class="h3 mb-0 text-gray-800">Modifier la juridiction N°:
 			{{ juridiction.id }}</h1>
 	</div>
 	<!-- DataTales Example -->
-	<div
-		class="card shadow mb-4">
+	<div class="card shadow mb-4">
 		<div class="card-body">
 			{{ include('juridiction/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 

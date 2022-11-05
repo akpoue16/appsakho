@@ -34,9 +34,20 @@ class Juridiction
      */
     private $contentieuxes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Audience::class, mappedBy="juridiction")
+     */
+    private $audiences;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lieu;
+
     public function __construct()
     {
         $this->contentieuxes = new ArrayCollection();
+        $this->audiences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +105,48 @@ class Juridiction
                 $contentieux->setJuridiction(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Audience>
+     */
+    public function getAudiences(): Collection
+    {
+        return $this->audiences;
+    }
+
+    public function addAudience(Audience $audience): self
+    {
+        if (!$this->audiences->contains($audience)) {
+            $this->audiences[] = $audience;
+            $audience->setJuridiction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudience(Audience $audience): self
+    {
+        if ($this->audiences->removeElement($audience)) {
+            // set the owning side to null (unless already changed)
+            if ($audience->getJuridiction() === $this) {
+                $audience->setJuridiction(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?string $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}SCP SAKHO
 {% endblock %}
 
 {% block body %}
@@ -10,17 +10,17 @@
 		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-primary shadow h-100 py-2">
-				<a href="{{ path('app_dossier_index') }}" style="text-decoration:none">
+				<a href="{{ path('app_contentieux_index') }}" style="text-decoration:none">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm font-weight-bold text-primary text-uppercase mb-1">
-									Dossiers</div>
+									Affaires</div>
 								<div class="h5 mb-0 font-weight-bold text-gray-800">
 									{% if is_granted("ROLE_AVOCAT") %}
-										{{ dossiers|length }}
+										{{ contentieux|length }}
 									{% else %}
-										{{ dossier|length }}
+										{{ unContentieux|length }}
 									{% endif %}
 
 								</div>
@@ -59,7 +59,7 @@
 					</a>
 				</div>
 			</div>
-		{% else %}
+			{% else %}
 
 		{% endif %}
 		<!-- Earnings (Monthly) Card Example -->
@@ -70,8 +70,15 @@
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
 							<div class="text-sm font-weight-bold text-info text-uppercase mb-1">
-								Consultations</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+								Audiences</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">
+
+								{% if is_granted("ROLE_AVOCAT") %}
+									{{ audiences|length }}
+								{% else %}
+									{{ unAudience|length }}
+								{% endif %}
+							</div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -98,6 +105,113 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+	</div>
+
+	<div
+		class="row">
+
+		<!-- Content Column -->
+		<div
+			class="col-lg-8 mb-4">
+
+			<!-- Project Card Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Audiences</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						{% if is_granted('ROLE_AVOCAT') %}
+							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
+								<tbody>
+									{% for audience in audiences %}
+										<tr>
+											<td>{{ audience.createdAt|date('d/m/Y') }}</td>
+											<td>Pour
+												<b>{{ audience.contentieux.client.nom }}
+													{{ audience.contentieux.client.prenom }}</b>, contre
+												<b>{{ audience.contentieux.adversaire.nom }}
+													{{ audience.contentieux.adversaire.prenom }}</b>
+											</td>
+											<td>{{ audience.juridiction.titre }}</td>
+											<td>
+												<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': audience.id}) }}">
+													<i class="fas fa-eye fa-sm text-white-10"></i>
+												</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="8">Pas d'audience aujourd'hui</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						{% else %}
+
+							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
+
+								<thead>
+									<tr>
+										<td>DATE</td>
+										<td>CONTRE</td>
+										<td>AFFAIRE</td>
+										<td>NATURE</td>
+										<td>JURIDICTION</td>
+									</tr>
+								</thead>
+								<tbody>
+									{% for unAudiences in unAudience %}
+										<tr>
+											<td>{{ unAudiences.createdAt|date('d/m/Y') }}</td>
+											<td>
+												<b>{{ unAudiences.contentieux.adversaire.nom }}
+													{{ unAudiences.contentieux.adversaire.prenom }}</b>
+											</td>
+											<td>{{ unAudiences.contentieux.code }}</td>
+											<td>{{ unAudiences.contentieux.nature.titre }}</td>
+											<td>{{ unAudiences.juridiction.titre }}</td>
+											<td>
+												<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': unAudiences.id}) }}">
+													<i class="fas fa-eye fa-sm text-white-10"></i>
+												</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="8">Pas d'audience aujourd'hui</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						{% endif %}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div
+			class="col-lg-4 mb-4">
+
+			<!-- Illustrations -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+				</div>
+				<div class="card-body">
+					<div class="text-center">
+						<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
+					</div>
+					<p>Add some quality, svg illustrations to your project courtesy of
+						<a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+					<a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw →</a>
+				</div>
+			</div>
+
 		</div>
 	</div>
 {% endblock %}

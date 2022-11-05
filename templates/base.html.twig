@@ -19,6 +19,8 @@
 
 		<!-- Custom styles for this template-->
 		<link href="/bundle/css/sb-admin-2.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.min.css">
+
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -60,22 +62,21 @@
 				<hr
 				class="sidebar-divider">
 
-				<!-- Nav Item - Affaire -->
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_dossier_index') }}">
-						<i class="fas fa-fw fa-folder-open"></i>
-						<span>Dossier</span>
-					</a>
-				</li>
-
-				<!-- Nav Item - Affaire -->
+				<!-- Nav Item - Contentieux -->
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_contentieux_index') }}">
 						<i class="fas fa-balance-scale-left"></i>
 						<span>Contentieux</span>
 					</a>
 				</li>
-				<!-- Nav Item - Affaire -->
+				<!-- Nav Item - Audience -->
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_audience_index') }}">
+						<i class="fas fa-university "></i>
+						<span>Audiences</span>
+					</a>
+				</li>
+				<!-- Nav Item - Factures -->
 				<li class="nav-item">
 					<a class="nav-link" href="#">
 						<i class="fas fa-clipboard-list"></i>
@@ -83,96 +84,96 @@
 					</a>
 				</li>
 				{% if is_granted('ROLE_AVOCAT') %}
-				<!-- Nav Item - Client -->
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_client_index') }}">
-						<i class="fas fa-fw fa-users"></i>
-						<span>Clients</span>
-					</a>
-				</li>
+					<!-- Nav Item - Client -->
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_client_index') }}">
+							<i class="fas fa-fw fa-users"></i>
+							<span>Clients</span>
+						</a>
+					</li>
 
-				<!-- Nav Item - Collaborateur -->
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_personnel_index') }}">
-						<i class="fas fa-fw fa-user"></i>
-						<span>Collaborateurs</span>
-					</a>
-				</li>
+					<!-- Nav Item - Collaborateur -->
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_personnel_index') }}">
+							<i class="fas fa-fw fa-user"></i>
+							<span>Collaborateurs</span>
+						</a>
+					</li>
 
-				<!-- Divider -->
-				<hr
-				class="sidebar-divider">
-				<!-- Heading -->
-				<div class="sidebar-heading">
-					Partie Adverse
-				</div>
-
-
-				<!-- Nav Item - Confrère -->
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_confrere_index') }}">
-						<i class="fa fa-fw fa-user-circle"></i>
-						<span>Confrères</span>
-					</a>
-				</li>
-				<!-- Nav Item - Adversaire -->
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_adversaire_index') }}">
-						<i class="fa fa-fw fa-users"></i>
-						<span>Adversaires</span>
-					</a>
-				</li>
-
-				<!-- Divider -->
-				<hr
-				class="sidebar-divider">
-
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices" aria-expanded="true" aria-controls="collapseServices">
-						<i class="fas fa-fw fa-briefcase"></i>
-						<span>Services</span>
-					</a>
-					<div id="collapseServices" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="buttons.html">Consultation</a>
-							<a class="collapse-item" href="cards.html">Conseil</a>
-						</div>
+					<!-- Divider -->
+					<hr
+					class="sidebar-divider">
+					<!-- Heading -->
+					<div class="sidebar-heading">
+						Partie Adverse
 					</div>
-				</li>
 
-				<!-- Divider -->
-				<hr
-				class="sidebar-divider">
 
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-						<i class="fas fa-fw fa-cogs"></i>
-						<span>Paramètre</span>
-					</a>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="{{ path('app_tribunal_index') }}">Tribunal</a>
-							<a class="collapse-item" href="{{ path('app_chambre_index') }}">Chambre</a>
-							<a class="collapse-item" href="{{ path('app_juridiction_index') }}">Juridiction</a>
-							<a class="collapse-item" href="{{ path('app_nature_index') }}">Nature</a>
-							<a class="collapse-item" href="{{ path('app_qualite_index') }}">Qualité</a>
-							{% if is_granted('ROLE_ADMIN') %}
-							<a class="collapse-item" href="#">Utilisateur</a>
-							{% endif %}
+					<!-- Nav Item - Confrère -->
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_confrere_index') }}">
+							<i class="fa fa-fw fa-user-circle"></i>
+							<span>Confrères</span>
+						</a>
+					</li>
+					<!-- Nav Item - Adversaire -->
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_adversaire_index') }}">
+							<i class="fa fa-fw fa-users"></i>
+							<span>Adversaires</span>
+						</a>
+					</li>
+
+					<!-- Divider -->
+					<hr
+					class="sidebar-divider">
+
+					<!-- Nav Item - Pages Collapse Menu -->
+					<li class="nav-item">
+						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices" aria-expanded="true" aria-controls="collapseServices">
+							<i class="fas fa-fw fa-briefcase"></i>
+							<span>Services</span>
+						</a>
+						<div id="collapseServices" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+							<div class="bg-white py-2 collapse-inner rounded">
+								<a class="collapse-item" href="buttons.html">Consultation</a>
+								<a class="collapse-item" href="cards.html">Conseil</a>
+							</div>
 						</div>
+					</li>
+
+					<!-- Divider -->
+					<hr
+					class="sidebar-divider">
+
+					<!-- Nav Item - Pages Collapse Menu -->
+					<li class="nav-item">
+						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+							<i class="fas fa-fw fa-cogs"></i>
+							<span>Paramètre</span>
+						</a>
+						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+							<div class="bg-white py-2 collapse-inner rounded">
+								<a class="collapse-item" href="{{ path('app_chambre_index') }}">Chambre</a>
+								<a class="collapse-item" href="{{ path('app_juridiction_index') }}">Juridiction</a>
+								<a class="collapse-item" href="{{ path('app_nature_index') }}">Nature</a>
+								<a class="collapse-item" href="{{ path('app_qualite_index') }}">Qualité</a>
+								{% if is_granted('ROLE_ADMIN') %}
+									<a class="collapse-item" href="{{ path('home_parametre') }}">Paramètre</a>
+									<a class="collapse-item" href="#">Utilisateur</a>
+								{% endif %}
+							</div>
+						</div>
+					</li>
+
+					<!-- Divider -->
+					<hr
+					class="sidebar-divider d-none d-md-block">
+
+					<!-- Sidebar Toggler (Sidebar) -->
+					<div class="text-center d-none d-md-inline">
+						<button class="rounded-circle border-0" id="sidebarToggle"></button>
 					</div>
-				</li>
-
-				<!-- Divider -->
-				<hr
-				class="sidebar-divider d-none d-md-block">
-
-				<!-- Sidebar Toggler (Sidebar) -->
-				<div class="text-center d-none d-md-inline">
-					<button class="rounded-circle border-0" id="sidebarToggle"></button>
-				</div>
 				{% endif %}
 			</ul>
 			<!-- End of Sidebar -->
@@ -269,6 +270,7 @@
 					<div class="container-fluid">
 
 						<div class="col">
+
 							{% for message in app.flashes('success') %}
 								<div class="alert alert-success">
 									{{ message|raw }}
@@ -333,6 +335,7 @@
 
 		<!-- Custom scripts for all pages-->
 		<script src="/bundle/js/sb-admin-2.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
 
 		{% block javascripts %}

@@ -15,8 +15,12 @@ class JuridictionType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class)
-            ->add('commentaire', TextareaType::class)
-        ;
+            ->add('lieu', TextType::class, [
+                'required'   => true,
+            ])
+            ->add('commentaire', TextareaType::class, [
+                'required'   => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

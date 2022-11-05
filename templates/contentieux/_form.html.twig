@@ -1,55 +1,71 @@
 {{ form_start(form) }}
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.code,{'label': 'N° Affaire', 'attr':{'placeholder':'','class':'form-control'}}) }}
-        </div>
-         <div class="col-4"></div>
-        <div class="col">
-            {{ form_row(form.createdAt, {'label': 'Date'}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.client,{'label': 'Client', 'attr':{'placeholder':'Client','class':'form-control'}}) }}
-        </div>
-        <div class="col-1"></div>
-        <div class="col">
-            {{ form_row(form.adversaire,{'label': 'Adversaire', 'attr':{'placeholder':'Adversaire','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
-        </div>
-        <div class="col-1"></div>
-        <div class="col">
-            {{ form_row(form.confrere,{'label': 'Confrere', 'attr':{'placeholder':'Confrere','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.juridiction,{'label': 'Juridiction', 'attr':{'placeholder':'Juridiction','class':'form-control'}}) }}
-        </div>
-        <div class="col-1"></div>
-        <div class="col">
-            {{ form_row(form.nature,{'label': 'Nature', 'attr':{'placeholder':'Nature','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col">
-            {{ form_row(form.objet,{'label': 'Objet', 'attr':{'placeholder':'Objet','class':'form-control'}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(form.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-primary" href="{{ path('app_contentieux_index') }}">
-                <i class="fas fa-arrow-left fa-sm text-white-10"></i> Retour à la liste
-            </a>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.code,{'label': 'N° D\'entrée', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+	<div class="col-4"></div>
+	<div class="col">
+		{{ form_row(form.createdAt, {'label': 'Date d\'entrée'}) }}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.juridiction,{'label': 'Juridiction', 'attr':{'placeholder':'Juridiction','class':'form-control'}}) }}
+	</div>
+	<div class="col-3">
+		{{ form_row(form.nature,{'label': 'Nature', 'attr':{'placeholder':'Nature','class':'form-control'}}) }}
+	</div>
+	<div class="col">
+		{{ form_row(form.avocat,{'label': 'Avocat en charge', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+</div>
+<fieldset class="border p-2 mb-3 border-dark rounded">
+	<legend class="float-none w-auto p-2 font-weight-bold">Pour</legend>
+	<div class="form-row">
+		<div class="col">
+			{{ form_row(form.client,{'label': 'Pour', 'attr':{'placeholder':'Client','class':'form-control'}}) }}
+		</div>
+		<div class="col">
+			{{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
+		</div>
+	</div>
+</fieldset>
+<fieldset class="border p-2 mb-3 border-dark rounded">
+	<legend class="float-none w-auto p-2 font-weight-bold">Contre</legend>
+	<div class="form-row">
+		<div class="col">
+			{{ form_row(form.adversaire,{'label': 'Contre', 'attr':{'placeholder':'Adversaire','class':'form-control'}}) }}
+		</div>
+		<div class="col">
+			{{ form_row(form.confrere,{'label': 'Avocat adverse', 'attr':{'placeholder':'Confrere','class':'form-control'}}) }}
+		</div>
 
-            <button class="btn btn-success"><i class="fas fa-save fa-sm text-white-10"></i> {{ button_label|default('Enregistrer') }}</button>
-        </div>
-    </div>
+	</div>
+</fieldset>
+
+<div class="form-row">
+
+	<div class="col-1"></div>
+
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.objet,{'label': 'Objet', 'attr':{'placeholder':'Objet','class':'form-control'}}) }}
+	</div>
+	<div class="col">
+		{{ form_row(form.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<a class="btn btn-primary" href="{{ path('app_contentieux_index') }}">
+			<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+			Retour à la liste
+		</a>
+
+		<button class="btn btn-success">
+			<i class="fas fa-save fa-sm text-white-10"></i>
+			{{ button_label|default('Enregistrer') }}</button>
+	</div>
+</div>
 {{ form_end(form) }}
