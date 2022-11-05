@@ -12,18 +12,18 @@
 				{{ contentieux.code }}</h1>
 			{% if is_granted('ROLE_ADMIN') %}
 				<p>Pour
-					<b>{{ contentieux.client.nom }}
-						{{ contentieux.client.prenom }},</b>
+					<b>{{ contentieux.client.nom|capitalize }}
+						{{ contentieux.client.prenom|capitalize }},</b>
 					contre
-					<b>{{ contentieux.adversaire.nom }}
-						{{ contentieux.adversaire.prenom }}</b>
+					<b>{{ contentieux.adversaire.nom|capitalize }}
+						{{ contentieux.adversaire.prenom|capitalize }}</b>
 				</p>
 			{% else %}
 				<p>En qualité de
 					<b>{{ contentieux.qualite.titre }},
 					</b>contre
-					<b>{{ contentieux.adversaire.nom }}
-						{{ contentieux.adversaire.prenom }}</b>
+					<b>{{ contentieux.adversaire.nom|capitalize }}
+						{{ contentieux.adversaire.prenom|capitalize }}</b>
 				</p>
 			{% endif %}
 		</div>
@@ -86,18 +86,18 @@
 									</tr>
 									<tr>
 										<th>Avocat en charge</th>
-										<td>{{ contentieux.avocat.nom }}
-											{{ contentieux.avocat.prenom }}</td>
+										<td>{{ contentieux.avocat.nom|capitalize }}
+											{{ contentieux.avocat.prenom|capitalize }}</td>
 									</tr>
 									<tr>
 										<th>Adversaire</th>
-										<td>{{ contentieux.adversaire.nom }}
-											{{ contentieux.adversaire.prenom }}</td>
+										<td>{{ contentieux.adversaire.nom|capitalize }}
+											{{ contentieux.adversaire.prenom|capitalize }}</td>
 									</tr>
 									<tr>
 										<th>Avocat adverse</th>
-										<td>{{ contentieux.confrere.nom }}
-											{{ contentieux.confrere.prenom }}</td>
+										<td>{{ contentieux.confrere.nom|capitalize }}
+											{{ contentieux.confrere.prenom|capitalize }}</td>
 									</tr>
 									<tr>
 										<th>Objet</th>
@@ -146,9 +146,12 @@
 												<a href="{{ path('app_audience_show', {'id': audience.id }) }}">{{ audience.code }}</a>
 											</td>
 											<td style="border-top:0px">{{ audience.createdAt|date('d/m/Y') }}</td>
-											<td style="border-top:0px">{{ audience.avocat.nom }}
-												{{ audience.avocat.prenom }}</td>
-											<td style="border-top:0px">{{ audience.juridiction.titre }}</td>
+											<td style="border-top:0px">{{ audience.avocat.nom|capitalize }}
+												{{ audience.avocat.prenom|capitalize }}</td>
+											<td style="border-top:0px">{{ audience.juridiction.titre|capitalize }}
+												|
+												<b>{{ audience.juridiction.lieu|capitalize }}</b>
+											</td>
 											<td style="border-top:0px">{{ audience.conseil }}</td>
 											<td style="border-top:0px">{{ audience.motif }}</td>
 

@@ -4,10 +4,15 @@
 	<div class="col">
 		<div class="form-row">
 			<div class="col-8">
-				{{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
+				{{ form_row(form.titre,{'label': 'Titre', 'attr':{'placeholder':'Titre','class':'form-control'}}) }}
 			</div>
 		</div>
-        <div class="form-row">
+		<div class="form-row">
+			<div class="col-8">
+				{{ form_row(form.lieu,{'label': 'Lieu', 'attr':{'placeholder':'Lieu','class':'form-control'}}) }}
+			</div>
+		</div>
+		<div class="form-row">
 			<div class="col-8">
 				{{ form_row(form.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
 			</div>
@@ -31,4 +36,3 @@
 	</div>
 </div>
 {{ form_end(form) }}
-

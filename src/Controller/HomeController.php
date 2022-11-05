@@ -27,4 +27,11 @@ class HomeController extends AbstractController
             'unAudience' => $audienceRepository->clientAudience($user)
         ]);
     }
+    /**
+     * @Route("/parametre", name="home_parametre")
+     */
+    public function parametre(): Response
+    {
+        return $this->render('home/parametre.html.twig');
+    }
 }

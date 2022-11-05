@@ -14,7 +14,7 @@
 		{% if is_granted('ROLE_ADMIN') %}
 			<h1 class="h3 mb-0 text-gray-800">Liste des contentieux</h1>
 		{% else %}
-			<h1 class="h3 mb-0 text-gray-800">Mes affaires</h1>
+			<h1 class="h3 mb-0 text-gray-800">Mes contentieux</h1>
 		{% endif %}
 		<div class="align-items-right justify-content-between">
 			{% if is_granted('ROLE_AVOCAT') %}
@@ -22,7 +22,7 @@
 					<span class="icon text-white-10">
 						<i class="fas fa-plus fa-sm text-white-10"></i>
 					</span>
-					<span class="text">Nouveau contentieux</span>
+					<span class="text">Nouvelle Affaire</span>
 				</a>
 				<span class="dropdown no-arrow mb-4">
 
@@ -79,12 +79,13 @@
 							<tr>
 								<td>{{ contentieux.code }}</td>
 								{% if is_granted('ROLE_AVOCAT') %}
-									<td>{{ contentieux.client.fullName }}</td>
+									<td>{{ contentieux.client.fullName|capitalize }}</td>
 								{% endif %}
-								<td>{{ contentieux.adversaire.nom }}
-									{{ contentieux.adversaire.prenom }}</td>
-								<td>{{ contentieux.nature.titre }}</td>
-								<td>{{ contentieux.juridiction.titre }}</td>
+								<td>{{ contentieux.adversaire.nom|capitalize }}
+									{{ contentieux.adversaire.prenom|capitalize }}</td>
+								<td>{{ contentieux.nature.titre|capitalize }}</td>
+								<td>{{ contentieux.juridiction.titre|capitalize }}<br/><b>{{ contentieux.juridiction.lieu }}</b>
+								</td>
 
 								<td>
 									<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_contentieux_show', {'id':contentieux.id}) }}">

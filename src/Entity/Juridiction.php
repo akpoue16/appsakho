@@ -39,6 +39,11 @@ class Juridiction
      */
     private $audiences;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lieu;
+
     public function __construct()
     {
         $this->contentieuxes = new ArrayCollection();
@@ -130,6 +135,18 @@ class Juridiction
                 $audience->setJuridiction(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?string $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

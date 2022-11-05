@@ -69,7 +69,9 @@ class ContentieuxType extends AbstractType
             ->add('juridiction', EntityType::class, [
                 'class' => Juridiction::class,
                 'placeholder' => '--- Choisir une juridiction ---',
-                'choice_label' => 'titre',
+                'choice_label' => function ($juridiction) {
+                    return $juridiction->getTitre() . ' - ' . $juridiction->getLieu();
+                }
             ])
             ->add('nature', EntityType::class, [
                 'class' => Nature::class,

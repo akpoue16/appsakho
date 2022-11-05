@@ -20,25 +20,28 @@
 					</p>
 					<p class="mb-0">
 						Pour
-						<b>{{ contentieux.client.nom }}
-							{{ contentieux.client.prenom }}</b>, contre
-						<b>{{ contentieux.adversaire.nom }}
-							{{ contentieux.adversaire.prenom }}</b>
+						<b>{{ contentieux.client.nom|capitalize }}
+							{{ contentieux.client.prenom|capitalize }}</b>, contre
+						<b>{{ contentieux.adversaire.nom|capitalize }}
+							{{ contentieux.adversaire.prenom|capitalize }}</b>
 					</p>
 					<p class="mb-0">Nature :
-						<b>{{ contentieux.nature.titre }}</b>
+						<b>{{ contentieux.nature.titre|capitalize }}</b>
 					</p>
 					<p class="mb-0">Juridiction :
-						<b>{{ contentieux.juridiction.titre }}</b>
+						<b>{{ contentieux.juridiction.titre|capitalize }}
+							|
+							{{ contentieux.juridiction.lieu|capitalize }}</b>
 					</p>
 
 					<p class="mb-0">Dernière audience :
 						{% if derniereAudience %}
 							{% for derniereAudiences in derniereAudience  %}
 								<b>{{ derniereAudiences.createdAt|date('d/m/Y') }}
-									{{ derniereAudiences.code }}
 									{{ derniereAudiences.procedures }}
-									{{ derniereAudiences.juridiction.titre }}</b>
+									{{ derniereAudiences.juridiction.titre|capitalize }}
+									|
+									{{ derniereAudiences.juridiction.lieu|capitalize }}</b>
 							{% endfor %}
 						{% else %}
 							<b>AFFAIRE NOUVELLE(AN)</b>
@@ -50,7 +53,7 @@
 		{{ form_start(form) }}
 		<div class="form-row">
 			<div class="col">
-				{{ form_row(form.contentieux,{'label': 'N° Contentieux', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				{{ form_row(form.contentieux,{'label': 'N° Affaire', 'attr':{'placeholder':'','class':'form-control'}}) }}
 			</div>
 		</div>
 		<div class="form-row">

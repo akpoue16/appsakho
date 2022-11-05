@@ -42,7 +42,9 @@ class AudienceType extends AbstractType
             ->add('juridiction', EntityType::class, [
                 'class' => Juridiction::class,
                 'placeholder' => '--- Choisir une Juridiction ---',
-                'choice_label' => 'titre',
+                'choice_label' => function ($juridiction) {
+                    return $juridiction->getTitre() . ' - ' . $juridiction->getLieu();
+                }
             ])
             ->add('conseil')
             ->add('motif')
