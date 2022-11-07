@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Typecolab{% endblock %}
+
+{% block body %}
+    <h1>Create new Typecolab</h1>
+
+    {{ include('typecolab/_form.html.twig') }}
+
+    <a href="{{ path('app_typecolab_index') }}">back to list</a>
+{% endblock %}
