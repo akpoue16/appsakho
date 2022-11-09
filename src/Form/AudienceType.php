@@ -26,7 +26,7 @@ class AudienceType extends AbstractType
             ->add('code')
             ->add('createdAt', DateType::class, [
                 'widget' => 'single_text',
-
+                //'format' => 'yyyy-MM-ddThh:mm',
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
                 'html5' => true,
 
@@ -64,7 +64,9 @@ class AudienceType extends AbstractType
             ->add('nomGreffier')
             ->add('contentieux', EntityType::class, [
                 'class' => Contentieux::class,
-                'choice_label' => 'code',
+                'choice_label' => function ($contentieux) {
+                    return $contentieux->getCode() . ' : Pour ' . $contentieux->getClient()->getNom() . '  ' . $contentieux->getClient()->getPrenom() . ' contre ' . $contentieux->getAdversaire()->getNom() . '  ' . $contentieux->getAdversaire()->getPrenom();
+                },
                 'placeholder' => '--- Choisir un contentieux ---',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
@@ -72,22 +74,24 @@ class AudienceType extends AbstractType
                 },
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $contentieux = $event->getData();
+                $contentieux = $this->contentieux;
+                //dd($contentieux);
                 $form = $event->getForm();
 
-                if (!$contentieux) {
+                if ($contentieux == null) {
                     return;
+                } else {
+                    $form->add('contentieux', EntityType::class, [
+                        'class' => Contentieux::class,
+                        'choice_label' => 'code',
+                        'disabled' => true,
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                ->where('u.id = :contentieux')
+                                ->setParameter("contentieux", $this->contentieux);
+                        },
+                    ]);
                 }
-                $form->add('contentieux', EntityType::class, [
-                    'class' => Contentieux::class,
-                    'choice_label' => 'code',
-                    'disabled' => true,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.id = :contentieux')
-                            ->setParameter("contentieux", $this->contentieux);
-                    },
-                ]);
             });
     }
 

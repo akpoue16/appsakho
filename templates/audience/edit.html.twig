@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Audience{% endblock %}
+{% block title %}Modifier Audience
+{% endblock %}
+
 
 {% block body %}
-    <h1>Edit Audience</h1>
-
-    {{ include('audience/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_audience_index') }}">back to list</a>
-
-    {{ include('audience/_delete_form.html.twig') }}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Modifier l'audience N°:
+			{{ audience.code }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			{{ include('audience/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+		</div>
+	</div>
 {% endblock %}

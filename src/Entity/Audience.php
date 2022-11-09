@@ -43,7 +43,7 @@ class Audience
     private $procedures;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $renvoyer;
 

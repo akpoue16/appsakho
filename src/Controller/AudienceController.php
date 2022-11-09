@@ -129,7 +129,7 @@ class AudienceController extends AbstractController
 
     /**
      * @IsGranted("ROLE_AVOCAT")
-     * @Route("/sup/{id}", name="client_delete")
+     * @Route("/sup/{id}", name="audience_delete")
      */
     public function audiencedelete(Audience $audience, EntityManagerInterface $em)
     {

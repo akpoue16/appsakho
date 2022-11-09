@@ -1,4 +1,65 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.contentieux,{'label': 'N° Affaire', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.code,{'label': 'N° Audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+	<div class="col">
+		{{ form_row(form.createdAt,{'label': 'Date et heure d\'audience', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.juridiction,{'label': 'Juridiction', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.avocat,{'label': 'Avocat', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.nomPresident,{'label': 'Président', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.nomGreffier,{'label': 'Greffier', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.conseil,{'label': 'Conseil', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.procedures,{'label': 'Procédure', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.motif,{'label': 'Motif précédent', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+				<div class="col">
+					{{ form_row(form.renvoyer,{'label': 'Renvoyer au', 'attr':{'placeholder':'','class':'form-control'}, }) }}
+				</div>
+			</div>
+
+			<div class="row">
+	<div class="col">
+		<a href="{{ path('app_audience_index') }}" class="btn btn-primary btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+			</span>
+			<span class="text">Retour à la liste</span>
+		</a>
+		<button class="btn btn-success btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-save fa-sm text-white-10"></i>
+			</span>
+			<span class="text">{{ button_label|default('Enregistrer') }}</span>
+		</button>
+	</div>
+			</div>
+		{{ form_end(form) }}
