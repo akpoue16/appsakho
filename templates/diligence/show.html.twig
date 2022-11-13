@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diligence
+{% endblock %}
+
+{% block body %}
+	<!-- Page Heading -->
+	<div class="mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Diligence:
+			{{ diligence.id }}</h1>
+
+		{% if is_granted('ROLE_ADMIN') %}
+			<p>Pour
+				<b>{{ diligence.contentieux.client.nom|capitalize }}
+					{{ diligence.contentieux.client.prenom|capitalize }},</b>
+				contre
+				<b>{{ diligence.contentieux.adversaire.nom|capitalize }}
+					{{ diligence.contentieux.adversaire.prenom|capitalize }}</b>
+			</p>
+		{% else %}
+			<p>En qualité de
+				<b>{{ diligence.contentieux.qualite.titre }},
+				</b>contre
+				<b>{{ diligence.contentieux.adversaire.nom|capitalize }}
+					{{ diligence.contentieux.adversaire.prenom|capitalize }}</b>
+			</p>
+		{% endif %}
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-md">
+					<table class="table">
+						<tbody>
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>Id</th>
+										<td>{{ diligence.id }}</td>
+									</tr>
+									<tr>
+										<th>Date</th>
+										<td>{{ diligence.createdAt ? diligence.createdAt|date('Y-m-d') : '' }}</td>
+									</tr>
+									<tr>
+										<th>Diligence</th>
+										<td>{{ diligence.motif }}</td>
+									</tr>
+									<tr>
+										<th>Début heure</th>
+										<td>{{ diligence.debutTime ? diligence.debutTime|date('H:i') : '' }}</td>
+									</tr>
+									<tr>
+										<th>Fin heure</th>
+										<td>{{ diligence.finTime ? diligence.finTime|date('H:i') : '' }}</td>
+									</tr>
+									<tr>
+										<th>Observation</th>
+										<td>{{ diligence.observation }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</tbody>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a class="btn btn-primary btn-icon-split" href="{{ path('app_diligence_index') }}">
+							<span class="icon text-white-10">
+								<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+							</span>
+							<span class="text">Retour à la liste</span>
+						</a>
+						<a class="btn btn-success btn-icon-split" href="{{ path('app_diligence_edit', {'id': diligence.id}) }}">
+							<span class="icon text-white-10">
+								<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+							</span>
+							<span class="text">
+								Modifier</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

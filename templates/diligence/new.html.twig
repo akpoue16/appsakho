@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Diligence{% endblock %}
+{% block body %}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Nouvelle Diligence</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+    {{ include('diligence/_form.html.twig') }}</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+{% endblock %}

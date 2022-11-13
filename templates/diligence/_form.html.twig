@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.contentieux,{'label': 'Contentieux', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+	<div class="col-3">
+		{{ form_row(form.createdAt, {'label': 'Date'}) }}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.debutTime, {'label': 'Début heure'}) }}
+	</div>
+	<div class="col">
+		{{ form_row(form.finTime, {'label': 'Fin heure'}) }}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.motif,{'label': 'Diligence', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+</div>
+<div class="form-row">
+	<div class="col">
+		{{ form_row(form.observation,{'label': 'Observation', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<a href="{{ path('app_contentieux_index') }}" class="btn btn-primary btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+			</span>
+			<span class="text">Retour à la liste</span>
+		</a>
+		<button class="btn btn-success btn-icon-split">
+			<span class="icon text-white-10">
+				<i class="fas fa-save fa-sm text-white-10"></i>
+			</span>
+			<span class="text">{{ button_label|default('Enregistrer') }}</span>
+		</button>
+	</div>
+</div>
+
+{{ form_end(form) }}

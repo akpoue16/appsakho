@@ -27,7 +27,6 @@
 				</p>
 			{% endif %}
 		</div>
-
 		<div class="align-items-right justify-content-between">
 			<span class="dropdown no-arrow mb-4">
 				{% if is_granted('ROLE_ADMIN') %}
@@ -43,8 +42,8 @@
 							<i class="fas fa-print fa-sm text-white-10"></i>
 							Audience</a>
 						<a class="dropdown-item" href="#">
-							<i class="fas fa-file-excel fa-sm text-white-10"></i>
-							Facture</a>
+							<i class="fas fa-taxi fa-sm text-white-10"></i>
+							Diligence</a>
 					</div>
 				{% endif %}
 
@@ -67,7 +66,13 @@
 							Audiences [{{ audiences|length }}]
 						{% endif %}
 					</button>
-					<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Facturation</button>
+					<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+											{% if diligences == null %}
+												Diligence[0]
+						{% else %}
+							Diligences [{{ diligences|length }}]
+						{% endif %}
+					</button>
 				</div>
 			</nav>
 			<div class="tab-content" id="nav-tabContent">
@@ -163,7 +168,41 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+				<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+					<div class="row">
+						<div class="col">
+							<table class="table table-striped ">
+								<thead>
+									<tr>
+										{# <th>Id</th> #}
+										<th>Date</th>
+										<th>Diligence</th>
+										<th>Debut heure</th>
+										<th>Fin heure</th>
+										<th>Observation</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									{% for diligence in diligences %}
+										<tr>
+											<td style="border-top:0px">
+												<a href="{{ path('app_diligence_show', {'id': diligence.id }) }}">{{ diligence.id }}</a>
+											</td>
+											<td style="border-top:0px">{{ diligence.motif}}</td>
+											<td style="border-top:0px">{{ diligence.debutTime|date('H:i') }}</td>
+											<td style="border-top:0px">{{ diligence.finTime|date('H:i') }}</td>
+											<td style="border-top:0px">{{ diligence.observation }}
+											</td>
+
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col">

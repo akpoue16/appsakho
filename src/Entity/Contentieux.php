@@ -79,9 +79,15 @@ class Contentieux
      */
     private $avocat;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Diligence::class, mappedBy="contentieux")
+     */
+    private $diligences;
+
     public function __construct()
     {
         $this->audiences = new ArrayCollection();
+        $this->diligences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -247,6 +253,36 @@ class Contentieux
     public function setAvocat(?Personnel $avocat): self
     {
         $this->avocat = $avocat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diligence>
+     */
+    public function getDiligences(): Collection
+    {
+        return $this->diligences;
+    }
+
+    public function addDiligence(Diligence $diligence): self
+    {
+        if (!$this->diligences->contains($diligence)) {
+            $this->diligences[] = $diligence;
+            $diligence->setContentieux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiligence(Diligence $diligence): self
+    {
+        if ($this->diligences->removeElement($diligence)) {
+            // set the owning side to null (unless already changed)
+            if ($diligence->getContentieux() === $this) {
+                $diligence->setContentieux(null);
+            }
+        }
 
         return $this;
     }

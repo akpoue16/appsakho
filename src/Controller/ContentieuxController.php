@@ -8,6 +8,7 @@ use App\Form\ContentieuxType;
 use App\Repository\AudienceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContentieuxRepository;
+use App\Repository\DiligenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,11 +54,12 @@ class ContentieuxController extends AbstractController
     /**
      * @Route("/{id}", name="app_contentieux_show", methods={"GET"})
      */
-    public function show(Contentieux $contentieux, AudienceRepository $audienceRepository): Response
+    public function show(Contentieux $contentieux, AudienceRepository $audienceRepository, DiligenceRepository $diligenceRepository): Response
     {
         return $this->render('contentieux/show.html.twig', [
             'contentieux' => $contentieux,
             'audiences' => $audienceRepository->findBy(['contentieux' => $contentieux], ['createdAt' => 'DESC']),
+            'diligences' => $diligenceRepository->findBy(['contentieux' => $contentieux], ['createdAt' => 'DESC']),
         ]);
     }
 

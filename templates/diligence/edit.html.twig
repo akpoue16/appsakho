@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Diligence{% endblock %}
+
+
+{% block body %}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Modifier la diligence N°:
+			{{ diligence.id }}</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		<div class="card-body">
+    {{ include('diligence/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+</div>
+	</div>
+{% endblock %}
