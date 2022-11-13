@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nature{% endblock %}{% block stylesheets %}
+{% block title %}Typecolab {% endblock %}
+
+{% block stylesheets %}
     <link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    
+
+
      <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des Natures</h1>
+        <h1 class="h3 mb-0 text-gray-800">Liste Types collaborateurs</h1>
         <div class="align-items-right justify-content-between">
             
-            <a href="{{ path('app_nature_new') }}" class="btn btn-success btn-icon-split">
+            <a href="{{ path('app_typecolab_new') }}" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-10">
                     <i class="fas fa-plus fa-sm text-white-10"></i>
                 </span>
-                <span class="text">Nouvelle nature</span>
+                <span class="text">Nouveau type collab</span>
             </a>
             <span class="dropdown no-arrow mb-4">
                 
@@ -26,9 +29,9 @@
                      <span class="text">Liste en Pdf ou Excel</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                    <a target="_blank" class="dropdown-item" href="{{ path('index_imprimer') }}">
+                    <a target="_blank" class="dropdown-item" href="{{ path('index_imprimer_client') }}">
                         <i class="fas fa-print fa-sm text-white-10"></i>  Pdf</a>
-                    <a class="dropdown-item" href="{{ path('index_excel') }}">
+                    <a class="dropdown-item" href="{{ path('index_excel_client') }}">
                         <i class="fas fa-file-excel fa-sm text-white-10"></i>  Excel</a>
                 </div>
             </span>
@@ -39,60 +42,58 @@
    <div class="card shadow mb-4">
                         {# <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> #}
-      <div class="card-body">
-       <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
+                        </div>  #}
+        <div class="card-body">
+            <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                       
                 <th>Id</th>
-                <th>Titre</th>
-                <th>Commentaire</th>
+                <th>Libelle</th>
                 <th>actions</th>
-            </tr>
-        </thead>
+               </tr>
+          </thead>
         <tbody>
-        {% for nature in natures %}
+        {% for typecolab in typecolabs %}
             <tr>
-                <td>{{ nature.id }}</td>
-                <td>{{ nature.titre }}</td>
-                <td>{{ nature.commentaire }}</td>
+                <td>{{ typecolab.id }}</td>
+                <td>{{ typecolab.libelle }}</td>
                 <td>
-                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_nature_show', {'id': nature.id}) }}">
-                        <i class="fas fa-eye fa-sm text-white-10"> </i>
-                    </a>
-                    <a class="btn btn-info btn-sm btn-circle" href="{{ path('app_nature_edit', {'id': nature.id}) }}">
-                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
-                    </a>
-
-                    <!-- Button trigger modal -->
-                    <a class="btn btn-danger btn-sm btn-circle nature_sup" href data-remove-url="{{ url('nature_delete', {'id': nature.id}) }}" data-id="{{ nature.id }}" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-trash-alt fa-sm text-white-10"></i>
-                    </a>
+                    <a class="btn btn-success btn-sm btn-circle" href="{{ path('app_typecolab_show', {'id': typecolab.id}) }}">alt="show"
+                       <i class="fas fa-eye fa-sm text-white-10"> </i></a>
+                    
+                    <a  class="btn btn-info btn-sm btn-circle" href="{{ path('app_typecolab_edit', {'id': typecolab.id}) }}">edit   
+                     <i class="fas fa-pencil-alt fa-sm text-white-10"></i></a>
+                
+                                <!-- Button trigger modal -->
+                                <a class="btn btn-danger btn-sm btn-circle client_sup" href data-remove-url="{{ url('app_typecolab_edit', {'id': typecolab.id}) }}" data-id="{{ typecolab.id }}" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-trash-alt fa-sm text-white-10"></i>
+                                </a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+                        {% else %}
+                        <tr>
+                            <td colspan="12">Pas d'enregistrement</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
+
+<!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h5>
+                    <h4 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h4>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Etes-vous sûr de vouloir supprimer cette nature?</div>
+                <div class="modal-body">Etes-vous sûr de vouloir supprimer ce client?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
                     <a href class="btn btn-danger" id="remove_id">Oui</a>
@@ -101,7 +102,11 @@
             </div>
         </div>
     </div>
+
+
+
 {% endblock %}
+
 
 {% block javascripts %}
 
