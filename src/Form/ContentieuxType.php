@@ -64,7 +64,14 @@ class ContentieuxType extends AbstractType
             ->add('confrere', EntityType::class, [
                 'class' => Confrere::class,
                 'placeholder' => '--- Choisir un avocat adverse ---',
-                'choice_label' => 'nom',
+                'choice_label' => function ($confrere) {
+                    return $confrere->getNom() . ' ' . $confrere->getPrenom();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+
             ])
             ->add('juridiction', EntityType::class, [
                 'class' => Juridiction::class,
@@ -81,7 +88,13 @@ class ContentieuxType extends AbstractType
             ->add('adversaire', EntityType::class, [
                 'class' => Adversaire::class,
                 'placeholder' => '--- Choisir un client adverse ---',
-                'choice_label' => 'nom',
+                'choice_label' => function ($confrere) {
+                    return $confrere->getNom() . ' ' . $confrere->getPrenom();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
             ]);
     }
 

@@ -18,13 +18,15 @@ class HomeController extends AbstractController
     public function index(AudienceRepository $audienceRepository, ContentieuxRepository $contentieuxRepository, ClientRepository $clientRepository): Response
     {
         $user = $this->getUser();
-
+        $date = new \DateTimeImmutable();
+        //dd($date);
         return $this->render('home/index.html.twig', [
             'contentieux' => $contentieuxRepository->findAll(),
             'clients' => $clientRepository->findAll(),
             'unContentieux' => $contentieuxRepository->findByClient($user),
-            'audiences' => $audienceRepository->derniereAudience(),
-            'unAudience' => $audienceRepository->clientAudience($user)
+            'audiences' => $audienceRepository->toDayAudience(),
+            'unAudience' => $audienceRepository->clientAudience($user),
+            //'toDayAudiences' => $audienceRepository->toDayAudience()
         ]);
     }
     /**

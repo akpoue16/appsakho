@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Audience;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,6 +48,31 @@ class AudienceRepository extends ServiceEntityRepository
             ->Join('a.contentieux', 'c')
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Audience[] Returns an array of Audience objects
+     */
+    public function toDayAudience(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->Where('a.createdAt = :today')
+            ->setParameter('today', Date('Y-m-d'))
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Audience[] Returns an array of Audience objects
+     */
+    public function searchAudience($search): array
+    {
+        return $this->createQueryBuilder('a')
+            ->Where('a.createdAt = :today')
+            ->setParameter('today', $search)
             ->getQuery()
             ->getResult();
     }

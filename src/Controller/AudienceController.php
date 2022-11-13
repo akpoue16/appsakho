@@ -144,4 +144,15 @@ class AudienceController extends AbstractController
             return $this->redirectToRoute('app_audience_index');
         }
     }
+
+    /**
+     * @Route("day", name="recherche_day_audience")
+     */
+    public function search(AudienceRepository $audienceRepository)
+    {
+
+        return $this->renderForm('audience/edit.html.twig', [
+            'audience' => $audienceRepository->findBy()
+        ]);
+    }
 }

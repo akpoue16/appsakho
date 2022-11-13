@@ -56,7 +56,9 @@ class AudienceType extends AbstractType
                 'html5' => true,
 
                 // adds a class that can be selected in JavaScript
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => [
+                    'class' => 'js-datepicker',
+                ],
                 'input' => 'datetime_immutable',
                 'required' => false
             ])
