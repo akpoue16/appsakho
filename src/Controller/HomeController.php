@@ -24,8 +24,10 @@ class HomeController extends AbstractController
             'contentieux' => $contentieuxRepository->findAll(),
             'clients' => $clientRepository->findAll(),
             'unContentieux' => $contentieuxRepository->findByClient($user),
-            'audiences' => $audienceRepository->toDayAudience(),
-            'unAudience' => $audienceRepository->clientAudience($user),
+
+            'audiences' => $audienceRepository->findAll(),
+            'todayaudience' => $audienceRepository->toDayAudience(),
+            'userAudiences' => $audienceRepository->clientAudience($user),
             //'toDayAudiences' => $audienceRepository->toDayAudience()
         ]);
     }

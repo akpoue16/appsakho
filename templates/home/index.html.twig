@@ -114,7 +114,7 @@
 
 		<!-- Content Column -->
 		<div
-			class="col-lg-8 mb-4">
+			class="col-lg-7 mb-4">
 
 			<!-- Project Card Example -->
 			<div class="card shadow mb-4">
@@ -126,7 +126,7 @@
 						{% if is_granted('ROLE_AVOCAT') %}
 							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
 								<tbody>
-									{% for audience in audiences %}
+									{% for audience in todayaudience %}
 										<tr>
 											<td>{{ audience.createdAt|date('d/m/Y') }}</td>
 											<td>Pour
@@ -152,7 +152,6 @@
 						{% else %}
 
 							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
-
 								<thead>
 									<tr>
 										<td>DATE</td>
@@ -163,16 +162,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									{% for unAudiences in unAudience %}
+									{% for unAudience in userAudiences %}
 										<tr>
-											<td>{{ unAudiences.createdAt|date('d/m/Y') }}</td>
+											<td>{{ unAudience.createdAt|date('d/m/Y') }}</td>
 											<td>
-												<b>{{ unAudiences.contentieux.adversaire.nom }}
-													{{ unAudiences.contentieux.adversaire.prenom }}</b>
+												<b>{{ unAudience.contentieux.adversaire.nom }}
+													{{ unAudience.contentieux.adversaire.prenom }}</b>
 											</td>
-											<td>{{ unAudiences.contentieux.code }}</td>
-											<td>{{ unAudiences.contentieux.nature.titre }}</td>
-											<td>{{ unAudiences.juridiction.titre }}</td>
+											<td>{{ unAudience.contentieux.code }}</td>
+											<td>{{ unAudience.contentieux.nature.titre }}</td>
+											<td>{{ unAudience.juridiction.titre }}</td>
 											<td>
 												<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': unAudiences.id}) }}">
 													<i class="fas fa-eye fa-sm text-white-10"></i>
@@ -195,7 +194,7 @@
 		</div>
 
 		<div
-			class="col-lg-4 mb-4">
+			class="col-lg-5 mb-4">
 
 			<!-- Illustrations -->
 			<div class="card shadow mb-4">
