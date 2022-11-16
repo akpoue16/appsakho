@@ -83,6 +83,7 @@ class TypecolabController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$typecolab->getId(), $request->request->get('_token'))) {
             $typecolabRepository->remove($typecolab, true);
+            
         }
 
         return $this->redirectToRoute('app_typecolab_index', [], Response::HTTP_SEE_OTHER);
