@@ -119,36 +119,81 @@
 			<!-- Project Card Example -->
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">Audiences | Aujourd'hui</h6>
+					<h6 class="m-0 font-weight-bold text-primary">Audiences</h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						{% if is_granted('ROLE_AVOCAT') %}
-							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
-								<tbody>
-									{% for audience in todayaudience %}
-										<tr>
-											<td>{{ audience.createdAt|date('d/m/Y') }}</td>
-											<td>Pour
-												<b>{{ audience.contentieux.client.nom }}
-													{{ audience.contentieux.client.prenom }}</b>, contre
-												<b>{{ audience.contentieux.adversaire.nom }}
-													{{ audience.contentieux.adversaire.prenom }}</b>
-											</td>
-											<td>{{ audience.juridiction.titre }}</td>
-											<td>
-												<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': audience.id}) }}">
-													<i class="fas fa-eye fa-sm text-white-10"></i>
-												</a>
-											</td>
-										</tr>
-									{% else %}
-										<tr>
-											<td colspan="8">Pas d'audience aujourd'hui</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
+
+
+							<nav>
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+									<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Aujourd'hui</button>
+									<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">7 jours prochains</button>
+								</div>
+							</nav>
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+									<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
+										<tbody>
+											{% for audience in todayaudience %}
+												<tr>
+													<td>{{ audience.createdAt|date('d/m/Y') }}<br/>
+														<b>{{ audience.createdAt|date('H:i') }}</b>
+													</td>
+													<td>Pour
+														<b>{{ audience.contentieux.client.nom }}
+															{{ audience.contentieux.client.prenom }}</b>, contre
+														<b>{{ audience.contentieux.adversaire.nom }}
+															{{ audience.contentieux.adversaire.prenom }}</b>
+													</td>
+													<td>{{ audience.juridiction.titre }}</td>
+													<td>
+														<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': audience.id}) }}">
+															<i class="fas fa-eye fa-sm text-white-10"></i>
+														</a>
+													</td>
+												</tr>
+											{% else %}
+												<tr>
+													<td colspan="8">Pas d'audience aujourd'hui</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+									<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
+										<tbody>
+											{% for jours7audience in jours7audiences %}
+												<tr>
+													<td>{{ jours7audience.createdAt|date('d/m/Y') }}<br/>
+														<b>{{ jours7audience.createdAt|date('H:i') }}</b>
+													</td>
+													<td>Pour
+														<b>{{ jours7audience.contentieux.client.nom }}
+															{{ jours7audience.contentieux.client.prenom }}</b>, contre
+														<b>{{ jours7audience.contentieux.adversaire.nom }}
+															{{ jours7audience.contentieux.adversaire.prenom }}</b>
+													</td>
+													<td>{{ jours7audience.juridiction.titre }}</td>
+													<td>
+														<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': jours7audience.id}) }}">
+															<i class="fas fa-eye fa-sm text-white-10"></i>
+														</a>
+													</td>
+												</tr>
+											{% else %}
+												<tr>
+													<td colspan="8">Pas d'audience les 7 prochains jours</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
 						{% else %}
 
 							<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
@@ -193,24 +238,23 @@
 
 		</div>
 
-		<div
-			class="col-lg-5 mb-4">
-
-			<!-- Illustrations -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-				</div>
-				<div class="card-body">
-					<div class="text-center">
-						<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
-					</div>
-					{# {% for toDayAudience in toDayAudiences %}
-																{{ toDayAudience.contentieux.adversaire.nom }}
-															{% endfor %} #}
-				</div>
-			</div>
+		<div class="col-lg-5 mb-4"><!-- Illustrations -->
+			{# <div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+							</div>
+							<div class="card-body">
+								<div class="text-center">
+									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
+								</div>
+							</div>
+						</div> #}
 
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<!-- Page level plugins -->
+	<script src="/bundle/js/bootstrap.bundle.js"></script>
+
 {% endblock %}

@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     {
         $user = $this->getUser();
         $date = new \DateTimeImmutable();
-        //dd($date);
+        //dd($audienceRepository->jours7Audience());
         return $this->render('home/index.html.twig', [
             'contentieux' => $contentieuxRepository->findAll(),
             'clients' => $clientRepository->findAll(),
@@ -28,7 +28,7 @@ class HomeController extends AbstractController
             'audiences' => $audienceRepository->findAll(),
             'todayaudience' => $audienceRepository->toDayAudience(),
             'userAudiences' => $audienceRepository->clientAudience($user),
-            //'toDayAudiences' => $audienceRepository->toDayAudience()
+            'jours7audiences' => $audienceRepository->jours7Audience()
         ]);
     }
     /**

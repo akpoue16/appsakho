@@ -58,8 +58,24 @@ class AudienceRepository extends ServiceEntityRepository
     public function toDayAudience(): array
     {
         return $this->createQueryBuilder('a')
-            ->Where('a.createdAt = :today')
-            ->setParameter('today', Date('Y-m-d'))
+            ->Where('a.createdAt LIKE :today')
+            ->setParameter('today', '%' . Date('Y-m-d') . '%')
+            ->orderBy('a.createdAt', 'ASC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Audience[] Returns an array of Audience objects
+     */
+    public function jours7Audience(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->Where('a.createdAt BETWEEN :now AND :today')
+            ->setParameter('now', Date('Y/m/d'))
+            ->setParameter('today', Date('Y/m/d', strtotime('+7 day')))
+            ->orderBy('a.createdAt', 'ASC')
             ->setMaxResults(6)
             ->getQuery()
             ->getResult();
@@ -71,8 +87,8 @@ class AudienceRepository extends ServiceEntityRepository
     public function searchAudience($search): array
     {
         return $this->createQueryBuilder('a')
-            ->Where('a.createdAt = :today')
-            ->setParameter('today', $search)
+            ->andWhere('a.createdAt LIKE :today')
+            ->setParameter('today', '%' . $search . '%')
             ->getQuery()
             ->getResult();
     }

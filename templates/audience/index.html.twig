@@ -50,7 +50,7 @@
 							<tr>
 								<th>Id</th>
 								<th>Code</th>
-								<th>CreatedAt</th>
+								<th>Date et Heure</th>
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
@@ -62,7 +62,7 @@
 							<tr>
 								<th>Id</th>
 								<th>Code</th>
-								<th>CreatedAt</th>
+								<th>Date et Heure</th>
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
@@ -75,7 +75,8 @@
 								<tr>
 									<td>{{ audience.id }}</td>
 									<td>{{ audience.code }}</td>
-									<td>{{ audience.createdAt ? audience.createdAt|date('d/m/Y') : '' }}</td>
+									<td>{{ audience.createdAt ? audience.createdAt|date('d/m/Y') : '' }}<br/>
+										{{ audience.createdAt ? audience.createdAt|date('H:m') : '' }}</td>
 									<td>{{ audience.conseil }}</td>
 									<td>{{ audience.motif }}</td>
 									<td>{{ audience.procedures }}</td>

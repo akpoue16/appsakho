@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class AudienceType extends AbstractType
 {
@@ -24,7 +25,7 @@ class AudienceType extends AbstractType
         //dd($this->contentieux);
         $builder
             ->add('code')
-            ->add('createdAt', DateType::class, [
+            ->add('createdAt', DateTimeType::class, [
                 'widget' => 'single_text',
                 //'format' => 'yyyy-MM-ddThh:mm',
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
@@ -49,7 +50,7 @@ class AudienceType extends AbstractType
             ->add('conseil')
             ->add('motif')
             ->add('procedures')
-            ->add('renvoyer', DateType::class, [
+            ->add('renvoyer', DateTimeType::class, [
                 'widget' => 'single_text',
 
                 // prevents rendering it as type="date", to avoid HTML5 date pickers
