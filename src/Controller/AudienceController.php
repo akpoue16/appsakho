@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use Knp\Snappy\Pdf;
 use App\Entity\Audience;
 use App\Form\AudienceType;
 use App\Entity\Contentieux;
+use Spipu\Html2Pdf\Html2Pdf;
 use App\Repository\AudienceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContentieuxRepository;
@@ -146,13 +148,25 @@ class AudienceController extends AbstractController
     }
 
     /**
-     * @Route("day", name="recherche_day_audience")
+     * @Route("/imprimer/search-audience", name="search_audience_day")
      */
-    public function search(AudienceRepository $audienceRepository)
+    public function index_imprimer(AudienceRepository $audienceRepository, Pdf $knpSnappyPdf, Request $request)
     {
 
-        return $this->renderForm('audience/edit.html.twig', [
-            'audience' => $audienceRepository->findBy()
-        ]);
+        if ($request->isMethod('post')) {
+            //$audienses = $request->request->all();
+            $audiences = $request->request->get("search");
+            // dd($audience);
+
+
+            $html = $this->renderView('audience/pdf/index.html.twig', [
+                'audiences' => $audienceRepository->searchAudience($audiences)
+            ]);
+
+            $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
+            $html2pdf->setDefaultFont("Arial");
+            $html2pdf->writeHTML($html);
+            $html2pdf->output('search_audience.pdf');
+        }
     }
 }

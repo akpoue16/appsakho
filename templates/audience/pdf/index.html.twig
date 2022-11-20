@@ -1,0 +1,245 @@
+<style
+	type="text/Css"><!--
+								
+								.header {
+								text-align: center;
+								position: absolute;
+								left: 0pt;
+								top: 20pt;
+								width: 553pt;
+								}
+								.header h1 {
+								margin: 0pt;
+								font-size: 12pt;
+								}
+								.header h2 {
+								text-decoration: underline;
+								text-transform: uppercase;
+								background-color: #FFFF99;
+								margin: 10pt 0pt 0pt 0pt;
+								}
+								.nip1 td {
+								width: 20%;
+								}
+								.result {
+								color: blue;
+								}
+								.nip-width1 {
+								width: 170pt;
+								}
+								.nip-width2 {
+								width: 130pt;
+								}
+								
+								.nip-width3 {
+								width: 155pt;
+								}
+								.nip-width4 {
+								width: 145pt;
+								}
+								h2 {
+								text-align: center;
+								font-size: 14pt;
+								margin: 10pt 0pt 0pt 0pt;
+								}
+								
+								table.border, div.border table {
+								margin-top: 0pt;
+								border-collapse: collapse;
+								}
+								div.border table {
+								margin-top: 0px;
+								}
+								.border {
+								border: 2px solid black;
+								}
+								.th25 {
+								width: 25%;
+								}
+								.head-tab {
+								background-color: #FFFF99;
+								}
+								.unstyled {
+								list-style-type: none;
+								margin: 0px;
+								padding: 0px;
+								}
+								.unstyled li {
+								margin: 0px;
+								background-color: blue;
+								}
+								
+								.content {
+								position: absolute;
+								top: 60pt;
+								left: 00pt;
+								}
+								.row .span6 {
+								width: 250pt;
+								margin: 100pt;
+								}
+								table tr {
+								width: 100%;
+								}
+								.table-bordered, .table-bordered td, .table-bordered th {
+								border-collapse: collapse;
+								border: 1px solid black;
+								}
+								.table1 td{
+								width: 170pt;
+								font-size:70%;
+								}
+								.tableAudience td{
+								border: 1px solid;
+								}
+								.table2 {
+								position: absolute;
+								top: 0pt;
+								left: 310pt;
+								}
+								.table2 td {
+								width: 210pt;
+								}
+								td, th {
+								padding: 1pt;
+								}
+								
+								.table3 {
+								margin-top: 10px;
+								width: 100%;
+								font-size: 8pt;
+								}
+								.table3 tr {
+								width: 100%;
+								}
+								.table3 th, .table4 thead th {
+								text-align: center;
+								}
+								.table3 .head {
+								background-color: #EEEEEE;
+								}
+								.table3 .head th{
+								font-size: 18px;
+								}
+								
+								.col1 {
+								width: 10pt;
+								}
+								.col2 {
+								width: 60pt;
+								}
+								.col3 {
+								width: 60pt;
+								}
+								.col4 {
+								width: 100pt;
+								}
+								.col5 {
+								width: 120pt;
+								}
+								.col6 {
+								width: 90pt;
+								}
+								.col7 {
+								width: 10pt;
+								}
+								
+								table {
+								margin-top: 20pt;
+								}
+								
+								.table4  {
+								width: 650pt;
+								}
+								ul{
+								list-style-type: none;
+								}
+								img.photo {
+								width: 300px;
+								}
+								-->
+</style>
+<page style="font-size: 14px" backtop="20mm" backbottom="20mm" backleft="10mm" backright="10mm">
+	<page_header>
+		<table style="width: 100%; border: solid 1px black;">
+			<tr>
+				<td style="text-align: left;    width: 33%">Cabinet Sakho</td>
+				<td style="text-align: center;    width: 34%"></td>
+				<td style="text-align: right;    width: 33%">{{ "now"|date("d/m/Y") }}</td>
+			</tr>
+		</table>
+	</page_header>
+	<page_footer>
+		<table style="width: 100%; border: solid 1px black;">
+			<tr>
+				<td style="text-align: left; width: 50%">Cabinet Sakho</td>
+				<td style="text-align: right; width: 50%">page [[page_cu]]/[[page_nb]]</td>
+			</tr>
+		</table>
+	</page_footer>
+	<div class="container">
+		<h3>Anudience du .....
+		</h3>
+	</div>
+
+	{% for audience in audiences %}
+		<table class="table1">
+			<tr>
+				<td>
+					Juridiction :
+					{{ audience.juridiction.titre}}
+
+				</td>
+				<td style="text-align:center">
+					......H.....
+				</td>
+				<td>
+					<ul>
+						<li>AVOCAT:
+							{{ audience.avocat.nom }}
+							{{ audience.avocat.prenom }}</li>
+						<li>PRESIDENT:
+							{{ audience.nomPresident }}</li>
+						<li>GREFFIER:
+							{{ audience.nomGreffier }}</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+		<table class="table1 tableAudience">
+			<tr style="border-bottom:1px sold #000">
+				<td style="width:20%">
+					<p>Date Préc.</p>
+					<h5>
+						{% if audience.renvoyer %}
+							{{ audience.renvoyer }}
+						{% else %}
+							A.N
+						{% endif %}
+					</h5>
+				</td>
+				<td style="width:50%">
+					<p>Dossier</p>
+					<h5>{{ audience.contentieux.code }}</h5>
+					<p>({{ audience.contentieux.createdAt|date('Y') }})</p>
+				</td>
+				<td style="width:50%">
+					<p>{{ audience.contentieux.qualite.titre }}</p>
+					<p>{{ audience.contentieux.qualite.titre }}</p>
+				</td>
+				<td style="width:100%">
+					<p>Client:
+						{{ audience.contentieux.client.nom }}
+						{{ audience.contentieux.client.prenom }}</p>
+					<p>Adv:
+						{{ audience.contentieux.adversaire.nom }}
+						{{ audience.contentieux.adversaire.prenom }}</p>
+					<p>
+						Conseil:
+						{{ audience.conseil }}
+					</p>
+				</td>
+			</tr>
+		</table>
+	{% endfor %}
+</page>
