@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Audience index
+{% block title %}Liste Audience
 {% endblock %}
 
 {% block stylesheets %}
@@ -35,11 +35,15 @@
 							</div>
 							<div class="modal-body">
 								<form action="{{ path('search_audience_day') }}" method="post" class="row">
-									<div class="col-auto">
-										<input type="date" class="form-control" id="search" name="search">
-									</div>
-									<div class="col-auto">
-										<button type="submit" class="btn btn-primary" target="_blank">Rechercher</button>
+									<div class="container">
+										<div class="row">
+											<div class="col">
+												<input type="date" class="form-control" id="search" name="search">
+											</div>
+											<div class="col">
+												<button type="submit" class="btn btn-primary" target="_blank">Rechercher</button>
+											</div>
+										</div>
 									</div>
 								</form>
 							</div>

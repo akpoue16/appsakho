@@ -21,7 +21,7 @@ class HomeController extends AbstractController
         $date = new \DateTimeImmutable();
         //dd($audienceRepository->jours7Audience());
         return $this->render('home/index.html.twig', [
-            'contentieux' => $contentieuxRepository->findAll(),
+            'contentieux' => $contentieuxRepository->findBy([], ['createdAt' => 'DESC'], 5),
             'clients' => $clientRepository->findAll(),
             'unContentieux' => $contentieuxRepository->findByClient($user),
 

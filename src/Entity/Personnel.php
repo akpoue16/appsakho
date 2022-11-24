@@ -89,6 +89,11 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
      */
     private $contentieuxes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypePerso::class, inversedBy="personnel")
+     */
+    private $typePerso;
+
     public function __construct()
     {
         $this->dossiers = new ArrayCollection();
@@ -361,6 +366,18 @@ class Personnel implements UserInterface, UserPasswordHasherInterface
                 $contentieux->setAvocat(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypePerso(): ?TypePerso
+    {
+        return $this->typePerso;
+    }
+
+    public function setTypePerso(?TypePerso $typePerso): self
+    {
+        $this->typePerso = $typePerso;
 
         return $this;
     }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypePerso
+{% endblock %}
+
+{% block body %}
+	<h1>Create new TypePerso</h1>
+
+	{{ include('type_perso/_form.html.twig') }}
+
+	<a href="{{ path('app_typeperso_index') }}">back to list</a>
+{% endblock %}

@@ -3,6 +3,19 @@
 {% block title %}SCP SAKHO
 {% endblock %}
 
+{% block stylesheets %}
+	<style>
+		.icon-z {
+			transition: transform 0.5s ease-out;
+			transform: scale(1, 1)
+		}
+		a.icone-h:hover .icon-z {
+			transform: scale(1.5, 1.5)
+		}
+	</style>
+{% endblock %}
+
+
 {% block body %}
 	<div
 		class="row">
@@ -10,7 +23,7 @@
 		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-primary shadow h-100 py-2">
-				<a href="{{ path('app_contentieux_index') }}" style="text-decoration:none">
+				<a href="{{ path('app_contentieux_index') }}" style="text-decoration:none" class="icone-h">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
@@ -26,7 +39,7 @@
 								</div>
 							</div>
 							<div class="col-auto">
-								<i class="fas fa-fw fa-folder-open fa-2x text-gray-300"></i>
+								<i class="fas fa-fw fa-folder-open fa-2x text-gray-300 icon-z"></i>
 							</div>
 						</div>
 					</div>
@@ -37,7 +50,7 @@
 			<!-- Earnings (Monthly) Card Example -->
 			<div class="col-xl-3 col-md-6 mb-4">
 				<div class="card border-left-success shadow h-100 py-2">
-					<a href="{{ path('app_client_index') }}" style="text-decoration:none">
+					<a href="{{ path('app_client_index') }}" style="text-decoration:none" class="icone-h">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 
@@ -51,7 +64,7 @@
 								</div>
 
 								<div class="col-auto">
-									<i class="fas fa-users fa-2x text-gray-300"></i>
+									<i class="fas fa-users fa-2x text-gray-300 icon-z"></i>
 								</div>
 							</div>
 
@@ -65,27 +78,27 @@
 		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-info shadow h-100 py-2">
+				<a href="{{ path('app_audience_index') }}" style="text-decoration:none" class="icone-h">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm font-weight-bold text-info text-uppercase mb-1">
+									Audiences</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
 
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-sm font-weight-bold text-info text-uppercase mb-1">
-								Audiences</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">
-
-								{% if is_granted("ROLE_AVOCAT") %}
-									{{ audiences|length }}
-								{% else %}
-									{{ unAudience|length }}
-								{% endif %}
+									{% if is_granted("ROLE_AVOCAT") %}
+										{{ audiences|length }}
+									{% else %}
+										{{ unAudience|length }}
+									{% endif %}
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-comments fa-2x text-gray-300 icon-z"></i>
 							</div>
 						</div>
-						<div class="col-auto">
-							<i class="fas fa-comments fa-2x text-gray-300"></i>
-						</div>
 					</div>
-				</div>
-
+				</a>
 			</div>
 		</div>
 
@@ -109,12 +122,56 @@
 
 	</div>
 
-	<div
-		class="row">
+	<div class="row">
+		<div
+			class="col-lg-6 mb-4">
+			<!-- Illustrations -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Contentieux les plus récents</h6>
+				</div>
+				<div class="card-body">
 
+					<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="font-size:12px">
+						<tbody>
+							{% for affaire in contentieux %}
+								<tr>
+									<td>
+										<b>{{ affaire.createdAt|date('d/m/Y') }}</b>
+									</td>
+									<td>
+										<b>{{ affaire.code }}</b>
+									</td>
+									<td>Pour
+										<b>{{ affaire.client.nom }}
+											{{ affaire.client.prenom }}</b>, contre
+										<b>{{ affaire.adversaire.nom }}
+											{{ affaire.adversaire.prenom }}</b>
+									</td>
+									<td>{{ affaire.juridiction.titre }}<br/>
+										<b>{{ affaire.juridiction.lieu }}</b>
+									</td>
+									<td>
+										<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_contentieux_show', {'id': affaire.id}) }}">
+											<i class="fas fa-eye fa-sm text-white-10"></i>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="9">Pas de contentieux</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+		</div>
 		<!-- Content Column -->
 		<div
-			class="col-lg-7 mb-4">
+			class="col-lg-6 mb-4">
 
 			<!-- Project Card Example -->
 			<div class="card shadow mb-4">
@@ -245,19 +302,7 @@
 
 		</div>
 
-		<div class="col-lg-5 mb-4"><!-- Illustrations -->
-			{# <div class="card shadow mb-4">
-																															<div class="card-header py-3">
-																																<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-																															</div>
-																															<div class="card-body">
-																																<div class="text-center">
-																																	<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
-																																</div>
-																															</div>
-																														</div> #}
 
-		</div>
 	</div>
 {% endblock %}
 {% block javascripts %}

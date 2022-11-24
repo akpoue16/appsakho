@@ -156,7 +156,7 @@ class AudienceController extends AbstractController
         if ($request->isMethod('post')) {
             //$audienses = $request->request->all();
             $audiences = $request->request->get("search");
-            // dd($audience);
+            //dd($audiences);
 
 
             $html = $this->renderView('audience/pdf/index.html.twig', [
