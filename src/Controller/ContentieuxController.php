@@ -106,7 +106,7 @@ class ContentieuxController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Le contentieux N° <span class='font-weight-bold'>{$contentieux->getCode()} de {$contentieux->getClient()}</span> a été supprimé avec succés"
+                "Le contentieux N° <span class='font-weight-bold'>{$contentieux->getCode()} de {$contentieux->getClient()->getfullName()}</span> a été supprimé avec succés"
             );
             return $this->redirectToRoute('app_contentieux_index');
         }

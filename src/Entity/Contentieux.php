@@ -70,7 +70,7 @@ class Contentieux
     private $adversaire;
 
     /**
-     * @ORM\OneToMany(targetEntity=Audience::class, mappedBy="contentieux")
+     * @ORM\OneToMany(targetEntity=Audience::class, mappedBy="contentieux", cascade={"remove"})
      */
     private $audiences;
 

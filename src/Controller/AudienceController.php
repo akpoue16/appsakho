@@ -160,7 +160,8 @@ class AudienceController extends AbstractController
 
 
             $html = $this->renderView('audience/pdf/index.html.twig', [
-                'audiences' => $audienceRepository->searchAudience($audiences)
+                'audiences' => $audienceRepository->searchAudience($audiences),
+                'search' => $audiences
             ]);
 
             $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
