@@ -53,6 +53,7 @@
 					<thead>
 						<tr>
 							<th>Num</th>
+							<th>Registre du Greffier</th>
 							{% if is_granted('ROLE_AVOCAT') %}
 								<th>Pour</th>
 							{% endif %}
@@ -65,6 +66,7 @@
 					<tfoot>
 						<tr>
 							<th>Num</th>
+							<th>Registre du Greffier</th>
 							{% if is_granted('ROLE_AVOCAT') %}
 								<th>Pour</th>
 							{% endif %}
@@ -78,6 +80,7 @@
 						{% for contentieux in contentieuxes %}
 							<tr>
 								<td>{{ contentieux.code }}</td>
+								<td>{{ contentieux.rg }}</td>
 								{% if is_granted('ROLE_AVOCAT') %}
 									<td>{{ contentieux.client.fullName|capitalize }}</td>
 								{% endif %}

@@ -84,6 +84,11 @@ class Contentieux
      */
     private $diligences;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rg;
+
     public function __construct()
     {
         $this->audiences = new ArrayCollection();
@@ -283,6 +288,18 @@ class Contentieux
                 $diligence->setContentieux(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRg(): ?string
+    {
+        return $this->rg;
+    }
+
+    public function setRg(?string $rg): self
+    {
+        $this->rg = $rg;
 
         return $this;
     }

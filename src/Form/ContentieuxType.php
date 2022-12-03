@@ -24,6 +24,7 @@ class ContentieuxType extends AbstractType
     {
         $builder
             ->add('code')
+            ->add('rg')
             ->add('createdAt', DateType::class, [
                 'widget' => 'single_text',
 
