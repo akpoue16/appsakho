@@ -15,25 +15,32 @@
 	<div class="col-1 d-flex align-items-end">
 		<div class="form-group">
 			<label for=""></label>
-			<a class="btn btn-success btn-sm btn-circle" href data-target="#logoutModal" data-toggle="modal" id="save_juridiction">
+			<a class="btn btn-dark btn" href data-target="#logoutModal" data-toggle="modal" id="save_juridiction" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Juridiction">
 				<i class="fas fa-plus fa-sm text-white-10"></i>
 			</a>
 		</div>
-
 	</div>
-	<div class="col-3">
+	<div class="col-2">
 		{{ form_row(form.nature,{'label': 'Nature', 'attr':{'placeholder':'Nature','class':'form-control'}}) }}
 	</div>
 	<div class="col-1 d-flex align-items-end">
 		<div class="form-group">
 			<label for=""></label>
-			<button type="button" class="btn btn-dark">
+			<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Nature">
 				<i class="fas fa-plus fa-sm text-white-10"></i>
 			</button>
 		</div>
 	</div>
 	<div class="col">
 		{{ form_row(form.avocat,{'label': 'Avocat en charge', 'attr':{'placeholder':'','class':'form-control'}}) }}
+	</div>
+	<div class="col-1 d-flex align-items-end">
+		<div class="form-group">
+			<label for=""></label>
+			<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Avocat en charge">
+				<i class="fas fa-plus fa-sm text-white-10"></i>
+			</button>
+		</div>
 	</div>
 </div>
 <fieldset class="border p-2 mb-3 border-dark rounded">
@@ -42,8 +49,24 @@
 		<div class="col">
 			{{ form_row(form.client,{'label': 'Pour', 'attr':{'placeholder':'Client','class':'form-control'}}) }}
 		</div>
+		<div class="col-1 d-flex align-items-end">
+			<div class="form-group">
+				<label for=""></label>
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Client">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</button>
+			</div>
+		</div>
 		<div class="col">
 			{{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
+		</div>
+		<div class="col-1 d-flex align-items-end">
+			<div class="form-group">
+				<label for=""></label>
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Qualité">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</button>
+			</div>
 		</div>
 	</div>
 </fieldset>
@@ -53,8 +76,24 @@
 		<div class="col">
 			{{ form_row(form.adversaire,{'label': 'Contre', 'attr':{'placeholder':'Adversaire','class':'form-control'}}) }}
 		</div>
+		<div class="col-1 d-flex align-items-end">
+			<div class="form-group">
+				<label for=""></label>
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Adversaire">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</button>
+			</div>
+		</div>
 		<div class="col">
 			{{ form_row(form.confrere,{'label': 'Avocat adverse', 'attr':{'placeholder':'Confrere','class':'form-control'}}) }}
+		</div>
+		<div class="col-1 d-flex align-items-end">
+			<div class="form-group">
+				<label for=""></label>
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Avocat adverse">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</button>
+			</div>
 		</div>
 
 	</div>

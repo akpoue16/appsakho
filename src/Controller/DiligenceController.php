@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Diligence;
 use App\Form\DiligenceType;
 use App\Repository\DiligenceRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/diligence")
@@ -81,7 +82,7 @@ class DiligenceController extends AbstractController
      */
     public function delete(Request $request, Diligence $diligence, DiligenceRepository $diligenceRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$diligence->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $diligence->getId(), $request->request->get('_token'))) {
             $diligenceRepository->remove($diligence, true);
         }
 

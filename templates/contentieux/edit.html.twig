@@ -1,13 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Contentieux{% endblock %}
+{% block title %}Edit Contentieux
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Contentieux</h1>
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<div>
+			<h1 class="h3 mb-0 text-gray-800">Contentieux N°
+				{{ contentieux.code }}</h1>
+			{% if is_granted('ROLE_ADMIN') %}
+				<p>Pour
+					<b>{{ contentieux.client.nom|capitalize }}
+						{{ contentieux.client.prenom|capitalize }},</b>
+					contre
+					<b>{{ contentieux.adversaire.nom|capitalize }}
+						{{ contentieux.adversaire.prenom|capitalize }}</b>
+				</p>
+			{% else %}
+				<p>En qualité de
+					<b>{{ contentieux.qualite.titre }},
+					</b>contre
+					<b>{{ contentieux.adversaire.nom|capitalize }}
+						{{ contentieux.adversaire.prenom|capitalize }}</b>
+				</p>
+			{% endif %}
+		</div>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			{{ include('contentieux/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+		</div>
+	</div>
+{% endblock %}
 
-    {{ include('contentieux/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_contentieux_index') }}">back to list</a>
+{% block javascripts %}
+	<script>
+		// Déclaration des variables
+let formJuridiction = document.querySelector('formJuridiction');
+let envoyerJuridiction = document.getElementById('envoyer_juridiction');
+let resultats = document.getElementById('resultats');
+const url = formJuridiction.action;
 
-    {{ include('contentieux/_delete_form.html.twig') }}
+// les évènements
+envoyerJuridiction.addEventListener('click', function (event) {
+event.preventDefault();
+
+// Récupère les données du formulaire
+let saisie = new FormData(formJuridiction);
+// Lance la recherche
+fetch(url, {
+method: 'POST',
+body: saisie
+}).then((response) => {
+console.log(response);
+}).then((data) => { // Affiche les résultats
+
+console.log(data);
+}).catch((error) => {
+console.log('Erreur : ' + error.message);
+});
+});
+	</script>
+	<script>
+		$(document).ready(function () {
+$('[data-bs-toggle="tooltip"]').tooltip();
+});
+	</script>
 {% endblock %}
