@@ -18,8 +18,35 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		// Déclaration des variables
+let formJuridiction = document.querySelector('formJuridiction');
+let envoyerJuridiction = document.getElementById('envoyer_juridiction');
+let resultats = document.getElementById('resultats');
+const url = formJuridiction.action;
+
+// les évènements
+envoyerJuridiction.addEventListener('click', function (event) {
+event.preventDefault();
+
+// Récupère les données du formulaire
+let saisie = new FormData(formJuridiction);
+// Lance la recherche
+fetch(url, {
+method: 'POST',
+body: saisie
+}).then((response) => {
+console.log(response);
+}).then((data) => { // Affiche les résultats
+
+console.log(data);
+}).catch((error) => {
+console.log('Erreur : ' + error.message);
+});
+});
+	</script>
 {% endblock %}

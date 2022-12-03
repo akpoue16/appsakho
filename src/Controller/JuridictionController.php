@@ -51,6 +51,20 @@ class JuridictionController extends AbstractController
     }
 
     /**
+     * @Route("/modal", name="app_juridiction_modal", methods="POST")
+     */
+    public function modal(Request $request, JuridictionRepository $juridictionRepository): Response
+    {
+        $juridiction = new Juridiction();
+        $form = $this->createForm(JuridictionType::class, $juridiction);
+        $form->handleRequest($request);
+
+        $juridictionRepository->add($juridiction, true);
+
+        return $this->redirectToRoute($request->attributes->get('_route'));
+    }
+
+    /**
      * @Route("/{id}", name="app_juridiction_show", methods={"GET"})
      */
     public function show(Juridiction $juridiction): Response
@@ -85,12 +99,14 @@ class JuridictionController extends AbstractController
      */
     public function delete(Request $request, Juridiction $juridiction, JuridictionRepository $juridictionRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$juridiction->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $juridiction->getId(), $request->request->get('_token'))) {
             $juridictionRepository->remove($juridiction, true);
         }
 
         return $this->redirectToRoute('app_juridiction_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 
     /**
      * @Route("/sup/{id}", name="juridiction_delete")

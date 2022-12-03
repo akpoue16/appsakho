@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Audience;
 use App\Entity\Contentieux;
+use App\Entity\Juridiction;
 use App\Form\ContentieuxType;
+use App\Form\JuridictionType;
 use App\Repository\AudienceRepository;
+use App\Repository\DiligenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContentieuxRepository;
-use App\Repository\DiligenceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +37,10 @@ class ContentieuxController extends AbstractController
      */
     public function new(Request $request, ContentieuxRepository $contentieuxRepository): Response
     {
+        //Modal juridiction
+        $juridiction = new Juridiction();
+        $formjuridiction = $this->createForm(JuridictionType::class, $juridiction);
+
         $contentieux = new Contentieux();
         $form = $this->createForm(ContentieuxType::class, $contentieux);
         $form->handleRequest($request);
@@ -48,6 +54,7 @@ class ContentieuxController extends AbstractController
         return $this->renderForm('contentieux/new.html.twig', [
             'contentieux' => $contentieux,
             'form' => $form,
+            'formJuridiction' => $formjuridiction
         ]);
     }
 
@@ -68,6 +75,10 @@ class ContentieuxController extends AbstractController
      */
     public function edit(Request $request, Contentieux $contentieux, ContentieuxRepository $contentieuxRepository): Response
     {
+        //Modal juridiction
+        $juridiction = new Juridiction();
+        $formjuridiction = $this->createForm(JuridictionType::class, $juridiction);
+
         $form = $this->createForm(ContentieuxType::class, $contentieux);
         $form->handleRequest($request);
 
@@ -80,6 +91,7 @@ class ContentieuxController extends AbstractController
         return $this->renderForm('contentieux/edit.html.twig', [
             'contentieux' => $contentieux,
             'form' => $form,
+            'formJuridiction' => $formjuridiction
         ]);
     }
 

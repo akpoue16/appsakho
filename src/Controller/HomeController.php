@@ -21,8 +21,13 @@ class HomeController extends AbstractController
         $date = new \DateTimeImmutable();
         //dd($audienceRepository->jours7Audience());
         return $this->render('home/index.html.twig', [
-            'contentieux' => $contentieuxRepository->findBy([], ['createdAt' => 'DESC'], 5),
+            //Liste les 5 derniers contentieux
+            'Liste5contentieux' => $contentieuxRepository->findBy([], ['createdAt' => 'DESC'], 5),
+            //Récupère tous les contentieux
+            'contentieux' => $contentieuxRepository->findAll(),
+            //Récupère tous les clients
             'clients' => $clientRepository->findAll(),
+            //Récupère les contentieux du client connecté
             'unContentieux' => $contentieuxRepository->findByClient($user),
 
             'audiences' => $audienceRepository->findAll(),
