@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit QualiteAd{% endblock %}
+
+{% block body %}
+    <h1>Edit QualiteAd</h1>
+
+    {{ include('qualite_ad/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_qualite_ad_index') }}">back to list</a>
+
+    {{ include('qualite_ad/_delete_form.html.twig') }}
+{% endblock %}

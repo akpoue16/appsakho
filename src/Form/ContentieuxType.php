@@ -7,6 +7,7 @@ use App\Entity\Nature;
 use App\Entity\Qualite;
 use App\Entity\Confrere;
 use App\Entity\Personnel;
+use App\Entity\QualiteAd;
 use App\Entity\Adversaire;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
@@ -59,6 +60,11 @@ class ContentieuxType extends AbstractType
             ])
             ->add('qualite', EntityType::class, [
                 'class' => Qualite::class,
+                'placeholder' => '--- Choisir une qualité ---',
+                'choice_label' => 'titre',
+            ])
+            ->add('qualiteAd', EntityType::class, [
+                'class' => QualiteAd::class,
                 'placeholder' => '--- Choisir une qualité ---',
                 'choice_label' => 'titre',
             ])

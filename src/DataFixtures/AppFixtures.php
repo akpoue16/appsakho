@@ -8,14 +8,15 @@ use App\Entity\Nature;
 use App\Entity\Qualite;
 use App\Entity\Audience;
 use App\Entity\Confrere;
+use App\Entity\Diligence;
 use App\Entity\Personnel;
+use App\Entity\QualiteAd;
 use App\Entity\TypePerso;
 use App\Entity\Adversaire;
 use App\Entity\Contentieux;
-use App\Entity\Diligence;
 use App\Entity\Juridiction;
-use App\Repository\ContentieuxRepository;
 use Doctrine\Persistence\ObjectManager;
+use App\Repository\ContentieuxRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -39,7 +40,12 @@ class AppFixtures extends Fixture
         for ($q = 0; $q < count($tableQalite); $q++) {
             $qualite = new Qualite();
             $qualite->setTitre($tableQalite[$q]);
+
+            $qualitead = new QualiteAd();
+            $qualitead->setTitre($tableQalite[$q]);
+
             $manager->persist($qualite);
+            $manager->persist($qualitead);
         }
 
         // Ajout Nature
@@ -160,6 +166,7 @@ class AppFixtures extends Fixture
                     $contentieux->setCode("T00$j")
                         ->setClient($client)
                         ->setQualite($qualite)
+                        ->setQualiteAd($qualitead)
                         ->setAdversaire($adversaire)
                         ->setCreatedAt($day->modify('+' . $j . ' day')) // DateTime('2003-03-15 02:00:49', 'Africa/Lagos')
                         ->setAvocat($user)

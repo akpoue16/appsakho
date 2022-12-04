@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Entity\Juridiction;
 use App\Form\JuridictionType;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\JuridictionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\session;
 
 /**
  * @IsGranted("ROLE_AVOCAT")
@@ -60,8 +61,12 @@ class JuridictionController extends AbstractController
         $form->handleRequest($request);
 
         $juridictionRepository->add($juridiction, true);
+        $this->addFlash(
+            'success',
+            "Juridiction a bien été enregistré!"
+        );
 
-        return $this->redirectToRoute($request->attributes->get('_route'));
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
     /**

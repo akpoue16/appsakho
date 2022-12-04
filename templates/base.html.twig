@@ -24,6 +24,7 @@
 
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
+			{# <script type="module" src="https://cdn.skypack.dev/@hotwired/turbo"></script> #}
 		{% endblock %}
 
 	</head>
@@ -77,13 +78,13 @@
 					</a>
 				</li>
 				{# 
-												<!-- Nav Item - Diligence -->
-												<li class="nav-item">
-													<a class="nav-link" href="{{ path('app_diligence_index') }}">
-														<i class="fas fa-taxi "></i>
-														<span>Diligences</span>
-													</a>
-												</li> #}
+																				<!-- Nav Item - Diligence -->
+																				<li class="nav-item">
+																					<a class="nav-link" href="{{ path('app_diligence_index') }}">
+																						<i class="fas fa-taxi "></i>
+																						<span>Diligences</span>
+																					</a>
+																				</li> #}
 				<!-- Nav Item - Factures -->
 				<li class="nav-item">
 					<a class="nav-link" href="#">
@@ -154,24 +155,24 @@
 					<hr class="sidebar-divider">
 
 					{# 				<!-- Nav Item - Pages Collapse Menu -->
-																																																												<li class="nav-item">
-																																																													<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-																																																														<i class="fas fa-fw fa-cogs"></i>
-																																																														<span>Paramètre</span>
-																																																													</a>
-																																																													<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-																																																														<div class="bg-white py-2 collapse-inner rounded">
-																																																															<a class="collapse-item" href="{{ path('app_chambre_index') }}">Chambre</a>
-																																																															<a class="collapse-item" href="{{ path('app_juridiction_index') }}">Juridiction</a>
-																																																															<a class="collapse-item" href="{{ path('app_nature_index') }}">Nature</a>
-																																																															<a class="collapse-item" href="{{ path('app_qualite_index') }}">Qualité</a>
-																																																															{% if is_granted('ROLE_ADMIN') %}
-																																																																<a class="collapse-item" href="{{ path('home_parametre') }}">Paramètre</a>
-																																																																<a class="collapse-item" href="#">Utilisateur</a>
-																																																															{% endif %}
-																																																														</div>
-																																																													</div>
-																																																												</li> #}
+																																																																						<li class="nav-item">
+																																																																							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+																																																																								<i class="fas fa-fw fa-cogs"></i>
+																																																																								<span>Paramètre</span>
+																																																																							</a>
+																																																																							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+																																																																								<div class="bg-white py-2 collapse-inner rounded">
+																																																																									<a class="collapse-item" href="{{ path('app_chambre_index') }}">Chambre</a>
+																																																																									<a class="collapse-item" href="{{ path('app_juridiction_index') }}">Juridiction</a>
+																																																																									<a class="collapse-item" href="{{ path('app_nature_index') }}">Nature</a>
+																																																																									<a class="collapse-item" href="{{ path('app_qualite_index') }}">Qualité</a>
+																																																																									{% if is_granted('ROLE_ADMIN') %}
+																																																																										<a class="collapse-item" href="{{ path('home_parametre') }}">Paramètre</a>
+																																																																										<a class="collapse-item" href="#">Utilisateur</a>
+																																																																									{% endif %}
+																																																																								</div>
+																																																																							</div>
+																																																																						</li> #}
 					<!-- Nav Item - Parametre -->
 						<li class="nav-item"> <a class="nav-link" href="{{ path('home_parametre') }}">
 							<i class="fas fa-fw fa-cogs"></i>

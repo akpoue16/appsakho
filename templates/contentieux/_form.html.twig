@@ -61,12 +61,12 @@
 			</div>
 		</div>
 		<div class="col">
-			{{ form_row(form.qualite,{'label': 'Qualite', 'attr':{'placeholder':'Qualite','class':'form-control'}}) }}
+			{{ form_row(form.qualite,{'label': 'Qualite Client', 'attr':{'placeholder':'Qualite Client','class':'form-control'}}) }}
 		</div>
 		<div class="col-1 d-flex align-items-end">
 			<div class="form-group">
 				<label for=""></label>
-				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Qualité">
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Qualité Client">
 					<i class="fas fa-plus fa-sm text-white-10"></i>
 				</button>
 			</div>
@@ -83,6 +83,17 @@
 			<div class="form-group">
 				<label for=""></label>
 				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Adversaire">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</button>
+			</div>
+		</div>
+		<div class="col">
+			{{ form_row(form.qualiteAd,{'label': 'Qualite Adversaire', 'attr':{'placeholder':'Qualite Adversaire','class':'form-control'}}) }}
+		</div>
+		<div class="col-1 d-flex align-items-end">
+			<div class="form-group">
+				<label for=""></label>
+				<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Qualité Adversaire">
 					<i class="fas fa-plus fa-sm text-white-10"></i>
 				</button>
 			</div>

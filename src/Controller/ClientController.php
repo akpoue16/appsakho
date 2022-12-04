@@ -145,7 +145,7 @@ class ClientController extends AbstractController
      * @IsGranted("ROLE_AVOCAT")
      * @Route("/imprimer/liste-client", name="index_imprimer_client")
      */
-    public function index_imprimer(ClientRepository $clientRepository, Pdf $knpSnappyPdf)
+    public function index_imprimer(ClientRepository $clientRepository)
     {
 
         $html = $this->renderView('client/pdf/index.html.twig', [

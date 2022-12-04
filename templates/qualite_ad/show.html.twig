@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QualiteAd{% endblock %}
+
+{% block body %}
+    <h1>QualiteAd</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ qualite_ad.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ qualite_ad.titre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_qualite_ad_index') }}">back to list</a>
+
+    <a href="{{ path('app_qualite_ad_edit', {'id': qualite_ad.id}) }}">edit</a>
+
+    {{ include('qualite_ad/_delete_form.html.twig') }}
+{% endblock %}

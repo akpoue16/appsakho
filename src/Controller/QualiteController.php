@@ -6,6 +6,7 @@ use App\Entity\Qualite;
 use App\Form\QualiteType;
 use App\Repository\QualiteRepository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,7 +85,7 @@ class QualiteController extends AbstractController
      */
     public function delete(Request $request, Qualite $qualite, QualiteRepository $qualiteRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$qualite->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $qualite->getId(), $request->request->get('_token'))) {
             $qualiteRepository->remove($qualite, true);
         }
 
@@ -93,7 +94,7 @@ class QualiteController extends AbstractController
     /**
      * @Route("/sup/{id}", name="qualite_delete")
      */
-    public function qualitedelete(qualite $qualite, EntityManagerInterface $em)
+    public function qualitedelete(Qualite $qualite, EntityManagerInterface $em)
     {
         if ($qualite) {
             $em->remove($qualite);
@@ -101,10 +102,9 @@ class QualiteController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La qualité <span class='font-weight-bold'>{$qualite->getNom()}</span> a été supprimé avec succés"
+                "La qualité <span class='font-weight-bold'>{$qualite->getTitre()}</span> a été supprimé avec succés"
             );
             return $this->redirectToRoute('app_qualite_index');
         }
     }
-
 }

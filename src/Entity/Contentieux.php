@@ -89,6 +89,11 @@ class Contentieux
      */
     private $rg;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=QualiteAd::class, inversedBy="contentieux")
+     */
+    private $qualiteAd;
+
     public function __construct()
     {
         $this->audiences = new ArrayCollection();
@@ -300,6 +305,18 @@ class Contentieux
     public function setRg(?string $rg): self
     {
         $this->rg = $rg;
+
+        return $this;
+    }
+
+    public function getQualiteAd(): ?QualiteAd
+    {
+        return $this->qualiteAd;
+    }
+
+    public function setQualiteAd(?QualiteAd $qualiteAd): self
+    {
+        $this->qualiteAd = $qualiteAd;
 
         return $this;
     }
