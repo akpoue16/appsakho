@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\TypePerso;
 use App\Form\TypePersoType;
 use App\Repository\TypePersoRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/type/perso")
@@ -86,5 +87,22 @@ class TypePersoController extends AbstractController
         }
 
         return $this->redirectToRoute('app_typeperso_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/sup/{id}", name="typeperso_delete")
+     */
+    public function qualitedelete(TypePerso $typePerso, EntityManagerInterface $em)
+    {
+        if ($typePerso) {
+            $em->remove($typePerso);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "La Fonction <span class='font-weight-bold'>{$typePerso->getNom()}</span> a été supprimé avec succés"
+            );
+            return $this->redirectToRoute('app_typeperso_index');
+        }
     }
 }
