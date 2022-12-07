@@ -63,10 +63,14 @@ class JuridictionController extends AbstractController
         $juridictionRepository->add($juridiction, true);
         $this->addFlash(
             'success',
-            "Juridiction a bien été enregistré!"
+            "Juridiction :" . $juridiction->getTitre() . " Lieu " . $juridiction->getLieu() . "a bien été enregistré!"
         );
 
-        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+        return $this->json([
+            'code' => 200,
+            'message' => 'OK',
+            'juridiction' => $juridiction,
+        ], 200);
     }
 
     /**

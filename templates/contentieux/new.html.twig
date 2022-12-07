@@ -1,6 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Contentieux
+{% block title %}Nouveau Contentieux
+{% endblock %}
+
+
+{% block stylesheets %}
+	<style>
+		#overlay {
+			position: fixed;
+			top: 0;
+			z-index: 100;
+			width: 100%;
+			height: 100%;
+			display: none;
+			background: rgba(0, 0, 0, 0.6);
+		}
+		.cv-spinner {
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.spinner {
+			width: 40px;
+			height: 40px;
+			border: 4px #ddd solid;
+			border-top: 4px #2e93e6 solid;
+			border-radius: 50%;
+			animation: sp-anime 0.8s infinite linear;
+		}
+		@keyframes sp-anime {
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+		.is-hide {
+			display: none;
+		}
+	</style>
+
 {% endblock %}
 
 {% block body %}
@@ -20,6 +58,11 @@
 			</div>
 		</div>
 	</div>
+	<div id="overlay">
+		<div class="cv-spinner">
+			<span class="spinner"></span>
+		</div>
+	</div>
 {% endblock %}
 {% block javascripts %}
 	<script>
@@ -31,15 +74,19 @@ let envoyerJuridiction = document.getElementById('envoyer_juridiction');
 envoyerJuridiction.addEventListener('click', function (event) {
 // event.preventDefault();
 // Récupère les données du formulaire
-let saisie = new FormData(formJuridiction);
+// let saisie = new FormData(formJuridiction);
 // Lance la recherche
 fetch("{{ url('app_juridiction_modal') }}", {
 method: 'POST',
-body: saisie
+// body: saisie
 }).then((response) => { // console.log(response);
+return response.json();
+setTimeout(function () {
+$("#overlay").fadeOut(300);
+}, 500);
 }).then((data) => { // Affiche les résultats
 let countJuri = document.getElementById('contentieux_juridiction').length;
-
+countJuri.innerHTML = data.title;
 }).catch((error) => {
 console.log('Erreur : ' + error.message);
 });
