@@ -93,7 +93,7 @@
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
-								<th>Renvoyer</th>
+								<th>Résultat</th>
 								<th>actions</th>
 							</tr>
 						</thead>
@@ -105,7 +105,7 @@
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
-								<th>Renvoyer</th>
+								<th>Résultat</th>
 								<th>actions</th>
 							</tr>
 						</tfoot>
@@ -118,7 +118,9 @@
 									<td>{{ audience.conseil }}</td>
 									<td>{{ audience.motif }}</td>
 									<td>{{ audience.procedures }}</td>
-									<td>{{ audience.renvoyer ? audience.renvoyer|date('d/m/Y') : '' }}</td>
+									<td>
+										{{ audience.resultatAudience }}
+									</td>
 
 									<td>
 										<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_audience_show', {'id': audience.id}) }}">
@@ -132,6 +134,16 @@
 										<a class="btn btn-danger btn-sm btn-circle audience_sup" href data-remove-url="{{ url('audience_delete', {'id': audience.id}) }}" data-id="{{ audience.id }}" data-toggle="modal" data-target="#logoutModal">
 											<i class="fas fa-trash-alt fa-sm text-white-10"></i>
 										</a>
+										{% if audience.resultatAudience %}
+											<a class="btn btn-warning btn-sm btn-circle" href="#" data-bs-toggle="tooltip" data-bs-html="true" title="Modifer le résultat">
+												<i class="fas fa-file-alt fa-sm text-white-10"></i>
+											</a>
+										{% else %}
+											<a class="btn btn-dark btn-sm btn-circle" href="{{ path('app_resultat_audience', {'id': audience.id}) }}" data-bs-toggle="tooltip" data-bs-html="true" title="Ajouter le résultat">
+												<i class="fas fa-file-alt fa-sm text-white-10"></i>
+											</a>
+										{% endif %}
+
 									</td>
 								</tr>
 							{% else %}
@@ -158,7 +170,7 @@
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
-								<th>Renvoyer</th>
+								<th>Résultat</th>
 								<th>actions</th>
 							</tr>
 						</thead>
@@ -170,7 +182,7 @@
 								<th>Conseil</th>
 								<th>Motif</th>
 								<th>Procedures</th>
-								<th>Renvoyer</th>
+								<th>Résultat</th>
 								<th>actions</th>
 							</tr>
 						</tfoot>
@@ -287,5 +299,9 @@ removeId.setAttribute('href', urlSup);
             });
                 
         });**/
+	</script>
+	<script>
+
+		$('[data-bs-toggle="tooltip"]').tooltip();
 	</script>
 {% endblock %}

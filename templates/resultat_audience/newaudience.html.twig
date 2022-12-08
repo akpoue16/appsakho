@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau résultat
+{% endblock %}
+
+{% block body %}
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Nouveau Résultat</h1>
+	</div>
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="row">
+				<div class="col">
+					<div class="alert alert-success" role="alert">
+						<div class="row">
+							<div class="col">
+								<p class="mb-0">
+									Audience N°
+									<b>{{ audience.code }}</b>
+									| Fait le
+									<b>{{ audience.createdAt|date('d/m/Y') }}</b>
+								</p>
+								<p class="mb-0">
+									Président :
+									<b>{{ audience.nomPresident }}</b>
+								</p>
+								<p class="mb-0">
+									Greffier :
+									<b>{{ audience.nomGreffier }}</b>
+								</p>
+								<p class="mb-0">
+									Conseil :
+									<b>{{ audience.conseil }}</b>
+								</p>
+								<p class="mb-0">
+									Procédure :
+									<b>{{ audience.procedures }}</b>
+								</p>
+							</div>
+							<div class="col">
+								<p class="mb-0">
+									Contentieux N°
+									<b>{{ audience.contentieux.code }}</b>
+								</p>
+								<p class="mb-0">
+									Registre du greffier
+									<b>{{ audience.contentieux.rg }}</b>
+								</p>
+								<p class="mb-0">
+									Pour
+									<b>{{ audience.contentieux.client.nom|capitalize }}
+										{{ audience.contentieux.client.prenom|capitalize }}</b>, contre
+									<b>{{ audience.contentieux.adversaire.nom|capitalize }}
+										{{ audience.contentieux.adversaire.prenom|capitalize }}</b>
+								</p>
+								<p class="mb-0">Nature :
+									<b>{{ audience.contentieux.nature.titre|capitalize }}</b>
+								</p>
+								<p class="mb-0">Juridiction :
+									<b>{{ audience.contentieux.juridiction.titre|capitalize }}
+										|
+										{{ audience.contentieux.juridiction.lieu|capitalize }}</b>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{ form_start(form) }}
+			<div class="form-row">
+				<div class="col">
+					{{ form_row(form.audience,{'label': 'Audience N°', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-3">
+					{{ form_row(form.createdAt,{'label': 'Date', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					{{ form_row(form.resultat,{'label': 'Résultat', 'attr':{'placeholder':'','class':'form-control'}}) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a href="{{ path('app_audience_index') }}" class="btn btn-primary btn-icon-split">
+						<span class="icon text-white-10">
+							<i class="fas fa-arrow-left fa-sm text-white-10"></i>
+						</span>
+						<span class="text">Retour à la liste</span>
+					</a>
+					<button class="btn btn-success btn-icon-split">
+						<span class="icon text-white-10">
+							<i class="fas fa-save fa-sm text-white-10"></i>
+						</span>
+						<span class="text">{{ button_label|default('Enregistrer') }}</span>
+					</button>
+				</div>
+			</div>
+			{{ form_end(form) }}
+
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script>
+		// afficher la valeur dans le champ input du fichier sélectionné
+$('.custom-file-input').on('change', function (event) {
+var inputFile = event.currentTarget;
+$(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+});
+	</script>
+
+{% endblock %}

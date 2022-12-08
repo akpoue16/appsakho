@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResultatAudience{% endblock %}
+
+{% block body %}
+    <h1>ResultatAudience</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ resultat_audience.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ resultat_audience.createdAt ? resultat_audience.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Resultat</th>
+                <td>{{ resultat_audience.resultat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resultat_audience_index') }}">back to list</a>
+
+    <a href="{{ path('app_resultat_audience_edit', {'id': resultat_audience.id}) }}">edit</a>
+
+    {{ include('resultat_audience/_delete_form.html.twig') }}
+{% endblock %}

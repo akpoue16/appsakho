@@ -72,6 +72,11 @@ class Audience
      */
     private $juridiction;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ResultatAudience::class, mappedBy="audience", cascade={"persist", "remove"})
+     */
+    private $resultatAudience;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -205,6 +210,28 @@ class Audience
     public function setJuridiction(?Juridiction $juridiction): self
     {
         $this->juridiction = $juridiction;
+
+        return $this;
+    }
+
+    public function getResultatAudience(): ?ResultatAudience
+    {
+        return $this->resultatAudience;
+    }
+
+    public function setResultatAudience(?ResultatAudience $resultatAudience): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($resultatAudience === null && $this->resultatAudience !== null) {
+            $this->resultatAudience->setAudience(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($resultatAudience !== null && $resultatAudience->getAudience() !== $this) {
+            $resultatAudience->setAudience($this);
+        }
+
+        $this->resultatAudience = $resultatAudience;
 
         return $this;
     }
