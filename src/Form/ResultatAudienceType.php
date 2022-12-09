@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +33,7 @@ class ResultatAudienceType extends AbstractType
                 'attr' => ['class' => 'js-datepicker'],
                 'input' => 'datetime_immutable',
             ])
-            ->add('resultat', TextareaType::class)
+            ->add('resultat',  CKEditorType::class)
             ->add('audience', EntityType::class, [
                 'class' => Audience::class,
                 'choice_label' => function ($audience) {

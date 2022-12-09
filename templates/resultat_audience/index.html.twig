@@ -1,37 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ResultatAudience index{% endblock %}
+{% block title %}ResultatAudience index
+{% endblock %}
 
 {% block body %}
-    <h1>ResultatAudience index</h1>
+	<h1>ResultatAudience index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Resultat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for resultat_audience in resultat_audiences %}
-            <tr>
-                <td>{{ resultat_audience.id }}</td>
-                <td>{{ resultat_audience.createdAt ? resultat_audience.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ resultat_audience.resultat }}</td>
-                <td>
-                    <a href="{{ path('app_resultat_audience_show', {'id': resultat_audience.id}) }}">show</a>
-                    <a href="{{ path('app_resultat_audience_edit', {'id': resultat_audience.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>CreatedAt</th>
+				<th>Resultat</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for resultat_audience in resultat_audiences %}
+				<tr>
+					<td>{{ resultat_audience.id }}</td>
+					<td>{{ resultat_audience.createdAt ? resultat_audience.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ resultat_audience.resultat|raw }}</td>
+					<td>
+						<a href="{{ path('app_resultat_audience_show', {'id': resultat_audience.id}) }}">show</a>
+						<a href="{{ path('app_resultat_audience_edit', {'id': resultat_audience.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_resultat_audience_new') }}">Create new</a>
+	<a href="{{ path('app_resultat_audience_new') }}">Create new</a>
 {% endblock %}
