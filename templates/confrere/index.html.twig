@@ -1,86 +1,190 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Confrere{% endblock %}
+{% block title %}Confrere
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="/bundle/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
 
- <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des Confrères</h1>
-        <a href="{{ path('app_confrere_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-10"></i> Nouveau confrère</a>
-    </div>
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Liste des confreres</h1>
+		<div class="align-items-right justify-content-between">
 
-<!-- DataTales Example -->
-   <div class="card shadow mb-4">
-                        {# <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> #}
-      <div class="card-body">
-       <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-                <th>N°</th>
-                <th>Titre</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Téléphone 1</th>
-                <th>Téléphone 2</th>
-                <th>Email</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>N°</th>
-                <th>Titre</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Téléphone 1</th>
-                <th>Téléphone 2</th>
-                <th>Email</th>
-                <th>actions</th>
-            </tr>
-        </tfoot>
-        <tbody>
-        {% for confrere in confreres %}
-            <tr>
-                <td>{{ confrere.id }}</td>
-                <td>{{ confrere.titre }}</td>
-                <td>{{ confrere.nom }}</td>
-                <td>{{ confrere.prenom }}</td>
-                <td>{{ confrere.tel }}</td>
-                <td>{{ confrere.cel }}</td>
-                <td>{{ confrere.email }}</td>
-                
-                <td>
-                    <a href="{{ path('app_confrere_show', {'id': confrere.id}) }}">
-                        <i class="fas fa-eye fa-sm text-white-10"> </i>
-                    </a>
-                    <a href="{{ path('app_confrere_edit', {'id': confrere.id}) }}">
-                        <i class="fas fa-pencil-alt fa-sm text-white-10"></i>
-                    </a>
-                    {{ include('confrere/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">Pas d'enregistrement</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-        </div>
-    </div>
+			<a href="{{ path('app_confrere_new') }}" class="btn btn-success btn-icon-split">
+				<span class="icon text-white-10">
+					<i class="fas fa-plus fa-sm text-white-10"></i>
+				</span>
+				<span class="text">Nouveau confrere</span>
+			</a>
+			<span class="dropdown no-arrow mb-4">
+
+				<button class="btn btn-info btn-icon-split dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="icon text-white-10">
+						<i class="fas fa-sort-down fa-sm text-white-20"></i>
+					</span>
+					<span class="text">Liste en Pdf ou Excel</span>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+					<a target="_blank" class="dropdown-item" href="{{ path('index_imprimer_confrere') }}">
+						<i class="fas fa-print fa-sm text-white-10"></i>
+						Pdf</a>
+					<a class="dropdown-item" href="{{ path('index_excel_confrere') }}">
+						<i class="fas fa-file-excel fa-sm text-white-10"></i>
+						Excel</a>
+				</div>
+			</span>
+		</div>
+	</div>
+
+	<!-- DataTales Example -->
+	<div
+		class="card shadow mb-4">
+		{# <div class="card-header py-3">
+						                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+						                        </div>  #}
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>N°</th>
+							<th>Titre</th>
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Téléphone 1</th>
+							<th>Téléphone 2</th>
+							<th>Email</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>N°</th>
+							<th>Titre</th>
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Téléphone 1</th>
+							<th>Téléphone 2</th>
+							<th>Email</th>
+							<th>actions</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						{% for confrere in confreres %}
+							<tr>
+								<td>{{ confrere.id }}</td>
+								<td>{{ confrere.titre }}</td>
+								<td>{{ confrere.nom }}</td>
+								<td>{{ confrere.prenom }}</td>
+								<td>{{ confrere.tel }}</td>
+								<td>{{ confrere.cel }}</td>
+								<td>{{ confrere.email }}</td>
+
+								<td>
+									<a class="btn btn-success btn-sm btn-circle" href="{{ path('app_confrere_show', {'id': confrere.id}) }}">
+										<i class="fas fa-eye fa-sm text-white-10"></i>
+									</a>
+									<a class="btn btn-info btn-sm btn-circle" href="{{ path('app_confrere_edit', {'id': confrere.id}) }}">
+										<i class="fas fa-pencil-alt fa-sm text-white-10"></i>
+									</a>
+
+									<!-- Button trigger modal -->
+									<a class="btn btn-danger btn-sm btn-circle confrere_sup" href data-remove-url="{{ url('confrere_delete', {'id': confrere.id}) }}" data-id="{{ confrere.id }}" data-toggle="modal" data-target="#logoutModal">
+										<i class="fas fa-trash-alt fa-sm text-white-10"></i>
+									</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="12">Pas d'enregistrement</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h4>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Etes-vous sûr de vouloir supprimer ce confrere?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+					<a href class="btn btn-danger" id="remove_id">Oui</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 {% endblock %}
+
 
 {% block javascripts %}
 
-    <!-- Page level plugins -->
-    <script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="/bundle/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="/bundle/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/bundle/js/demo/datatables-demo.js"></script>
- {% endblock %}
+	<!-- Page level custom scripts -->
+	<script src="/bundle/js/demo/datatables-demo.js"></script>
+
+	<script>
+		let confrereSup = document.querySelectorAll('a.confrere_sup');
+let removeId = document.getElementById('remove_id');
+
+for (let i = 0; i < confrereSup.length; i++) {
+
+confrereSup[i].addEventListener('click', function () {
+let confrereId = this.getAttribute('data-id');
+let urlSup = this.getAttribute('data-remove-url');
+removeId.setAttribute('data-id', confrereId);
+removeId.setAttribute('href', urlSup);
+
+});
+
+};
+
+
+/** removeId.addEventListener('click', function(){
+            let deletePerso = this.getAttribute('data-id');
+            let url = this.getAttribute('data-remove-url');
+            console.log();
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                
+                if(response.ok) {
+                     response.json()
+                        .then(function(data) {
+                          console.log(data);
+                        });
+                } else {
+                    console.log('Mauvaise réponse du réseau');
+                }
+            })
+            .catch(function(error) {
+                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+            });
+                
+        });**/
+	</script>
+{% endblock %}
