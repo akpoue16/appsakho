@@ -17,6 +17,30 @@
 				<b>{{ audience.contentieux.adversaire.nom|capitalize }}
 					{{ audience.contentieux.adversaire.prenom|capitalize }}</b>
 			</p>
+			{% if audience.audiencePre %}
+				<div class="alert alert-warning">
+				<h6 style="font-weight:bolder;">Audience Précédente (Avocat en charge: <i>{{ audience.audiencePre.avocat.nom }} {{ audience.audiencePre.avocat.prenom }})</i></h6>
+				<table class="table">
+				<tr style="width:100%;text-align:left">
+				<td>
+					<p class="my-0">Président: {{ audience.audiencePre.nomPresident }}</p>
+					<p class="my-0">Greffier: {{ audience.audiencePre.nomGreffier }}</p>
+					</td>
+				<td>
+					<p class="my-0">Date {{ audience.audiencePre.createdAt|date('d/m/Y') }}</p>
+					<p class="my-0">N° {{ audience.audiencePre.code }}</p></td>
+					<td>
+					<p class="my-0">Procédure {{ audience.audiencePre.procedures }}</p>
+					<p class="my-0">Conseil {{ audience.audiencePre.conseil }}</p>
+					</td>
+				</tr>
+				</table>
+				</div>
+			{% else %}
+				<div class="alert alert-warning">
+				<h6 style="font-weight:bolder;">Affaire Nouvelle</h6>
+				</div>
+			{% endif %}
 		{% else %}
 			<p>En qualité de
 				<b>{{ audience.contentieux.qualite.titre }},

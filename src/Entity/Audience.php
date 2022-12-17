@@ -68,12 +68,12 @@ class Audience
     private $resultatAudience;
 
     /**
-     * @ORM\OneToOne(targetEntity=Audience::class, inversedBy="audience", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Audience::class, inversedBy="audience", cascade={"persist"})
      */
     private $audiencePre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Audience::class, mappedBy="audiencePre", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Audience::class, mappedBy="audiencePre", cascade={"persist"})
      */
     private $audience;
 

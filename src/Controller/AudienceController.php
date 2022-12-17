@@ -148,13 +148,20 @@ class AudienceController extends AbstractController
     public function audiencedelete(Audience $audience, EntityManagerInterface $em)
     {
         if ($audience) {
-            $em->remove($audience);
-            $em->flush();
+            if ($audience->getAudiencePre() != null) {
+                $this->addFlash(
+                    'danger',
+                    "Impossible de supprimer cette audience. Veuillez supprimer toutes les audiences qui se sont déroulées après"
+                );
+            } else {
+                $em->remove($audience);
+                $em->flush();
 
-            $this->addFlash(
-                'success',
-                "L'audience <span class='font-weight-bold'>{$audience->getCode()} </span> a été supprimé avec succés"
-            );
+                $this->addFlash(
+                    'success',
+                    "L'audience <span class='font-weight-bold'>{$audience->getCode()} </span> a été supprimé avec succés"
+                );
+            }
             return $this->redirectToRoute('app_audience_index');
         }
     }
