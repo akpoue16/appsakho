@@ -48,21 +48,7 @@ class AudienceType extends AbstractType
                 }
             ])
             ->add('conseil')
-            ->add('motif')
             ->add('procedures')
-            ->add('renvoyer', DateTimeType::class, [
-                'widget' => 'single_text',
-
-                // prevents rendering it as type="date", to avoid HTML5 date pickers
-                'html5' => true,
-
-                // adds a class that can be selected in JavaScript
-                'attr' => [
-                    'class' => 'js-datepicker',
-                ],
-                'input' => 'datetime_immutable',
-                'required' => false
-            ])
             ->add('nomPresident')
             ->add('nomGreffier')
             ->add('contentieux', EntityType::class, [

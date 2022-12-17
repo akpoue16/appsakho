@@ -215,10 +215,10 @@
 					</h6>
 					<p style="margin:0px;padding:0px">Date Prc.</p>
 					<h5 style="margin:0px;padding:0px">
-						{% if audience.renvoyer|date('d/m/Y') %}
-							{{ audience.renvoyer|date('d/m/Y')  }}
+						{% if audience.audiencePre %}
+							{{ audience.audiencePre.createdAt|date('d/m/Y')  }}
 						{% else %}
-							A.N
+							A.N.
 						{% endif %}
 					</h5>
 				</td>
@@ -245,13 +245,23 @@
 				</td>
 				<td>
 					<p style="width:30%;text-align:center">Procédure</p>
-					<h6>{{ audience.procedures }}</h6>
+					<h6 style="margin-bottom:0px;">{{ audience.procedures }}</h6>
 					<p>Motif Précédent</p>
-					<h6>{{ audience.motif }}</h6>
+
+					{% if audience.audiencePre %}
+					<h6 style="margin-top:0px;">{{ audience.audiencePre.resultatAudience|raw }}</h6>
+					{% else %}
+					<h6> </h6>
+					{% endif %}
 				</td>
 				<td style="width:10%">
-					<p>Renvoyer au</p>
-					<h6>{{ audience.renvoyer|date('d/m/Y') }}</h6>
+					<p >Renvoyer au</p>
+					{% if audience.resultatAudience %}
+					<h6 style="margin-top:0px">{{ audience.resultatAudience.createdAt|date('d/m/Y') }}</h6>
+					<p>{{ audience.resultatAudience.resultat|raw }}</p>
+					{% else %}
+					<h6> </h6>
+					{% endif %}
 				</td>
 			</tr>
 		</table>

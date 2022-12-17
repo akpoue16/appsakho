@@ -49,7 +49,10 @@ class AudienceController extends AbstractController
         $form = $this->createForm(AudienceType::class, $audience);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //$audiencePre = $audienceRepository->findBy(['contentieux' => $contentieux], ['contentieux' => 'DESC'], 1, 1);
+
             $audienceRepository->add($audience, true);
 
             return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
@@ -72,7 +75,16 @@ class AudienceController extends AbstractController
         $form = $this->createForm(AudienceType::class, $audience, ['contentieux' => $contentieux]);
         $form->handleRequest($request);
 
+        $audiencePre = $audienceRepository->findBy(['contentieux' => $contentieux], ['id' => 'DESC'], 1, 0);
+        //dd($derniereAudience);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($audiencePre[0] == null) {
+                $auPr = null;
+            } else {
+                $auPr = $audiencePre[0];
+            }
+            $audience->setAudiencePre($auPr);
             $audience->setContentieux($contentieux);
             $audienceRepository->add($audience, true);
 
@@ -164,7 +176,7 @@ class AudienceController extends AbstractController
                 'search' => $audiences
             ]);
 
-            $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
+            $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8');
             $html2pdf->setDefaultFont("Arial");
             $html2pdf->writeHTML($html);
             $html2pdf->output('search_audience.pdf');

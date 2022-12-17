@@ -35,17 +35,7 @@ class Audience
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $motif;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
     private $procedures;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $renvoyer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -76,6 +66,16 @@ class Audience
      * @ORM\OneToOne(targetEntity=ResultatAudience::class, mappedBy="audience", cascade={"persist", "remove"})
      */
     private $resultatAudience;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Audience::class, inversedBy="audience", cascade={"persist", "remove"})
+     */
+    private $audiencePre;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Audience::class, mappedBy="audiencePre", cascade={"persist", "remove"})
+     */
+    private $audience;
 
     public function getId(): ?int
     {
@@ -118,18 +118,6 @@ class Audience
         return $this;
     }
 
-    public function getMotif(): ?string
-    {
-        return $this->motif;
-    }
-
-    public function setMotif(?string $motif): self
-    {
-        $this->motif = $motif;
-
-        return $this;
-    }
-
     public function getProcedures(): ?string
     {
         return $this->procedures;
@@ -138,18 +126,6 @@ class Audience
     public function setProcedures(?string $procedures): self
     {
         $this->procedures = $procedures;
-
-        return $this;
-    }
-
-    public function getRenvoyer(): ?\DateTimeInterface
-    {
-        return $this->renvoyer;
-    }
-
-    public function setRenvoyer(?\DateTimeInterface $renvoyer): self
-    {
-        $this->renvoyer = $renvoyer;
 
         return $this;
     }
@@ -232,6 +208,40 @@ class Audience
         }
 
         $this->resultatAudience = $resultatAudience;
+
+        return $this;
+    }
+
+    public function getAudiencePre(): ?self
+    {
+        return $this->audiencePre;
+    }
+
+    public function setAudiencePre(?self $audiencePre): self
+    {
+        $this->audiencePre = $audiencePre;
+
+        return $this;
+    }
+
+    public function getAudience(): ?self
+    {
+        return $this->audience;
+    }
+
+    public function setAudience(?self $audience): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($audience === null && $this->audience !== null) {
+            $this->audience->setAudiencePre(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($audience !== null && $audience->getAudiencePre() !== $this) {
+            $audience->setAudiencePre($this);
+        }
+
+        $this->audience = $audience;
 
         return $this;
     }
