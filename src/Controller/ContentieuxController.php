@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use Knp\Snappy\Pdf;
 use App\Entity\Audience;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
 use App\Form\ContentieuxType;
+use Spipu\Html2Pdf\Html2Pdf;
 use App\Form\JuridictionType;
 use App\Repository\AudienceRepository;
 use App\Repository\DiligenceRepository;
@@ -123,4 +125,26 @@ class ContentieuxController extends AbstractController
             return $this->redirectToRoute('app_contentieux_index');
         }
     }
+
+
+/**
+     * @IsGranted("ROLE_AVOCAT")
+     * @Route("/imprimer/liste-contentieux", name="index_imprimer_contentieux")
+     */
+    public function index_imprimer(contentieuxRepository $contentieuxRepository, Pdf $knpSnappyPdf)
+    {
+
+        $html = $this->renderView('contentieux/pdf/index.html.twig', [
+            'contentieuxes' => $contentieuxRepository->findAll(),
+        ]);
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'fr', false, 'UTF-8');
+        $html2pdf->setDefaultFont("Arial");
+        $html2pdf->writeHTML($html);
+        $html2pdf->output('Liste_contentieux.pdf');
+    }
+
+
+
+
 }
