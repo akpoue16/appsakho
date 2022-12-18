@@ -63,7 +63,7 @@ class Audience
     private $juridiction;
 
     /**
-     * @ORM\OneToOne(targetEntity=ResultatAudience::class, mappedBy="audience", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=ResultatAudience::class, mappedBy="audience", cascade={"remove"})
      */
     private $resultatAudience;
 

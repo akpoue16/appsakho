@@ -28,7 +28,7 @@ class ResultatAudience
     private $resultat;
 
     /**
-     * @ORM\OneToOne(targetEntity=Audience::class, inversedBy="resultatAudience", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Audience::class, inversedBy="resultatAudience")
      */
     private $audience;
 

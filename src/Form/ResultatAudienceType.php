@@ -37,7 +37,7 @@ class ResultatAudienceType extends AbstractType
             ->add('audience', EntityType::class, [
                 'class' => Audience::class,
                 'choice_label' => function ($audience) {
-                    return $audience->getCode() . ' ' . $audience->getContentieux()->getCode() . '  ' . $audience->getMotif();
+                    return $audience->getCode() . ' ' . $audience->getContentieux()->getCode();
                 },
                 'placeholder' => '--- Choisir une audience ---',
                 'query_builder' => function (EntityRepository $er) {
@@ -51,6 +51,7 @@ class ResultatAudienceType extends AbstractType
                 $form = $event->getForm();
 
                 if ($audience == null) {
+                    //$audience = $event->getData()->getAudience()->getId();
                     return;
                 } else {
                     $form->add('audience', EntityType::class, [

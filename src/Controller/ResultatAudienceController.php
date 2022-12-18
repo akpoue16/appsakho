@@ -49,7 +49,7 @@ class ResultatAudienceController extends AbstractController
     }
 
     /**
-     * @Route("/audience/{id}", name="app_resultat_audience", methods={"GET", "POST"})
+     * @Route("/audience/{id}", name="app_resultat_audience", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function newAudience(Request $request, ResultatAudienceRepository $resultatAudienceRepository, AudienceRepository $audienceRepository, Audience $audience): Response
     {
@@ -62,7 +62,11 @@ class ResultatAudienceController extends AbstractController
             $resultatAudience->setAudience($audience);
             $resultatAudienceRepository->add($resultatAudience, true);
 
-            return $this->redirectToRoute('app_resultat_audience_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(
+                'success',
+                "Le resultat N° <span class='font-weight-bold'>{$resultatAudience->getResultat()} de l'audience N° {$audience->getCode()}</span> a été enregistré avec succès"
+            );
+            return $this->redirectToRoute('app_audience_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('resultat_audience/newaudience.html.twig', [
@@ -73,8 +77,9 @@ class ResultatAudienceController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="app_resultat_audience_show", methods={"GET"})
+     * @Route("/{id}", name="app_resultat_audience_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show(ResultatAudience $resultatAudience): Response
     {
@@ -84,17 +89,23 @@ class ResultatAudienceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_resultat_audience_edit", methods={"GET", "POST"})
+     * @Route("/{audience_id}/{id}/edit", name="app_resultat_audience_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, ResultatAudience $resultatAudience, ResultatAudienceRepository $resultatAudienceRepository): Response
+    public function edit(Request $request, int $audience_id, AudienceRepository $audienceRepository, ResultatAudience $resultatAudience, ResultatAudienceRepository $resultatAudienceRepository): Response
     {
-        $form = $this->createForm(ResultatAudienceType::class, $resultatAudience);
+        $audience = $audienceRepository->findById($audience_id);
+        //dd($audience);
+        $form = $this->createForm(ResultatAudienceType::class, $resultatAudience, ['audience' => $audience]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $resultatAudienceRepository->add($resultatAudience, true);
 
-            return $this->redirectToRoute('app_resultat_audience_index', [], Response::HTTP_SEE_OTHER);
+            $resultatAudienceRepository->add($resultatAudience, true);
+            $this->addFlash(
+                'success',
+                "Le resultat de l'audience <span class='font-weight-bold'>N° {$resultatAudience->getAudience()->getCode()}</span> a bien été modifié"
+            );
+            return $this->redirectToRoute('app_audience_index');
         }
 
         return $this->renderForm('resultat_audience/edit.html.twig', [
@@ -104,7 +115,7 @@ class ResultatAudienceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_resultat_audience_delete", methods={"POST"})
+     * @Route("/{id}", name="app_resultat_audience_delete", methods={"POST"}, requirements={"id":"\d+"})
      */
     public function delete(Request $request, ResultatAudience $resultatAudience, ResultatAudienceRepository $resultatAudienceRepository): Response
     {
