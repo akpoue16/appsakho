@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use Knp\Snappy\Pdf;
+use App\Entity\Nature;
 use App\Entity\Audience;
+use App\Form\NatureType;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
-use App\Form\ContentieuxType;
 use Spipu\Html2Pdf\Html2Pdf;
+use App\Form\ContentieuxType;
 use App\Form\JuridictionType;
 use App\Repository\AudienceRepository;
 use App\Repository\DiligenceRepository;
@@ -43,6 +45,10 @@ class ContentieuxController extends AbstractController
         $juridiction = new Juridiction();
         $formjuridiction = $this->createForm(JuridictionType::class, $juridiction);
 
+        //Modal nature
+        $nature = new Nature();
+        $formnature = $this->createForm(NatureType::class, $nature);
+
         $contentieux = new Contentieux();
         $form = $this->createForm(ContentieuxType::class, $contentieux);
         $form->handleRequest($request);
@@ -56,7 +62,8 @@ class ContentieuxController extends AbstractController
         return $this->renderForm('contentieux/new.html.twig', [
             'contentieux' => $contentieux,
             'form' => $form,
-            'formJuridiction' => $formjuridiction
+            'formJuridiction' => $formjuridiction,
+            'formNature' => $formnature
         ]);
     }
 
@@ -81,6 +88,10 @@ class ContentieuxController extends AbstractController
         $juridiction = new Juridiction();
         $formjuridiction = $this->createForm(JuridictionType::class, $juridiction);
 
+        //Modal nature
+        $nature = new Nature();
+        $formnature = $this->createForm(NatureType::class, $nature);
+
         $form = $this->createForm(ContentieuxType::class, $contentieux);
         $form->handleRequest($request);
 
@@ -93,7 +104,8 @@ class ContentieuxController extends AbstractController
         return $this->renderForm('contentieux/edit.html.twig', [
             'contentieux' => $contentieux,
             'form' => $form,
-            'formJuridiction' => $formjuridiction
+            'formJuridiction' => $formjuridiction,
+            'formNature' => $formnature
         ]);
     }
 
@@ -127,7 +139,7 @@ class ContentieuxController extends AbstractController
     }
 
 
-/**
+    /**
      * @IsGranted("ROLE_AVOCAT")
      * @Route("/imprimer/liste-contentieux", name="index_imprimer_contentieux")
      */
@@ -143,8 +155,4 @@ class ContentieuxController extends AbstractController
         $html2pdf->writeHTML($html);
         $html2pdf->output('Liste_contentieux.pdf');
     }
-
-
-
-
 }

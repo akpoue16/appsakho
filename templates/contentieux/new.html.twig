@@ -66,7 +66,8 @@
 {% endblock %}
 {% block javascripts %}
 	<script>
-		// Déclaration des variables
+
+		function AjoutJuridiction() { // Déclaration des variables
 let formJuridiction = document.querySelector('form#formJuridiction');
 let envoyerJuridiction = document.getElementById('envoyer_juridiction');
 
@@ -74,23 +75,65 @@ let envoyerJuridiction = document.getElementById('envoyer_juridiction');
 envoyerJuridiction.addEventListener('click', function (event) {
 // event.preventDefault();
 // Récupère les données du formulaire
-// let saisie = new FormData(formJuridiction);
+let saisie = new FormData(formJuridiction);
 // Lance la recherche
 fetch("{{ url('app_juridiction_modal') }}", {
 method: 'POST',
-// body: saisie
-}).then((response) => { // console.log(response);
-return response.json();
-setTimeout(function () {
-$("#overlay").fadeOut(300);
-}, 500);
-}).then((data) => { // Affiche les résultats
-let countJuri = document.getElementById('contentieux_juridiction').length;
-countJuri.innerHTML = data.title;
+body: saisie
+}).then(response => response.json()).then((data) => { // Affiche les résultats
+let juridictions = document.getElementById('contentieux_juridiction');
+
+const opt = document.createElement('option');
+opt.value = data.juridiction.id;
+opt.innerHTML = data.juridiction.titre + ' - ' + data.juridiction.lieu;
+juridictions.appendChild(opt);
+// juridictions.innerText('<option value=1>My option</option>');
+
+document.getElementById('juridiction_titre').value = "";
+document.getElementById('juridiction_lieu').value = "";
+document.getElementById('juridiction_commentaire').value = "";
+
 }).catch((error) => {
 console.log('Erreur : ' + error.message);
 });
 });
+}
+
+// NATURE
+function AjoutNature() { // Déclaration des variables
+let formNature = document.querySelector('form#formNature');
+let envoyerNature = document.getElementById('envoyer_nature');
+
+// les évènements
+envoyerNature.addEventListener('click', function (event) {
+// event.preventDefault();
+// Récupère les données du formulaire
+let saisie = new FormData(formNature);
+// Lance la recherche
+fetch("{{ url('app_nature_modal') }}", {
+method: 'POST',
+body: saisie
+}).then(response => response.json()).then((data) => { // Affiche les résultats
+let natures = document.getElementById('contentieux_nature');
+
+const opt = document.createElement('option');
+opt.value = data.nature.id;
+opt.innerHTML = data.nature.titre;
+natures.appendChild(opt);
+
+// VIDER LES CHAMPS
+document.getElementById('juridiction_titre').value = "";
+document.getElementById('juridiction_commentaire').value = "";
+
+}).catch((error) => {
+console.log('Erreur : ' + error.message);
+});
+});
+}
+
+/************activation************/
+AjoutJuridiction();
+AjoutNature();
 	</script>
 	<script>
 		$(document).ready(function () {

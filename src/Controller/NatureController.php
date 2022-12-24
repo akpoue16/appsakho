@@ -51,6 +51,24 @@ class NatureController extends AbstractController
     }
 
     /**
+     * @Route("/modal", name="app_nature_modal", methods="POST")
+     */
+    public function modal(Request $request, NatureRepository $natureRepository): Response
+    {
+        $nature = new Nature();
+        $form = $this->createForm(NatureType::class, $nature);
+        $form->handleRequest($request);
+
+        $natureRepository->add($nature, true);
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'OK',
+            'nature' => $nature,
+        ], 200);
+    }
+
+    /**
      * @Route("/{id}", name="app_nature_show", methods={"GET"})
      */
     public function show(Nature $nature): Response
@@ -85,7 +103,7 @@ class NatureController extends AbstractController
      */
     public function delete(Request $request, Nature $nature, NatureRepository $natureRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$nature->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $nature->getId(), $request->request->get('_token'))) {
             $natureRepository->remove($nature, true);
         }
 
