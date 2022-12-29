@@ -122,8 +122,43 @@ opt.innerHTML = data.nature.titre;
 natures.appendChild(opt);
 
 // VIDER LES CHAMPS
-document.getElementById('juridiction_titre').value = "";
-document.getElementById('juridiction_commentaire').value = "";
+document.getElementById('nature_titre').value = "";
+document.getElementById('nature_commentaire').value = "";
+
+}).catch((error) => {
+console.log('Erreur : ' + error.message);
+});
+});
+}
+
+// AVOCAT
+function AjoutAvocat() { // Déclaration des variables
+let formAvocat = document.querySelector('form#formAvocat');
+let envoyerAvocat = document.getElementById('envoyer_avocat');
+
+// les évènements
+envoyerAvocat.addEventListener('click', function (event) {
+// event.preventDefault();
+// Récupère les données du formulaire
+let saisie = new FormData(formAvocat);
+// Lance la recherche
+fetch("{{ url('app_avocat_modal') }}", {
+method: 'POST',
+body: saisie
+}).then(response => response.json()).then((data) => { // Affiche les résultats
+let avocats = document.getElementById('contentieux_avocat');
+
+const opt = document.createElement('option');
+opt.value = data.avocat.id;
+opt.innerHTML = data.avocat.nom + ' ' + data.avocat.prenom;
+natures.appendChild(opt);
+
+// VIDER LES CHAMPS
+document.getElementById('personnel_nom').value = "";
+document.getElementById('personnel_prenom').value = "";
+document.getElementById('personnel_tel').value = "";
+document.getElementById('personnel_cel').value = "";
+document.getElementById('personnel_email').value = "";
 
 }).catch((error) => {
 console.log('Erreur : ' + error.message);

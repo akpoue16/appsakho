@@ -6,8 +6,10 @@ use Knp\Snappy\Pdf;
 use App\Entity\Nature;
 use App\Entity\Audience;
 use App\Form\NatureType;
+use App\Entity\Personnel;
 use App\Entity\Contentieux;
 use App\Entity\Juridiction;
+use App\Form\PersonnelType;
 use Spipu\Html2Pdf\Html2Pdf;
 use App\Form\ContentieuxType;
 use App\Form\JuridictionType;
@@ -49,6 +51,10 @@ class ContentieuxController extends AbstractController
         $nature = new Nature();
         $formnature = $this->createForm(NatureType::class, $nature);
 
+        //Modal avocat
+        $avocat = new Personnel();
+        $formavocat = $this->createForm(PersonnelType::class, $avocat);
+
         $contentieux = new Contentieux();
         $form = $this->createForm(ContentieuxType::class, $contentieux);
         $form->handleRequest($request);
@@ -63,7 +69,8 @@ class ContentieuxController extends AbstractController
             'contentieux' => $contentieux,
             'form' => $form,
             'formJuridiction' => $formjuridiction,
-            'formNature' => $formnature
+            'formNature' => $formnature,
+            'formAvocat' => $formavocat
         ]);
     }
 

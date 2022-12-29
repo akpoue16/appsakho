@@ -50,7 +50,7 @@ class ContentieuxType extends AbstractType
             ])
             ->add('avocat', EntityType::class, [
                 'class' => Personnel::class,
-                'placeholder' => '--- Choisir un client ---',
+                'placeholder' => '--- Choisir un avocat ---',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.nom', 'ASC');

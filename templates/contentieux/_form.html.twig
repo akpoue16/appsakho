@@ -40,9 +40,9 @@
 	<div class="col-1 d-flex align-items-end">
 		<div class="form-group">
 			<label for=""></label>
-			<button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Avocat en charge">
+			<a class="btn btn-dark btn" href data-target="#logoutModalAvocat" data-toggle="modal" id="save_avocat" data-bs-toggle="tooltip" data-bs-html="true" title="Ajout Avocat">
 				<i class="fas fa-plus fa-sm text-white-10"></i>
-			</button>
+			</a>
 		</div>
 	</div>
 </div>
@@ -146,7 +146,7 @@
 {{ form_end(form) }}
 
 
-<!-- Logout Modal Juridiction-->
+<!-- Logout Modal Juridiction -->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -200,7 +200,7 @@
 	</div>
 </div>
 
-<!-- Logout Modal Nature-->
+<!-- Logout Modal Nature -->
 <div class="modal fade" id="logoutModalNature" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -224,6 +224,73 @@
 									{{ form_row(formNature.commentaire,{'label': 'Commentaire', 'attr':{'placeholder':'Commentaire','class':'form-control'}}) }}
 								</div>
 							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button class="btn btn-secondary btn-icon-split" type="button" data-dismiss="modal">
+							<span class="icon text-white-10">
+								<i class="fas fa-times fa-sm text-white-10"></i>
+							</span>
+							<span class="text">Annuler</span>
+
+						</button>
+						<button class="btn btn-success btn-icon-split" id="envoyer_nature" data-dismiss="modal">
+							<span class="icon text-white-10">
+								<i class="fas fa-save fa-sm text-white-10"></i>
+							</span>
+							<span class="text">Enregistrer</span>
+						</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Logout Modal Avocat -->
+<div class="modal fade" id="logoutModalAvocat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="max-width: 600px !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ajout Avocat</h5>
+			</div>
+			<div class="modal-body"></div>
+
+			<div class="container">
+
+				<form id="formAvocat" method="post">
+					<div class="row">
+						<div class="col">
+							<div class="form-row">
+								<div class="col-2">
+									{{ form_row(formAvocat.titre,{'label': 'Titre', 'attr':{'placeholder':'titre','class':'form-control'}}) }}
+								</div>
+								<div class="col">
+									{{ form_row(formAvocat.typePerso,{'label': 'Fonction', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-4">
+									{{ form_row(formAvocat.nom,{'label': 'Nom', 'attr':{'placeholder':'Nom','class':'form-control'}}) }}
+								</div>
+								<div class="col">
+									{{ form_row(formAvocat.prenom,{'label': 'Prenom', 'attr':{'placeholder':'Prenom','class':'form-control'}}) }}
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col">
+									{{ form_row(formAvocat.tel,{'label': 'Téléphone 1', 'attr':{'placeholder':'','class':'form-control', 'pattern':'[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}'}}) }}
+								</div>
+								<div class="col">
+									{{ form_row(formAvocat.cel,{'label': 'Téléphone 2', 'attr':{'placeholder':'','class':'form-control', 'pattern':'[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}'}}) }}
+								</div>
+								<div class="col-5">
+									{{ form_row(formAvocat.email,{'label': 'Email', 'attr':{'placeholder':'','class':'form-control'}}) }}
+								</div>
+							</div>
+
 						</div>
 					</div>
 

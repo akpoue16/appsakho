@@ -96,6 +96,24 @@ class PersonnelController extends AbstractController
     }
 
     /**
+     * @Route("/modal", name="app_avocat_modal", methods="POST")
+     */
+    public function modal(Request $request, PersonnelRepository $personnelRepository): Response
+    {
+        $avocat = new Personnel();
+        $form = $this->createForm(PersonnelType::class, $avocat);
+        $form->handleRequest($request);
+
+        $personnelRepository->add($avocat, true);
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'OK',
+            'avocat' => $avocat,
+        ], 200);
+    }
+
+    /**
      * @Route("/{id}", name="app_personnel_show", methods={"GET"})
      */
     public function show(Personnel $personnel): Response
