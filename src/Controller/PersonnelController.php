@@ -103,7 +103,7 @@ class PersonnelController extends AbstractController
         $avocat = new Personnel();
         $form = $this->createForm(PersonnelType::class, $avocat);
         $form->handleRequest($request);
-
+        
         $personnelRepository->add($avocat, true);
 
         return $this->json([

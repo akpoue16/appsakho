@@ -58,7 +58,7 @@ class NatureController extends AbstractController
         $nature = new Nature();
         $form = $this->createForm(NatureType::class, $nature);
         $form->handleRequest($request);
-
+        
         $natureRepository->add($nature, true);
 
         return $this->json([

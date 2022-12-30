@@ -110,6 +110,7 @@ envoyerNature.addEventListener('click', function (event) {
 // Récupère les données du formulaire
 let saisie = new FormData(formNature);
 // Lance la recherche
+
 fetch("{{ url('app_nature_modal') }}", {
 method: 'POST',
 body: saisie
@@ -142,6 +143,7 @@ envoyerAvocat.addEventListener('click', function (event) {
 // Récupère les données du formulaire
 let saisie = new FormData(formAvocat);
 // Lance la recherche
+//console.log(saisie);
 fetch("{{ url('app_avocat_modal') }}", {
 method: 'POST',
 body: saisie
@@ -151,7 +153,7 @@ let avocats = document.getElementById('contentieux_avocat');
 const opt = document.createElement('option');
 opt.value = data.avocat.id;
 opt.innerHTML = data.avocat.nom + ' ' + data.avocat.prenom;
-natures.appendChild(opt);
+avocats.appendChild(opt);
 
 // VIDER LES CHAMPS
 document.getElementById('personnel_nom').value = "";
@@ -169,6 +171,7 @@ console.log('Erreur : ' + error.message);
 /************activation************/
 AjoutJuridiction();
 AjoutNature();
+AjoutAvocat();
 	</script>
 	<script>
 		$(document).ready(function () {
